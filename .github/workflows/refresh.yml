@@ -3,6 +3,7 @@ name: Refresh on-chain data
 on:
   schedule:
     # GitHub may delay scheduled runs. Three times an hour, offset from :00.
+    # Re-saved by the repo owner so the schedule registers under a user account.
     - cron: "9,29,49 * * * *"
   workflow_dispatch:
   # A change to this file also starts a run. Data commits do not match this path,
