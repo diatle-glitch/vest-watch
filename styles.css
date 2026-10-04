@@ -1,0 +1,130 @@
+:root {
+  --bg: #10141a;
+  --card: #1a212b;
+  --card-2: #222b37;
+  --line: #2d3846;
+  --text: #e7edf4;
+  --muted: #9aa6b4;
+  --accent: #8fbfa8;
+  --warn: #e0c07a;
+  --down: #e09a9a;
+  --up: #9dcead;
+  --link: #9ec0e6;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 "Segoe UI", system-ui, sans-serif;
+}
+a { color: var(--link); }
+h1, h2, h3 { line-height: 1.25; font-weight: 650; }
+h1 { margin: 0; font-size: 1.8rem; letter-spacing: -0.02em; }
+h2 { margin: 0 0 0.4rem; font-size: 1.25rem; }
+h3 { margin: 1.2rem 0 0.4rem; font-size: 1rem; }
+p { margin: 0.4rem 0; }
+.wrap { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: rgba(16, 20, 26, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.8rem 0;
+}
+.eyebrow { margin: 0; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; }
+nav { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+nav a { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+nav a:hover { color: var(--text); }
+main { padding: 1.25rem 0 2rem; }
+section { margin: 0 0 1.25rem; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin: 0.8rem 0 0.4rem;
+}
+.stat { padding: 0.9rem 1rem; }
+.stat .label { color: var(--muted); font-size: 0.8rem; }
+.stat .value { font-size: 1.35rem; font-variant-numeric: tabular-nums; margin-top: 0.15rem; }
+.stat .sub { color: var(--muted); font-size: 0.82rem; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+.muted { color: var(--muted); }
+.row-between { display: flex; justify-content: space-between; gap: 1rem; align-items: end; flex-wrap: wrap; }
+.tabs { display: flex; gap: 0.4rem; }
+.tabs button, .legend button {
+  background: var(--card-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+}
+.tabs button.active { border-color: var(--accent); color: var(--accent); }
+.chart-box { height: 320px; margin-top: 0.6rem; }
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+th, td { text-align: left; padding: 0.45rem 0.4rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.02em; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; }
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.badge.inferred { color: var(--warn); border-color: #6a5a32; }
+.badge.source { color: var(--accent); border-color: #3d5c4c; }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.84em; }
+.flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  margin: 0.8rem 0;
+}
+.node {
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.7rem 0.75rem;
+}
+.node strong { display: block; }
+.arrow { color: var(--muted); text-align: center; font-size: 0.82rem; }
+.arrow b { display: block; color: var(--text); font-size: 0.95rem; }
+blockquote {
+  margin: 0.6rem 0;
+  padding: 0.2rem 0 0.2rem 0.8rem;
+  border-left: 3px solid var(--line);
+  color: var(--text);
+}
+footer { color: var(--muted); padding-bottom: 2rem; font-size: 0.9rem; }
+.note { font-size: 0.88rem; color: var(--muted); }
+.error { color: var(--down); }
+@media (max-width: 800px) {
+  .cards { grid-template-columns: 1fr 1fr; }
+  .flow { grid-template-columns: 1fr; }
+  .arrow { transform: rotate(90deg); padding: 0.2rem 0; }
+  .top-row { align-items: flex-start; flex-direction: column; }
+  .chart-box { height: 260px; }
+}

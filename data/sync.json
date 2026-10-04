@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-10-04T10:05:15Z",
+  "wallets": {
+    "arb_contract": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://arbitrum.blockscout.com"
+    },
+    "arb_old": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://arbitrum.blockscout.com"
+    },
+    "base_contract": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://base.blockscout.com"
+    },
+    "base_e80f": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://base.blockscout.com"
+    },
+    "base_old": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://base.blockscout.com"
+    },
+    "bsc_contract": {
+      "covered_from": "2026-10-04T03:36:01Z",
+      "high_block": 125657254,
+      "latest_block": 125657254,
+      "low_block": 125605344,
+      "reached_cutoff": false,
+      "seconds": 79.2,
+      "source": "eth_getLogs"
+    },
+    "bsc_old": {
+      "covered_from": "2026-10-04T01:52:09Z",
+      "high_block": 125657430,
+      "latest_block": 125657430,
+      "low_block": 125591500,
+      "reached_cutoff": false,
+      "seconds": 88.5,
+      "source": "eth_getLogs"
+    },
+    "eth_deposit": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://eth.blockscout.com"
+    },
+    "op_deposit": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://optimism.blockscout.com"
+    },
+    "polygon_deposit": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://polygon.blockscout.com"
+    },
+    "safe2_eth": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://eth.blockscout.com"
+    },
+    "treasury_safe_arb": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://arbitrum.blockscout.com"
+    },
+    "treasury_safe_base": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://base.blockscout.com"
+    },
+    "treasury_safe_eth": {
+      "pages": 1,
+      "reached_cutoff": true,
+      "resume": null,
+      "source": "https://eth.blockscout.com"
+    }
+  }
+}

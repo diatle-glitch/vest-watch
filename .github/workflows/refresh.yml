@@ -1,0 +1,42 @@
+name: Refresh on-chain data
+
+on:
+  schedule:
+    # GitHub may delay scheduled runs. Three times an hour, offset from :00.
+    - cron: "9,29,49 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vest-watch-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch balances and transfers
+        run: python3 scripts/fetch.py
+
+      - name: Commit data if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest.json data/history.json data/flows.json data/transfers.json data/sync.json
+          if git diff --cached --quiet; then
+            echo "No data changes to commit"
+            exit 0
+          fi
+          git commit -m "Update on-chain USDC snapshot"
+          git push
