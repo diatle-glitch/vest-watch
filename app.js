@@ -68,7 +68,33 @@ const QUOTES = [
 ];
 
 const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
-const num = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
+const num = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const TOPUP_KINDS = new Set([
+  "coinbase_prime_to_safe",
+  "coinbase_hot_to_contract",
+  "safe_to_contract",
+  "safe_to_lifi",
+  "bridge_to_contract",
+  "inferred_lifi_to_contract",
+]);
+const PALETTE = {
+  "Treasury Safe": "#7eb6d9",
+  "Second Safe": "#6e8cae",
+  Base: "#8fbfa8",
+  Arbitrum: "#c4b4e0",
+  Ethereum: "#e0c07a",
+  "Older contracts": "#8d99a6",
+  "Other chains": "#d7c4a3",
+  "Coinbase Prime": "#7eb6d9",
+  Coinbase: "#9dccb4",
+  "Payout contracts": "#e0c07a",
+  Recipients: "#c4b4e0",
+  "Custody (inferred)": "#d7a56a",
+};
+const TEXT = "#e8eef4";
+const MUTED = "#9aa6b4";
+const GRID = "rgba(232,238,244,0.08)";
 
 function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, (c) => ({
@@ -79,7 +105,7 @@ function esc(s) {
 function fmtTime(iso, zone) {
   if (!iso) return "—";
   const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return esc(iso);
+  if (Number.isNaN(d.getTime())) return iso;
   return new Intl.DateTimeFormat("en-GB", {
     timeZone: zone,
     year: "numeric",
@@ -87,13 +113,33 @@ function fmtTime(iso, zone) {
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
-    second: "2-digit",
     hour12: false,
   }).format(d);
 }
 
+function shortDate(iso) {
+  if (!iso) return "—";
+  const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
+  if (!y || !m || !d) return iso.slice(0, 10);
+  return `${d} ${MONTHS[m - 1]}`;
+}
+
+function compactUsd(n) {
+  if (n === null || n === undefined || Number.isNaN(Number(n))) return "—";
+  const value = Number(n);
+  const sign = value < 0 ? "-" : "";
+  const abs = Math.abs(value);
+  if (abs >= 1000000) {
+    const scaled = abs / 1000000;
+    const digits = scaled >= 10 ? 1 : 2;
+    return `${sign}$${scaled.toFixed(digits).replace(/\.0+$/, "").replace(/(\.\d)0$/, "$1")}m`;
+  }
+  if (abs >= 10000) return `${sign}$${Math.round(abs / 1000)}k`;
+  return usd.format(value);
+}
+
 function delta(v) {
-  if (v === null || v === undefined || Number.isNaN(v)) return "<span class='muted'>—</span>";
+  if (v === null || v === undefined || Number.isNaN(Number(v))) return "<span class='muted'>—</span>";
   const cls = v > 0 ? "up" : v < 0 ? "down" : "";
   const sign = v > 0 ? "+" : "";
   return `<span class="${cls}">${sign}${usd.format(v)}</span>`;
@@ -101,7 +147,7 @@ function delta(v) {
 
 function short(addr) {
   if (!addr) return "—";
-  return addr.slice(0, 6) + "…" + addr.slice(-4);
+  return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
 }
 
 function badge(attr) {
@@ -109,405 +155,547 @@ function badge(attr) {
   return `<span class="badge ${cls}">${esc(attr || "—")}</span>`;
 }
 
+function plainName(w) {
+  const names = {
+    treasury_safe_eth: "Treasury Safe",
+    treasury_safe_base: "Treasury Safe on Base",
+    treasury_safe_arb: "Treasury Safe on Arbitrum",
+    safe2_eth: "Second Safe",
+    base_contract: "Base payout contract",
+    arb_contract: "Arbitrum payout contract",
+    eth_deposit: "Ethereum payout contract",
+    op_deposit: "Optimism, same address",
+    polygon_deposit: "Polygon, same address",
+    base_e80f: "Base, same address as Ethereum",
+    bsc_contract: "BNB payout contract",
+    arb_old: "Older Arbitrum contract",
+    base_old: "Older Base contract",
+    bsc_old: "Older BNB contract",
+  };
+  return names[w.id] || w.role;
+}
+
+function leadSentence(latest, charts) {
+  const totals = latest.totals || {};
+  let change = "";
+  if (typeof totals.change_24h === "number") {
+    if (totals.change_24h < 0) change = `, down ${compactUsd(Math.abs(totals.change_24h))} in 24h`;
+    else if (totals.change_24h > 0) change = `, up ${compactUsd(totals.change_24h)} in 24h`;
+    else change = ", unchanged in 24h";
+  }
+  const payouts = charts?.payouts_24h;
+  let payout = "payout counts for the last 24h are not in this snapshot";
+  if (payouts) {
+    if (payouts.count === 0) payout = "no payouts went out";
+    else if (payouts.count === 1) payout = "1 payout went out";
+    else payout = `${num.format(payouts.count)} payouts went out`;
+  }
+  const last = charts?.last_topup?.t;
+  const snap = (latest.generated_at || "").slice(0, 10);
+  let top = "no treasury top-up is in the stored list";
+  if (last) {
+    top = last.slice(0, 10) === snap
+      ? "a treasury top-up was recorded on the snapshot day"
+      : `no treasury top-up since ${shortDate(last)}`;
+  }
+  const first = payout.charAt(0).toUpperCase() + payout.slice(1);
+  return `Tracked wallets hold ${compactUsd(totals.usdc || 0)}${change}. ${first}; ${top}.`;
+}
+
+function daysSince(latest, charts) {
+  const last = charts?.last_topup?.t;
+  const snap = latest.generated_at;
+  if (!last || !snap) return { value: "—", sub: "No top-up in the stored list" };
+  const days = Math.round((Date.parse(`${snap.slice(0, 10)}T00:00:00Z`) - Date.parse(`${last.slice(0, 10)}T00:00:00Z`)) / 86400000);
+  return {
+    value: String(Math.max(0, days)),
+    sub: `Last one ${shortDate(last)} ${last.slice(11, 16)} UTC`,
+  };
+}
+
+function runwayText(total, pace) {
+  if (!pace || pace <= 0 || total === null || total === undefined) {
+    return "Illustrative estimate, not a prediction. The last 7 days of payouts do not give a pace to divide into, so no day-count is shown. Custody and exchange balances are not included.";
+  }
+  const days = Number(total) / pace;
+  const shown = days >= 10 ? String(Math.round(days)) : String(Math.round(days * 10) / 10);
+  return `Illustrative estimate, not a prediction. At the last 7 days’ payout pace (${compactUsd(pace)} a day), the ${compactUsd(total)} tracked here would cover about ${shown} days. Custody and exchange balances are not included.`;
+}
+
 async function loadJson(path) {
-  const res = await fetch(path + "?t=" + Date.now(), { cache: "no-store" });
-  if (!res.ok) throw new Error(path + " " + res.status);
+  const res = await fetch(`${path}?t=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`${path} ${res.status}`);
   return res.json();
 }
 
-function coreSeries(history) {
-  const keys = history.keys || [];
-  const points = [];
+function tip() {
+  return {
+    backgroundColor: "#1c2530",
+    borderColor: "rgba(232,238,244,0.12)",
+    textStyle: { color: TEXT, fontFamily: "Outfit, sans-serif" },
+    confine: true,
+  };
+}
+
+function axisCommon() {
+  return {
+    axisLabel: { color: MUTED, fontSize: 11 },
+    axisLine: { lineStyle: { color: GRID } },
+    splitLine: { lineStyle: { color: GRID } },
+  };
+}
+
+function moneyTip(params) {
+  const rows = Array.isArray(params) ? params : [params];
+  const head = esc(rows[0]?.axisValue ?? rows[0]?.name ?? "");
+  const lines = rows.filter((row) => row.value !== null && row.value !== undefined && row.seriesName !== "Top-up").map((row) => {
+    const raw = Array.isArray(row.value) ? row.value[1] : row.value;
+    const shown = row.seriesName === "Payouts" ? Math.abs(raw) : raw;
+    return `${row.marker} ${esc(row.seriesName)}: ${usd.format(shown)}`;
+  });
+  return [head, ...lines].join("<br>");
+}
+
+function balanceOption(history, flows) {
   const daily = history.daily || {};
-  const firstSnap = (history.points || [])[0]?.[0];
-  const days = new Set();
-  keys.forEach((k) => (daily[k] || []).forEach((row) => days.add(row[0])));
-  [...days].sort().forEach((day) => {
-    const t = day + "T00:00:00Z";
-    if (firstSnap && t >= firstSnap) return;
-    const vals = keys.map((k) => {
-      const hit = (daily[k] || []).find((row) => row[0] === day);
-      return hit ? hit[1] : null;
-    });
-    if (vals.every((v) => v !== null && v !== undefined)) {
-      points.push({ t, y: vals.reduce((s, v) => s + v, 0), src: "reconstructed" });
-    }
+  const maps = {};
+  const dates = new Set();
+  Object.entries(daily).forEach(([key, rows]) => {
+    maps[key] = new Map((rows || []).map(([date, value]) => [date, value]));
+    (rows || []).forEach(([date]) => dates.add(date));
   });
-  (history.points || []).forEach((row) => {
-    const vals = row.slice(1);
-    if (vals.length && vals.every((v) => v !== null && v !== undefined)) {
-      points.push({ t: row[0], y: vals.reduce((s, v) => s + v, 0), src: "snapshot" });
-    }
+  const ordered = [...dates].sort();
+  const groups = [
+    ["Treasury Safe", ["treasury_safe_eth"]],
+    ["Second Safe", ["safe2_eth"]],
+    ["Base", ["base_contract"]],
+    ["Arbitrum", ["arb_contract"]],
+    ["Ethereum", ["eth_deposit"]],
+    ["Older contracts", ["arb_old", "bsc_old"]],
+  ];
+  const stacked = groups.map(([name, keys]) => ({
+    name,
+    type: "line",
+    stack: "balance",
+    smooth: 0.2,
+    showSymbol: false,
+    areaStyle: { color: PALETTE[name], opacity: 0.92 },
+    lineStyle: { width: 1.25, color: PALETTE[name] },
+    itemStyle: { color: PALETTE[name] },
+    emphasis: { focus: "series" },
+    data: ordered.map((date) => {
+      let sum = 0;
+      let any = false;
+      keys.forEach((key) => {
+        const value = maps[key]?.get(date);
+        if (value === null || value === undefined) return;
+        any = true;
+        sum += Number(value);
+      });
+      return any ? Math.round(sum * 100) / 100 : null;
+    }),
+  }));
+  const topups = new Map();
+  (flows.topups || []).forEach((row) => {
+    if (!TOPUP_KINDS.has(row.kind)) return;
+    const day = row.t.slice(0, 10);
+    const slot = topups.get(day) || { count: 0 };
+    slot.count += 1;
+    topups.set(day, slot);
   });
-  const seen = new Set();
-  return points.filter((p) => {
-    if (seen.has(p.t)) return false;
-    seen.add(p.t);
-    return true;
-  }).sort((a, b) => a.t.localeCompare(b.t));
+  const marks = ordered.map((date, index) => {
+    if (!topups.has(date)) return null;
+    const total = stacked.reduce((sum, series) => sum + (series.data[index] || 0), 0);
+    return total > 0 ? total : null;
+  });
+  stacked.push({
+    name: "Top-up",
+    type: "scatter",
+    symbol: "diamond",
+    symbolSize: 12,
+    itemStyle: { color: "#f4f7fa", borderColor: "#e0c07a", borderWidth: 1.5 },
+    data: marks,
+    z: 6,
+    tooltip: { show: false },
+  });
+  return {
+    color: groups.map(([name]) => PALETTE[name]),
+    tooltip: {
+      ...tip(),
+      trigger: "axis",
+      formatter(params) {
+        const rows = Array.isArray(params) ? params : [params];
+        const date = rows[0]?.axisValue || "";
+        let total = 0;
+        const lines = [`<strong>${esc(date)}</strong>`];
+        rows.forEach((row) => {
+          if (row.seriesName === "Top-up" || row.value === null || row.value === undefined) return;
+          total += Number(row.value);
+          lines.push(`${row.marker} ${esc(row.seriesName)}: ${usd.format(row.value)}`);
+        });
+        lines.push(`<strong>These bands: ${usd.format(total)}</strong>`);
+        const mark = topups.get(date);
+        if (mark) lines.push(`${mark.count} top-up transfer${mark.count === 1 ? "" : "s"} recorded this day`);
+        return lines.join("<br>");
+      },
+    },
+    legend: { top: 0, textStyle: { color: MUTED }, type: "scroll" },
+    grid: { left: 8, right: 12, top: 42, bottom: 28, containLabel: true },
+    xAxis: { type: "category", data: ordered, ...axisCommon(), axisLabel: { color: MUTED, fontSize: 11, hideOverlap: true } },
+    yAxis: { type: "value", min: 0, ...axisCommon(), axisLabel: { color: MUTED, fontSize: 11, formatter: (v) => compactUsd(v) } },
+    series: stacked,
+  };
 }
 
-function flowDiagram(windowData) {
-  const a = windowData?.amounts || {};
-  const box = (title, sub) => `<div class="node"><strong>${esc(title)}</strong><span class="muted">${esc(sub || "")}</span></div>`;
-  const arrow = (amount, note) => `<div class="arrow">${esc(note || "")}<b>${usd.format(amount || 0)}</b></div>`;
-  return `
-    <div class="flow">
-      ${box("Coinbase Prime 1", "Ethereum USDC in")}
-      ${arrow(a.coinbase_prime_to_safe, "to Safe")}
-      ${box("Treasury Safe", "inferred attribution")}
-      ${arrow(a.safe_to_lifi, "to LI.FI")}
-      ${box("LI.FI diamond", "LiFiDiamond")}
-    </div>
-    <div class="flow">
-      ${box("Coinbase hot wallet", "direct")}
-      ${arrow(a.coinbase_hot_to_contract, "to Base contract")}
-      ${box("Base contract", "current payout/deposit")}
-      ${arrow(a.safe_to_contract, "Safe direct to contracts")}
-      ${box("Contracts", "all monitored chains")}
-    </div>
-    <p class="note">Inferred LI.FI completions at contracts, matched by amount and time: <strong>${usd.format(a.inferred_lifi_to_contract || 0)}</strong>. Bridge-labeled arrivals (mint, LI.FI, TokenMinter, or TokenMessenger as the token sender): <strong>${usd.format(a.bridge_to_contract || 0)}</strong>. The inferred matches are labeled as inferences in the table. Treasury Safe outflows classified as moved to custody (inferred): <strong>${usd.format(a.moved_to_custody || 0)}</strong>. Those go to Coinbase, Coinbase Prime, or the deposit forwarder, and they are not payouts.</p>`;
+function flowOption(charts) {
+  const rows = charts?.daily_flows || [];
+  return {
+    tooltip: { ...tip(), trigger: "axis", formatter: moneyTip },
+    legend: { top: 0, textStyle: { color: MUTED } },
+    grid: { left: 8, right: 12, top: 42, bottom: 28, containLabel: true },
+    xAxis: { type: "category", data: rows.map((row) => row.date.slice(5)), ...axisCommon(), axisLabel: { color: MUTED, fontSize: 11, hideOverlap: true } },
+    yAxis: { type: "value", ...axisCommon(), axisLabel: { color: MUTED, fontSize: 11, formatter: (v) => compactUsd(v) } },
+    series: [
+      { name: "Top-ups", type: "bar", stack: "in", barGap: "-100%", itemStyle: { color: "#7eb6d9" }, data: rows.map((row) => row.topups) },
+      { name: "Deposits", type: "bar", stack: "in", itemStyle: { color: "#8fbfa8" }, data: rows.map((row) => row.deposits) },
+      { name: "Payouts", type: "bar", stack: "out", barGap: "-100%", itemStyle: { color: "#d7a0a0" }, data: rows.map((row) => -row.payouts) },
+      { name: "Net", type: "line", showSymbol: false, z: 4, itemStyle: { color: "#f4f7fa" }, lineStyle: { width: 2 }, data: rows.map((row) => row.net) },
+    ],
+  };
 }
 
-function summaryCell(block, key, signed) {
-  if (!block) return "<span class='muted'>—</span>";
-  const v = block[key];
-  if (signed) return delta(v);
-  return usd.format(v || 0);
+function donutOption(latest) {
+  const groups = new Map();
+  (latest.wallets || []).forEach((wallet) => {
+    let name = "Other chains";
+    if (wallet.id.startsWith("treasury_safe")) name = "Treasury Safe";
+    else if (wallet.id === "safe2_eth") name = "Second Safe";
+    else if (wallet.id === "base_contract") name = "Base";
+    else if (wallet.id === "arb_contract") name = "Arbitrum";
+    else if (wallet.id === "eth_deposit") name = "Ethereum";
+    else if (["arb_old", "base_old", "bsc_old"].includes(wallet.id)) name = "Older contracts";
+    groups.set(name, (groups.get(name) || 0) + (Number(wallet.usdc) || 0));
+  });
+  const data = [...groups.entries()]
+    .filter(([, value]) => value > 0.5)
+    .map(([name, value]) => ({ name, value: Math.round(value * 100) / 100, itemStyle: { color: PALETTE[name] || "#8d99a6" } }));
+  return {
+    tooltip: { ...tip(), trigger: "item", formatter: (row) => `${esc(row.name)}<br>${usd.format(row.value)} · ${row.percent}%` },
+    legend: { bottom: 0, textStyle: { color: MUTED }, type: "scroll" },
+    series: [{
+      type: "pie",
+      radius: ["48%", "72%"],
+      center: ["50%", "46%"],
+      avoidLabelOverlap: true,
+      label: { color: TEXT, fontSize: 11, formatter: (row) => (row.percent >= 5 ? `${row.name}\n${compactUsd(row.value)}` : "") },
+      data,
+    }],
+  };
 }
 
-function flowSummaryTable(summary) {
-  const d1 = summary?.["1"];
-  const d7 = summary?.["7"];
-  const d30 = summary?.["30"];
-  const partialNotes = [
-    ["1-day", d1],
-    ["7-day", d7],
-    ["30-day", d30],
-  ].filter(([, block]) => block?.partial_wallets?.length)
-    .map(([label, block]) => `${label} (${block.partial_wallets.join(", ")})`);
-  return `
-    <div class="flow-summary">
-      <h3>Contract flows</h3>
-      <div class="scroll"><table>
-        <thead><tr><th></th><th class="num">1 day</th><th class="num">7 days</th><th class="num">30 days</th></tr></thead>
-        <tbody>
-          <tr><td>Treasury top-ups</td><td class="num">${summaryCell(d1, "treasury_topups")}</td><td class="num">${summaryCell(d7, "treasury_topups")}</td><td class="num">${summaryCell(d30, "treasury_topups")}</td></tr>
-          <tr><td>User deposits</td><td class="num">${summaryCell(d1, "user_deposits")}</td><td class="num">${summaryCell(d7, "user_deposits")}</td><td class="num">${summaryCell(d30, "user_deposits")}</td></tr>
-          <tr><td>Filtered outflows</td><td class="num">${summaryCell(d1, "filtered_outflows")}</td><td class="num">${summaryCell(d7, "filtered_outflows")}</td><td class="num">${summaryCell(d30, "filtered_outflows")}</td></tr>
-          <tr><td>Net</td><td class="num">${summaryCell(d1, "net", true)}</td><td class="num">${summaryCell(d7, "net", true)}</td><td class="num">${summaryCell(d30, "net", true)}</td></tr>
-        </tbody>
-      </table></div>
-      <p class="note">Funding into the payout and deposit contracts. Treasury top-ups are inflows from the Treasury Safe, Coinbase, Coinbase Prime, LI.FI, or a mint/bridge sender, including inferred LI.FI completions. User deposits are other external inflows. Filtered outflows are <span class="mono">withdraw</span> transfers to addresses outside the monitored set. Net is top-ups plus user deposits minus those outflows. Custody moves are excluded.</p>
-      ${partialNotes.length ? `<p class="note">Transfer history does not yet cover: ${partialNotes.map(esc).join("; ")}.</p>` : ""}
-    </div>`;
+function bucketOption(charts) {
+  const rows = charts?.payout_buckets || [];
+  return {
+    tooltip: {
+      ...tip(),
+      trigger: "axis",
+      formatter(params) {
+        const row = (Array.isArray(params) ? params : [params])[0];
+        const source = rows[row.dataIndex] || {};
+        return `${esc(row.axisValue)}<br>${num.format(source.count || 0)} payouts<br>${usd.format(source.volume || 0)}`;
+      },
+    },
+    grid: { left: 8, right: 8, top: 16, bottom: 8, containLabel: true },
+    xAxis: {
+      type: "category",
+      data: rows.map((row) => row.label.replace("Under $100", "< $100").replace("Over $20k", "> $20k")),
+      ...axisCommon(),
+      axisLabel: { color: MUTED, fontSize: 11, interval: 0 },
+    },
+    yAxis: { type: "value", ...axisCommon(), name: "Payouts", nameTextStyle: { color: MUTED } },
+    series: [{ type: "bar", data: rows.map((row) => row.count), itemStyle: { color: "#c4b4e0", borderRadius: [6, 6, 0, 0] } }],
+  };
 }
 
-function flowKind(r) {
-  if (r.kind === "moved_to_custody") return `${badge("inferred")} moved to custody (inferred)`;
-  return `${r.inferred ? badge("inferred") : badge("observed")} <span class="muted">${esc(r.kind)}</span>`;
+function countOption(charts) {
+  const rows = charts?.daily_flows || [];
+  return {
+    tooltip: { ...tip(), trigger: "axis", formatter: (params) => `${esc(params[0].axisValue)}<br>${num.format(params[0].value)} payouts` },
+    grid: { left: 8, right: 8, top: 16, bottom: 8, containLabel: true },
+    xAxis: { type: "category", data: rows.map((row) => row.date.slice(5)), ...axisCommon(), axisLabel: { color: MUTED, fontSize: 11, hideOverlap: true } },
+    yAxis: { type: "value", ...axisCommon() },
+    series: [{ type: "bar", data: rows.map((row) => row.payout_count), itemStyle: { color: "#8fbfa8", borderRadius: [4, 4, 0, 0] } }],
+  };
 }
 
-function render(latest, history, flows) {
-  const t = latest.totals || {};
-  const when = latest.generated_at;
-  const series = coreSeries(history);
-  const cov = flows.coverage || {};
-  const incomplete = Object.entries(cov).filter(([, m]) => m && m.reached_cutoff === false && !m.skipped);
-  const app = document.getElementById("app");
-  app.innerHTML = `
-    <section class="card" id="headline">
-      <div class="row-between">
-        <div>
-          <h2>On-chain USDC in monitored wallets</h2>
-          <p class="note">Sum of USDC balances read from the wallets in the table below. This is not a figure published by Vest, and it is not a count of virtual or funded-account balances described in Vest’s terms.</p>
-        </div>
-      </div>
-      <div class="headline-grid">
-        <div class="cards">
-          <div class="card stat"><div class="label">Total</div><div class="value">${usd.format(t.usdc || 0)}</div><div class="sub">${t.partial ? "Partial — at least one read failed and an older balance was kept" : "All listed wallets read this run"}</div></div>
-          <div class="card stat"><div class="label">Change, 24h</div><div class="value">${delta(t.change_24h)}</div><div class="sub">Core wallets with a prior point</div></div>
-          <div class="card stat"><div class="label">Change, 7d</div><div class="value">${delta(t.change_7d)}</div><div class="sub">Shown when every core wallet has a point that far back</div></div>
-          <div class="card stat"><div class="label">Last updated</div><div class="value" style="font-size:1rem">${esc(fmtTime(when, "UTC"))} UTC</div><div class="sub">${esc(fmtTime(when, "Europe/Madrid"))} Europe/Madrid</div></div>
-        </div>
-        ${flowSummaryTable(flows.flow_summary)}
-      </div>
-      ${latest.errors?.length ? `<p class="note">Read warnings this run: ${latest.errors.length}. Previous balances are kept when a new read fails.</p>` : ""}
-    </section>
+function sankeyOption(charts) {
+  const links = charts?.sankey?.links || [];
+  const names = [];
+  links.forEach((link) => {
+    if (!names.includes(link.source)) names.push(link.source);
+    if (!names.includes(link.target)) names.push(link.target);
+  });
+  return {
+    tooltip: { ...tip(), trigger: "item", formatter: (row) => (row.dataType === "edge" ? `${esc(row.data.source)} → ${esc(row.data.target)}<br>${usd.format(row.data.value)}` : esc(row.name)) },
+    series: [{
+      type: "sankey",
+      data: names.map((name) => ({ name, itemStyle: { color: PALETTE[name] || "#8d99a6" } })),
+      links,
+      nodeAlign: "left",
+      nodeWidth: 14,
+      nodeGap: 18,
+      left: 8,
+      right: 120,
+      top: 8,
+      bottom: 8,
+      lineStyle: { color: "gradient", curveness: 0.45, opacity: 0.28 },
+      label: { color: TEXT, fontSize: 12, fontFamily: "Outfit, sans-serif" },
+      emphasis: { focus: "adjacency" },
+    }],
+  };
+}
 
-    <section class="card" id="liquidity">
-      <h2>Total on-chain liquidity over time</h2>
-      <p class="note">Line is the sum of the seven seed wallets (Treasury Safe on Ethereum, Second Safe, Base contract, Arbitrum contract, Ethereum deposit contract, older Arbitrum contract, older BSC contract) at times when every one of those balances is present. Older points marked reconstructed are daily balances derived from the current balance minus later USDC transfers. Snapshot points come from <span class="mono">data/seed-history.csv</span> and this job. A point is omitted when any of the seven values is missing.</p>
-      <div class="chart-box"><canvas id="liq"></canvas></div>
-    </section>
+function drawCharts(latest, history, flows) {
+  const charts = flows.charts || {};
+  const mount = (id, option) => {
+    const el = document.getElementById(id);
+    if (!el || !window.echarts) return null;
+    const chart = window.echarts.init(el, null, { renderer: "canvas" });
+    chart.setOption(option);
+    return chart;
+  };
+  const live = [
+    mount("chart-balance", balanceOption(history, flows)),
+    mount("chart-flow", flowOption(charts)),
+    mount("chart-donut", donutOption(latest)),
+    mount("chart-buckets", bucketOption(charts)),
+    mount("chart-counts", countOption(charts)),
+    mount("chart-sankey", sankeyOption(charts)),
+  ].filter(Boolean);
+  window.addEventListener("resize", () => live.forEach((chart) => chart.resize()));
+}
 
-    <section class="card" id="wallets">
-      <h2>Wallets</h2>
-      <div class="scroll"><table>
-        <thead><tr>
-          <th>Chain</th><th>Role</th><th class="num">USDC</th><th class="num">24h</th><th>Attribution</th><th>Explorer</th>
-        </tr></thead>
-        <tbody>
-          ${(latest.wallets || []).map((w) => `<tr>
-            <td>${esc(w.chain)}</td>
-            <td>${esc(w.role)}<div class="mono muted">${esc(short(w.address))}${w.stale ? " · stale" : ""}</div></td>
-            <td class="num">${w.usdc === null || w.usdc === undefined ? "—" : usd.format(w.usdc)}</td>
-            <td class="num">${delta(w.change_24h)}</td>
-            <td>${badge(w.attribution)}</td>
-            <td><a href="${esc(w.explorer)}" rel="noopener">view</a></td>
-          </tr>`).join("")}
-        </tbody>
-      </table></div>
-      ${(latest.checked_zero_usdc || []).length ? `<p class="note">Checked and holding 0 of the configured USDC token this run, so omitted from the total: ${latest.checked_zero_usdc.map((w) => esc(w.chain + " " + short(w.address))).join(", ")}.</p>` : ""}
-    </section>
-
-    <section class="card" id="flows">
-      <div class="row-between">
-        <h2>Top-up flows</h2>
-        <div class="tabs" id="flow-tabs">
-          <button data-d="7" class="active">7 days</button>
-          <button data-d="30">30 days</button>
-        </div>
-      </div>
-      <p class="note">Observed USDC transfers: Coinbase Prime 1 into the Treasury Safe, the Safe into the LI.FI diamond, the Safe directly into contracts, and the Coinbase hot wallet into the Base contract. A contract inflow is an inferred LI.FI completion only when its amount is within 3% of a Safe → LI.FI transfer and it lands within 6 hours. Treasury Safe outflows to Coinbase, Coinbase Prime, or the deposit forwarder are listed separately as moved to custody (inferred).</p>
-      <div id="flow-diagram">${flowDiagram(flows.windows?.["7"])}</div>
-      <h3>Top-ups, last 30 days</h3>
-      <div class="scroll"><table>
-        <thead><tr><th>Time (UTC)</th><th>Kind</th><th class="num">USDC</th><th>Path</th><th>Tx</th></tr></thead>
-        <tbody>
-          ${(flows.topups || []).filter((r) => r.kind !== "moved_to_custody").map((r) => `<tr>
-            <td>${esc(fmtTime(r.t, "UTC"))}</td>
-            <td>${flowKind(r)}</td>
-            <td class="num">${usd.format(r.amount)}</td>
-            <td>${esc(r.counterparty_label || short(r.counterparty))} · ${esc(r.chain)} ${esc(r.wallet_role)}</td>
-            <td><a href="${esc(r.tx_url)}" rel="noopener">${esc(short(r.tx))}</a></td>
-          </tr>`).join("") || `<tr><td colspan="5" class="muted">No classified top-ups in the stored window.</td></tr>`}
-        </tbody>
-      </table></div>
-      <h3>Moved to custody (inferred)</h3>
-      <p class="note">Treasury Safe USDC sent to the Coinbase Prime deposit forwarder <span class="mono">0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77</span>, or directly to Coinbase or Coinbase Prime. These rows are not payouts and are not treated as losses. The forwarder is not included in the balance total.</p>
-      <div class="scroll"><table>
-        <thead><tr><th>Time (UTC)</th><th>Class</th><th class="num">USDC</th><th>To</th><th>Tx</th></tr></thead>
-        <tbody>
-          ${(flows.topups || []).filter((r) => r.kind === "moved_to_custody").map((r) => `<tr>
-            <td>${esc(fmtTime(r.t, "UTC"))}</td>
-            <td>${flowKind(r)}</td>
-            <td class="num">${usd.format(r.amount)}</td>
-            <td>${esc(r.counterparty_label || short(r.counterparty))}</td>
-            <td><a href="${esc(r.tx_url)}" rel="noopener">${esc(short(r.tx))}</a></td>
-          </tr>`).join("") || `<tr><td colspan="5" class="muted">No custody moves in the stored window.</td></tr>`}
-        </tbody>
-      </table></div>
-    </section>
-
-    <section class="card" id="payouts">
-      <div class="row-between">
-        <h2>Payout withdrawals</h2>
-        <div class="tabs" id="pay-tabs">
-          <button data-d="30" class="active">30 days</button>
-          <button data-d="90">90 days</button>
-          <button data-d="7">7 days</button>
-        </div>
-      </div>
-      <p class="note">Outbound USDC from current payout/deposit contracts whose transaction method is <span class="mono">withdraw</span> or selector <span class="mono">0xbd69a7ae</span>. BSC rows use the transaction input selector. Coverage depends on how far the transfer scan has reached; see methodology.</p>
-      <div id="pay-body"></div>
-    </section>
-
-    <section class="card" id="moves">
-      <h2>Latest large moves</h2>
-      <p class="note">USDC transfers of at least $10,000 in or out of a monitored wallet, over the last 30 days of stored history. A row marked moved to custody (inferred) is a Treasury Safe transfer to Coinbase, Coinbase Prime, or the deposit forwarder. It is not a payout.</p>
-      <div class="scroll"><table>
-        <thead><tr><th>Time (UTC)</th><th>Wallet</th><th>Dir</th><th class="num">USDC</th><th>Counterparty</th><th>Tx</th></tr></thead>
-        <tbody>
-          ${(flows.large_moves || []).map((r) => `<tr>
-            <td>${esc(fmtTime(r.t, "UTC"))}</td>
-            <td>${esc(r.chain)} · ${esc(r.wallet_role)}</td>
-            <td>${esc(r.direction)}</td>
-            <td class="num">${usd.format(r.amount)}</td>
-            <td>${esc(r.counterparty_label || short(r.counterparty))}${r.classification ? `<div>${badge("inferred")} ${esc(r.classification)}</div>` : ""}</td>
-            <td><a href="${esc(r.tx_url)}" rel="noopener">${esc(short(r.tx))}</a></td>
-          </tr>`).join("") || `<tr><td colspan="6" class="muted">None in the stored window.</td></tr>`}
-        </tbody>
-      </table></div>
-    </section>
-
-    <section class="card" id="method">
-      <h2>Methodology and sources</h2>
-      <h3>How the numbers are computed</h3>
-      <ul>
-        <li>Balances are an RPC <span class="mono">eth_call</span> of <span class="mono">balanceOf</span> on the USDC contract, divided by 10^decimals. Ethereum, Base, and Arbitrum USDC use 6 decimals. BSC USDC <span class="mono">0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d</span> uses 18 decimals. Optimism and Polygon also try bridged USDC.e if native USDC is zero. Blockscout’s <span class="mono">/token-balances</span> endpoint can lag that read. On 4 Oct 2026 it still showed $378.7k for the Base contract <span class="mono">0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF</span> when the live <span class="mono">balanceOf</span> was $216.9k.</li>
-        <li>Inference: the on-chain wallets appear to act as a payout float topped up in batches from Coinbase and Coinbase Prime. Custody and exchange balances are not visible on-chain, so the tracked total is not total firm reserves.</li>
-        <li>RPCs are public endpoints (PublicNode, chain defaults, 1RPC, Ankr), tried in order with retries. A failed read keeps the previous stored balance and marks the wallet stale. It does not write a zero.</li>
-        <li>Transfers on Ethereum, Base, Arbitrum, Optimism, and Polygon come from Blockscout v2 <span class="mono">/api/v2/addresses/{address}/token-transfers</span>. BSC Blockscout hosts did not respond for this job, so BSC transfers are <span class="mono">eth_getLogs</span> of the USDC <span class="mono">Transfer</span> event. BSC timestamps inside a log chunk are estimated from the chunk’s end block.</li>
-        <li>The headline total adds every wallet listed in the table, including a stale previous balance when a new read fails. 24h and 7d changes use the last stored point at or before that horizon for each core wallet, and sum those deltas. A change is left blank when no earlier point exists inside the allowed gap.</li>
-        <li>History in <span class="mono">data/history.json</span> is append-only. The seed file is hourly snapshots from 2026-10-02 21:35 Europe/Madrid (CEST, UTC+2). New points are appended when a balance changes or at least 55 minutes after the previous point. <span class="mono">NA</span> in the seed is a failed read and is stored as null, not zero.</li>
-        <li>Daily backfill, when the transfer scan reached 90 days and the balance read succeeded, is the current balance minus later USDC transfers. It stops where an earlier day would imply a negative balance. A transfer between two monitored wallets is copied to the other wallet when the explorer returned only one side.</li>
-        <li>The 1/7/30-day table next to the balance sums funding into the current and older payout/deposit contracts. Treasury top-ups are inflows from the Treasury Safe, Coinbase hot wallet, Coinbase Prime, LI.FI, a zero-address mint, a sender whose name contains LI.FI, minter, or messenger, or an inferred LI.FI completion. User deposits are other inflows from addresses that are not monitored wallets. A transfer between two monitored wallets is omitted so the Safe hop is not counted twice. Filtered outflows are <span class="mono">withdraw</span> / <span class="mono">0xbd69a7ae</span> outs to an address outside the monitored set. Net is treasury top-ups plus user deposits minus those outflows. The window is marked partial when a contract’s transfer scan has not reached the start of that window.</li>
-        <li>Withdrawal stats count only <span class="mono">withdraw</span> / <span class="mono">0xbd69a7ae</span> outs. Median is the middle value, or the mean of the two middle values when the count is even. Treasury Safe outflows to <span class="mono">0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77</span> (labeled Coinbase Prime deposit forwarder, inferred), or directly to Coinbase or Coinbase Prime, are classified as moved to custody (inferred) in the flow and large-move tables. They are not payouts and are not counted in filtered outflows. That forwarder address is not a tracked balance.</li>
-      </ul>
-      ${incomplete.length ? `<p class="note">Transfer history has not yet reached the 90-day cutoff for: ${incomplete.map(([id]) => esc(id)).join(", ")}. Those stats cover the transfers stored so far. Later scheduled runs continue the backfill.</p>` : `<p class="note">Transfer scans that report reached_cutoff include transfers back to the lookback window.</p>`}
-      <p class="note">Machine-readable files: <a href="data/latest.json">data/latest.json</a> (totals, per-wallet balances, <span class="mono">transfers_since_last_run</span>), <a href="data/history.json">data/history.json</a>, <a href="data/flows.json">data/flows.json</a>. Raw: <span class="mono">https://raw.githubusercontent.com/diatle-glitch/vest-watch/main/data/latest.json</span></p>
-
-      <h3>Addresses</h3>
-      <div class="scroll"><table>
-        <thead><tr><th>Role</th><th>Chain</th><th>Address</th><th>Attribution</th><th>Source note</th></tr></thead>
-        <tbody>
-          ${(latest.wallets || []).map((w) => `<tr>
-            <td>${esc(w.role)}</td><td>${esc(w.chain)}</td>
-            <td class="mono"><a href="${esc(w.explorer)}">${esc(w.address)}</a></td>
-            <td>${badge(w.attribution)}</td>
-            <td>${esc(w.note)}</td>
-          </tr>`).join("")}
-          ${(flows.counterparties || []).map((c) => `<tr>
-            <td>${esc(c.label)}</td><td></td>
-            <td class="mono">${esc(c.address || "—")}</td>
-            <td>${badge("reference")}</td>
-            <td>${esc(c.basis)}</td>
-          </tr>`).join("")}
-        </tbody>
-      </table></div>
-      <p class="note">USDC contracts: Ethereum <span class="mono">0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48</span>, Base <span class="mono">0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913</span>, Arbitrum <span class="mono">0xaf88d065e77c8cC2239327C5EDb3A432268e5831</span>, BSC <span class="mono">0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d</span> (18 decimals). Optimism native <span class="mono">0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85</span>, Polygon native <span class="mono">0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359</span>.</p>
-
-      <h3>Withdrawals on the SrcBridge contracts</h3>
-      <p>The Ethereum address <span class="mono">0xE80F92077131b9890599E418AE323de71cE1C35a</span> is a TransparentUpgradeableProxy. Blockscout lists its implementation as <a href="https://eth.blockscout.com/address/0xEcD91C77B98d507E3C20Bac86D2541ECbDc881E3">0xEcD91C77B98d507E3C20Bac86D2541ECbDc881E3</a>, verified source name SrcBridge. That source contains <span class="mono">string public constant NAME = "VestRouterV2"</span> and <span class="mono">bytes32 public constant BRIDGE_OPERATOR_ROLE = keccak256("BRIDGE_OPERATOR_ROLE")</span>.</p>
-      <p>The verified <span class="mono">withdraw</span> function calls <span class="mono">_withdraw</span>. That function requires the caller, or an address recovered from <span class="mono">validatorSignature</span>, to have <span class="mono">BRIDGE_OPERATOR_ROLE</span>. It also checks chain id, a supported token, a replay mapping <span class="mono">completedTransactions</span>, and a request signature when the account is not <span class="mono">msg.sender</span>. The parameter named <span class="mono">signatureProof</span> is passed to a signer-delegation check. The verified source has no balance variable and no Merkle or state-root check of an off-chain account. Source reviewed from Blockscout on 2026-10-04.</p>
-      <p>Live <span class="mono">hasRole</span> results from this run:</p>
-      <ul>
-        ${((flows.onchain || {}).checks || []).map((c) => `<li>${esc(c.chain)} ${esc(short(c.address))}: ${c.error ? "read failed (" + esc(c.error) + ")" : (c.has_bridge_operator_role ? "operator has BRIDGE_OPERATOR_ROLE" : "operator does not have BRIDGE_OPERATOR_ROLE on this call")}</li>`).join("")}
-      </ul>
-      <p class="note"><span class="mono">router()</span> on the Ethereum proxy returned <span class="mono">${esc(flows.onchain?.router?.address || "—")}</span>.</p>
-
-      <h3>Evaluation fees and the legacy zkSync router</h3>
-      <p>Vest’s privacy policy says purchases are processed through Stripe Checkout (quote below). Those card payments are off-chain. They are not part of the USDC totals on this page.</p>
-      <p>${zksyncBlurb(flows.zksync_router)}</p>
-
-      <h3>Vest’s published terms</h3>
-      <p class="note">Quotes below are copied from the listed pages. Pages were fetched on 2026-10-04. The docs dump used while building this page is Vest’s <span class="mono">llms-full</span> export.</p>
-      ${QUOTES.map((q) => `<h3>${esc(q.title)}</h3><blockquote><p>${esc(q.text)}</p></blockquote><p class="note"><a href="${esc(q.url)}">${esc(q.source)}</a></p>`).join("")}
-    </section>
-  `;
-
-  drawChart(series);
-  wireFlows(flows);
-  wirePayouts(flows);
+function whenChartsReady(fn) {
+  if (window.echarts) {
+    fn();
+    return;
+  }
+  const script = document.createElement("script");
+  script.src = "https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js";
+  script.onload = fn;
+  script.onerror = () => {
+    const note = document.getElementById("chart-status");
+    if (note) note.textContent = "The chart library did not load. The summary and the tables further down still use the snapshot.";
+  };
+  document.head.appendChild(script);
 }
 
 function zksyncBlurb(z) {
-  if (!z || z.error && !z.tx) return "The zkSync router check did not return a transaction this run.";
+  if (!z || (z.error && !z.tx)) return "The zkSync router check did not return a transaction this run.";
   const stale = z.stale ? " This copy was kept from the previous run because the explorer request failed." : "";
   return `The address returned by <span class="mono">router()</span> is <span class="mono">${esc(z.address)}</span>. The newest transaction on page 1 of the zkSync Era block explorer API (newest first) is <a href="${esc(z.explorer)}">${esc(z.tx)}</a>, received at ${esc(fmtTime(z.received_at, "UTC"))} UTC (${esc(fmtTime(z.received_at, "Europe/Madrid"))} Europe/Madrid), status ${esc(z.status || "—")}. Source: ${esc(z.source || "")}.${esc(stale)}`;
 }
 
-function drawChart(series) {
-  const canvas = document.getElementById("liq");
-  if (!canvas) return;
-  if (!series.length) {
-    canvas.parentElement.insertAdjacentHTML("beforeend", "<p class='note'>No complete total points yet.</p>");
-    return;
-  }
-  if (!window.Chart) {
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js";
-    script.onload = () => drawChart(series);
-    script.onerror = () => {
-      canvas.parentElement.insertAdjacentHTML("beforeend", "<p class='note'>The chart library did not load. The tables below still use the JSON snapshot.</p>");
-    };
-    document.head.appendChild(script);
-    return;
-  }
-  const recon = series.some((p) => p.src === "reconstructed");
-  new Chart(canvas, {
-    type: "line",
-    data: {
-      datasets: [
-        {
-          label: recon ? "Total (snapshots and reconstructed days)" : "Total (snapshots)",
-          data: series.map((p) => ({ x: Date.parse(p.t), y: p.y })),
-          borderColor: "#8fbfa8",
-          backgroundColor: "rgba(143,191,168,0.15)",
-          pointRadius: 0,
-          borderWidth: 2,
-          tension: 0.15,
-          fill: true,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: "#e7edf4" } } },
-      scales: {
-        x: {
-          type: "linear",
-          ticks: {
-            color: "#9aa6b4",
-            maxTicksLimit: 6,
-            callback: (v) => new Date(v).toISOString().slice(0, 16).replace("T", " "),
-          },
-          grid: { color: "#2d3846" },
-        },
-        y: {
-          ticks: { color: "#9aa6b4", callback: (v) => num.format(v) },
-          grid: { color: "#2d3846" },
-        },
-      },
-    },
-  });
+function payoutTable(flows) {
+  const entries = Object.entries(flows.withdrawals || {});
+  if (!entries.length) return "<p class='note'>No payout aggregates stored yet.</p>";
+  return `<div class="scroll"><table>
+    <thead><tr><th>Contract</th><th class="num">Count</th><th class="num">Volume</th><th class="num">Median</th><th class="num">Largest</th><th class="num">Recipients</th></tr></thead>
+    <tbody>${entries.map(([id, row]) => {
+      const window = row.windows?.["30"] || {};
+      return `<tr>
+        <td>${esc(plainName({ id, role: id }))}</td>
+        <td class="num">${num.format(window.count || 0)}</td>
+        <td class="num">${usd.format(window.volume || 0)}</td>
+        <td class="num">${window.median === null || window.median === undefined ? "—" : usd.format(window.median)}</td>
+        <td class="num">${window.max === null || window.max === undefined ? "—" : usd.format(window.max)}</td>
+        <td class="num">${num.format(window.unique_recipients || 0)}</td>
+      </tr>`;
+    }).join("")}</tbody>
+  </table></div>
+  <p class="note">Last 30 days of stored withdraw transfers for the contracts included in this aggregate. Median is the middle amount, or the mean of the two middle amounts when the count is even.</p>`;
 }
 
-function wireFlows(flows) {
-  const tabs = document.getElementById("flow-tabs");
-  const box = document.getElementById("flow-diagram");
-  if (!tabs) return;
-  tabs.addEventListener("click", (ev) => {
-    const btn = ev.target.closest("button");
-    if (!btn) return;
-    tabs.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-    box.innerHTML = flowDiagram(flows.windows?.[btn.dataset.d]);
-  });
+function methodology(latest, flows) {
+  const coverage = flows.coverage || {};
+  const incomplete = Object.entries(coverage).filter(([, meta]) => meta && meta.reached_cutoff === false && !meta.skipped);
+  return `
+    <h3>How the numbers are computed</h3>
+    <ul>
+      <li><strong>Balance.</strong> An RPC <span class="mono">balanceOf</span> call on the USDC contract, divided by 10^decimals. Blockscout’s <span class="mono">/token-balances</span> endpoint can lag that read. On 4 Oct 2026 it still showed $378.7k for the Base contract <span class="mono">0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF</span> when the live balance was $216.9k.</li>
+      <li><strong>Payout float, an inference.</strong> The on-chain wallets appear to act as a payout float topped up in batches from Coinbase and Coinbase Prime. Custody and exchange balances are not visible on-chain, so the tracked total is not total firm reserves.</li>
+      <li><strong>Top-up.</strong> USDC arriving at a payout contract from the Treasury Safe, Coinbase, Coinbase Prime, LI.FI, a mint, or a bridge, including an inferred LI.FI completion. A day is also marked when Coinbase Prime funds the Treasury Safe, or when the Safe sends USDC to LI.FI or straight to a contract. Transfers between monitored wallets are not counted twice.</li>
+      <li><strong>Deposit.</strong> Other USDC arriving at a payout contract from an address that is not one of the monitored wallets.</li>
+      <li><strong>Payout.</strong> USDC leaving a current or older payout contract in a transaction whose method is <span class="mono">withdraw</span> or selector <span class="mono">0xbd69a7ae</span>, to an address outside the monitored set.</li>
+      <li><strong>Moved to custody (inferred).</strong> Treasury Safe USDC sent to <span class="mono">0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77</span> (Coinbase Prime deposit forwarder, inferred), or directly to Coinbase or Coinbase Prime. These are not payouts. The forwarder is not a tracked balance.</li>
+      <li><strong>Recipients</strong> on the flow diagram are the outside addresses on those withdraw transfers. The chain does not name them.</li>
+      <li>The headline total adds every wallet in the table, including a stale previous balance when a new read fails. The 24h change sums the core wallets only when each of them has an earlier point. A missing point is left blank, not treated as zero.</li>
+      <li>The balance chart uses daily reconstructed history for the seven seed wallets. Older Arbitrum history starts on 27 Sep 2026, and older BSC history starts on 3 Oct 2026. Days before that are missing history, not a recorded zero. Optimism, Polygon, and the small remainder are in the donut and the total, not in the stacked bands.</li>
+      <li>RPCs are public endpoints, tried in order with retries. A failed read keeps the previous stored balance. Transfers on Ethereum, Base, Arbitrum, Optimism, and Polygon come from Blockscout. BSC uses <span class="mono">eth_getLogs</span> because the BSC Blockscout hosts tried here returned 404. BSC timestamps inside a log chunk are estimated from the chunk’s end block.</li>
+      <li>Daily backfill, when the transfer scan reached 90 days and the balance read succeeded, is the current balance minus later USDC transfers. It stops where an earlier day would imply a negative balance.</li>
+    </ul>
+    ${incomplete.length ? `<p class="note">Transfer history has not yet reached the 90-day cutoff for: ${incomplete.map(([id]) => esc(id)).join(", ")}. Those figures cover the transfers stored so far.</p>` : `<p class="note">Transfer scans that report reached_cutoff include transfers back to the lookback window.</p>`}
+    <p class="note">Machine-readable files: <a href="data/latest.json">data/latest.json</a>, <a href="data/history.json">data/history.json</a>, <a href="data/flows.json">data/flows.json</a>. Raw: <span class="mono">https://raw.githubusercontent.com/diatle-glitch/vest-watch/main/data/latest.json</span></p>
+    <h3>Addresses</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>What it is</th><th>Chain</th><th>Address</th><th>Attribution</th><th>Source note</th></tr></thead>
+      <tbody>
+        ${(latest.wallets || []).map((w) => `<tr>
+          <td>${esc(plainName(w))}</td><td>${esc(w.chain)}</td>
+          <td class="mono"><a href="${esc(w.explorer)}">${esc(w.address)}</a></td>
+          <td>${badge(w.attribution)}</td>
+          <td>${esc(w.note)}</td>
+        </tr>`).join("")}
+        ${(flows.counterparties || []).map((c) => `<tr>
+          <td>${esc(c.label)}</td><td></td>
+          <td class="mono">${esc(c.address || "—")}</td>
+          <td>${badge("reference")}</td>
+          <td>${esc(c.basis)}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table></div>
+    <h3>Withdrawals on the SrcBridge contracts</h3>
+    <p>The Ethereum address <span class="mono">0xE80F92077131b9890599E418AE323de71cE1C35a</span> is a TransparentUpgradeableProxy. Blockscout lists its implementation as <a href="https://eth.blockscout.com/address/0xEcD91C77B98d507E3C20Bac86D2541ECbDc881E3">0xEcD91C77B98d507E3C20Bac86D2541ECbDc881E3</a>, verified source name SrcBridge. That source contains <span class="mono">string public constant NAME = "VestRouterV2"</span> and <span class="mono">bytes32 public constant BRIDGE_OPERATOR_ROLE = keccak256("BRIDGE_OPERATOR_ROLE")</span>.</p>
+    <p>The verified <span class="mono">withdraw</span> function calls <span class="mono">_withdraw</span>. That function requires the caller, or an address recovered from <span class="mono">validatorSignature</span>, to have <span class="mono">BRIDGE_OPERATOR_ROLE</span>. It also checks chain id, a supported token, a replay mapping <span class="mono">completedTransactions</span>, and a request signature when the account is not <span class="mono">msg.sender</span>. The parameter named <span class="mono">signatureProof</span> is passed to a signer-delegation check. The verified source has no balance variable and no Merkle or state-root check of an off-chain account. Source reviewed from Blockscout on 2026-10-04.</p>
+    <ul>
+      ${((flows.onchain || {}).checks || []).map((c) => `<li>${esc(c.chain)} ${esc(short(c.address))}: ${c.error ? `read failed (${esc(c.error)})` : (c.has_bridge_operator_role ? "operator has BRIDGE_OPERATOR_ROLE" : "operator does not have BRIDGE_OPERATOR_ROLE on this call")}</li>`).join("")}
+    </ul>
+    <p class="note"><span class="mono">router()</span> on the Ethereum proxy returned <span class="mono">${esc(flows.onchain?.router?.address || "—")}</span>.</p>
+    <h3>Evaluation fees and the legacy zkSync router</h3>
+    <p>Vest’s privacy policy says purchases are processed through Stripe Checkout (quote below). Those card payments are off-chain. They are not part of the USDC totals on this page.</p>
+    <p>${zksyncBlurb(flows.zksync_router)}</p>
+    <h3>Vest’s published terms</h3>
+    <p class="note">Quotes below are copied from the listed pages. Pages were fetched on 2026-10-04.</p>
+    ${QUOTES.map((q) => `<h3>${esc(q.title)}</h3><blockquote><p>${esc(q.text)}</p></blockquote><p class="note"><a href="${esc(q.url)}">${esc(q.source)}</a></p>`).join("")}
+  `;
 }
 
-function wirePayouts(flows) {
-  const body = document.getElementById("pay-body");
-  const tabs = document.getElementById("pay-tabs");
-  const draw = (days) => {
-    const entries = Object.entries(flows.withdrawals || {});
-    if (!entries.length) {
-      body.innerHTML = "<p class='note'>No withdrawal aggregates stored yet.</p>";
-      return;
-    }
-    body.innerHTML = `<div class="scroll"><table>
-      <thead><tr><th>Contract</th><th class="num">Count</th><th class="num">Volume</th><th class="num">Median</th><th class="num">Max</th><th class="num">Recipients</th></tr></thead>
-      <tbody>${entries.map(([id, row]) => {
-        const w = row.windows?.[days] || {};
-        return `<tr>
-          <td>${esc(id)}</td>
-          <td class="num">${num.format(w.count || 0)}</td>
-          <td class="num">${usd.format(w.volume || 0)}</td>
-          <td class="num">${w.median === null || w.median === undefined ? "—" : usd.format(w.median)}</td>
-          <td class="num">${w.max === null || w.max === undefined ? "—" : usd.format(w.max)}</td>
-          <td class="num">${num.format(w.unique_recipients || 0)}</td>
-        </tr>`;
-      }).join("")}</tbody></table></div>
-      ${entries.map(([id, row]) => {
-        const daily = row.windows?.[days]?.daily || [];
-        if (!daily.length) return "";
-        const max = Math.max(...daily.map((d) => d.volume), 1);
-        return `<h3>${esc(id)} daily volume</h3><div class="scroll"><table><tbody>${daily.map((d) => `<tr><td>${esc(d.date)}</td><td class="num">${d.count}</td><td class="num">${usd.format(d.volume)}</td><td><span style="display:inline-block;height:8px;background:#8fbfa8;width:${Math.max(2, (d.volume / max) * 140)}px"></span></td></tr>`).join("")}</tbody></table></div>`;
-      }).join("")}`;
-  };
-  draw("30");
-  tabs.addEventListener("click", (ev) => {
-    const btn = ev.target.closest("button");
-    if (!btn) return;
-    tabs.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
-    draw(btn.dataset.d);
-  });
+function render(latest, history, flows) {
+  const totals = latest.totals || {};
+  const charts = flows.charts || {};
+  const since = daysSince(latest, charts);
+  const payouts = charts.payouts_24h || {};
+  const rows = charts.daily_flows || [];
+  const summed = rows.reduce((acc, row) => {
+    acc.topups += row.topups;
+    acc.deposits += row.deposits;
+    acc.payouts += row.payouts;
+    return acc;
+  }, { topups: 0, deposits: 0, payouts: 0 });
+  const partial = (flows.flow_summary?.["30"]?.partial_wallets || []).join(", ");
+  document.getElementById("updated").textContent = `${fmtTime(latest.generated_at, "UTC")} UTC · ${fmtTime(latest.generated_at, "Europe/Madrid")} Madrid`;
+  document.getElementById("app").innerHTML = `
+    <p class="lede">${esc(leadSentence(latest, charts))}</p>
+    <section class="kpis" aria-label="Key figures">
+      <article class="kpi"><p class="k">Balance now</p><p class="v">${usd.format(totals.usdc || 0)}</p><p class="s">${totals.partial ? "One read failed; an older balance was kept" : "USDC in the monitored wallets"}</p></article>
+      <article class="kpi"><p class="k">Change, 24h</p><p class="v">${delta(totals.change_24h)}</p><p class="s">Core wallets with an earlier point</p></article>
+      <article class="kpi"><p class="k">Payouts out, 24h</p><p class="v">${payouts.volume === undefined ? "—" : usd.format(payouts.volume)}</p><p class="s">${payouts.count === undefined ? "Not in this snapshot" : `${num.format(payouts.count)} withdraw transfers`}</p></article>
+      <article class="kpi"><p class="k">Days since last top-up</p><p class="v">${esc(since.value)}</p><p class="s">${esc(since.sub)}</p></article>
+    </section>
+    <aside class="runway"><strong>Runway at the current payout pace.</strong> ${esc(runwayText(totals.usdc, charts.pace_7d?.per_day))}</aside>
+    <div class="glossary">
+      <p><strong>Top-up.</strong> USDC sent in from Coinbase, Coinbase Prime, the treasury Safe, or a bridge to refill a payout contract.</p>
+      <p><strong>Payout contract.</strong> A monitored contract that sends USDC out with the withdraw method.</p>
+      <p><strong>Deposit.</strong> Other USDC sent into a payout contract from outside the monitored wallets.</p>
+      <p><strong>Tracked total.</strong> On-chain USDC in these wallets. It is not exchange custody, and it is not a virtual balance in Vest’s program.</p>
+    </div>
+    <p class="note" id="chart-status"></p>
+    <div class="charts">
+      <section class="card" id="balances">
+        <h2>Where the balance has been</h2>
+        <p class="note">Each band is a group of wallets. Diamonds mark days with a top-up in the stored flow list. The bands are the seven wallets with daily history, so this stack is a little smaller than the headline total.</p>
+        <div id="chart-balance" class="chart"></div>
+      </section>
+      <div class="chart-grid">
+        <section class="card" id="inout">
+          <h2>Money in and money out</h2>
+          <p class="note">Last 30 days. Top-ups and deposits sit above zero. Payouts sit below. The line is that day’s net. Over the window: top-ups ${usd.format(summed.topups)}, deposits ${usd.format(summed.deposits)}, payouts ${usd.format(summed.payouts)}.</p>
+          ${partial ? `<p class="note">The transfer scan does not yet cover this whole window for ${esc(partial)}.</p>` : ""}
+          <div id="chart-flow" class="chart"></div>
+        </section>
+        <section class="card" id="where">
+          <h2>Where the money sits now</h2>
+          <p class="note">Share of the tracked USDC total. Slices under about $1 are omitted from the ring.</p>
+          <div id="chart-donut" class="chart short"></div>
+        </section>
+      </div>
+      <div class="chart-grid">
+        <section class="card" id="sizes">
+          <h2>How big payouts are</h2>
+          <p class="note">Count of withdraw transfers in the last 30 days, by size.</p>
+          <div id="chart-buckets" class="chart short"></div>
+        </section>
+        <section class="card" id="cadence">
+          <h2>Payouts each day</h2>
+          <p class="note">How many withdraw transfers were recorded on each of the last 30 days.</p>
+          <div id="chart-counts" class="chart short"></div>
+        </section>
+      </div>
+      <section class="card" id="movement">
+        <h2>How USDC moves</h2>
+        <p class="note">Last 30 days of observed transfers. Coinbase Prime funds the treasury Safe. Coinbase also sends USDC straight to payout contracts. The Safe sends USDC on to those contracts, directly or through LI.FI; bridge arrivals are not added a second time. Recipients are the outside addresses on withdraw transfers. “Custody (inferred)” is Treasury Safe USDC sent to Coinbase, Coinbase Prime, or the deposit forwarder.</p>
+        <div id="chart-sankey" class="chart sankey"></div>
+      </section>
+    </div>
+    <nav class="jumps" aria-label="Details">
+      <a href="#wallets">Wallets</a>
+      <a href="#moves">Large moves</a>
+      <a href="#stats">Payout statistics</a>
+      <a href="#method">Methodology</a>
+    </nav>
+    <details class="fold" id="wallets">
+      <summary>Wallets behind the total</summary>
+      <div class="body">
+        <p class="note">A payout contract is a monitored contract whose outgoing USDC uses the withdraw method. The Treasury Safe is an inference: Coinbase Prime sends it USDC, and it sends USDC on toward the contracts. The Vest pages reviewed for this site do not publish these addresses.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Wallet</th><th>Chain</th><th class="num">USDC</th><th class="num">24h</th><th>Attribution</th><th></th></tr></thead>
+          <tbody>
+            ${(latest.wallets || []).map((w) => `<tr>
+              <td>${esc(plainName(w))}${w.stale ? " <span class='muted'>(stale)</span>" : ""}<div class="mono muted">${esc(short(w.address))}</div></td>
+              <td>${esc(w.chain)}</td>
+              <td class="num">${w.usdc === null || w.usdc === undefined ? "—" : usd.format(w.usdc)}</td>
+              <td class="num">${delta(w.change_24h)}</td>
+              <td>${badge(w.attribution)}</td>
+              <td><a href="${esc(w.explorer)}" rel="noopener">Explorer</a></td>
+            </tr>`).join("")}
+          </tbody>
+        </table></div>
+      </div>
+    </details>
+    <details class="fold" id="moves">
+      <summary>Large moves, $10,000 and up</summary>
+      <div class="body">
+        <p class="note">USDC in or out of a monitored wallet over the last 30 days of stored history. A row marked moved to custody (inferred) is a Treasury Safe transfer to Coinbase, Coinbase Prime, or the deposit forwarder. It is not a payout.</p>
+        <div class="scroll"><table>
+          <thead><tr><th>Time (UTC)</th><th>Wallet</th><th>Direction</th><th class="num">USDC</th><th>Counterparty</th><th>Tx</th></tr></thead>
+          <tbody>
+            ${(flows.large_moves || []).map((r) => `<tr>
+              <td>${esc(fmtTime(r.t, "UTC"))}</td>
+              <td>${esc(r.chain)} · ${esc(plainName({ id: r.wallet_id, role: r.wallet_role }))}</td>
+              <td>${esc(r.direction === "in" ? "In" : r.direction === "out" ? "Out" : r.direction)}</td>
+              <td class="num">${usd.format(r.amount)}</td>
+              <td>${esc(r.counterparty_label || short(r.counterparty))}${r.classification ? `<div>${badge("inferred")} ${esc(r.classification)}</div>` : ""}</td>
+              <td><a href="${esc(r.tx_url)}" rel="noopener">${esc(short(r.tx))}</a></td>
+            </tr>`).join("") || `<tr><td colspan="6" class="muted">None in the stored window.</td></tr>`}
+          </tbody>
+        </table></div>
+      </div>
+    </details>
+    <details class="fold" id="stats">
+      <summary>Payout statistics</summary>
+      <div class="body">${payoutTable(flows)}</div>
+    </details>
+    <details class="fold" id="method">
+      <summary>Methodology and sources</summary>
+      <div class="body">${methodology(latest, flows)}</div>
+    </details>
+  `;
+  whenChartsReady(() => drawCharts(latest, history, flows));
 }
 
 loadJson("data/latest.json")
   .then((latest) => Promise.all([latest, loadJson("data/history.json"), loadJson("data/flows.json")]))
   .then(([latest, history, flows]) => render(latest, history, flows))
   .catch((err) => {
-    document.getElementById("app").innerHTML = `<section class="card"><p class="error">Could not load data files. ${esc(err.message)}</p></section>`;
+    document.getElementById("app").innerHTML = `<p class="down">The snapshot could not be loaded (${esc(err.message)}).</p>`;
   });

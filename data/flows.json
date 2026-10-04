@@ -1,4 +1,329 @@
 {
+  "charts": {
+    "as_of": "2026-10-04T18:44:58Z",
+    "daily_flows": [
+      {
+        "date": "2026-09-04",
+        "deposits": 10300.0,
+        "net": -7886.04,
+        "payout_count": 8,
+        "payouts": 18186.04,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-05",
+        "deposits": 2442.54,
+        "net": -7035.6,
+        "payout_count": 30,
+        "payouts": 9478.14,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-06",
+        "deposits": 33155.34,
+        "net": 32838.74,
+        "payout_count": 6,
+        "payouts": 816.6,
+        "topups": 500.0
+      },
+      {
+        "date": "2026-09-07",
+        "deposits": 16671.63,
+        "net": 2736.04,
+        "payout_count": 23,
+        "payouts": 33935.59,
+        "topups": 20000.0
+      },
+      {
+        "date": "2026-09-08",
+        "deposits": 157214.89,
+        "net": 89164.19,
+        "payout_count": 42,
+        "payouts": 79500.7,
+        "topups": 11450.0
+      },
+      {
+        "date": "2026-09-09",
+        "deposits": 61186.09,
+        "net": 30211.57,
+        "payout_count": 39,
+        "payouts": 30980.52,
+        "topups": 6.0
+      },
+      {
+        "date": "2026-09-10",
+        "deposits": 247524.57,
+        "net": 169543.96,
+        "payout_count": 29,
+        "payouts": 77980.61,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-11",
+        "deposits": 76608.25,
+        "net": -31995.08,
+        "payout_count": 47,
+        "payouts": 108612.33,
+        "topups": 9.0
+      },
+      {
+        "date": "2026-09-12",
+        "deposits": 5054.34,
+        "net": -10028.59,
+        "payout_count": 35,
+        "payouts": 15082.93,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-13",
+        "deposits": 38607.04,
+        "net": -1187.8,
+        "payout_count": 18,
+        "payouts": 39794.84,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-14",
+        "deposits": 89519.6,
+        "net": 32052.45,
+        "payout_count": 23,
+        "payouts": 57467.15,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-15",
+        "deposits": 61074.53,
+        "net": 15499.74,
+        "payout_count": 41,
+        "payouts": 45574.79,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-16",
+        "deposits": 18800.09,
+        "net": -100107.16,
+        "payout_count": 37,
+        "payouts": 118907.25,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-17",
+        "deposits": 137308.52,
+        "net": 74332.12,
+        "payout_count": 34,
+        "payouts": 62976.4,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-18",
+        "deposits": 15357.15,
+        "net": -26084.72,
+        "payout_count": 47,
+        "payouts": 91441.87,
+        "topups": 50000.0
+      },
+      {
+        "date": "2026-09-19",
+        "deposits": 2300.0,
+        "net": -60763.96,
+        "payout_count": 42,
+        "payouts": 63063.96,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-20",
+        "deposits": 21736.52,
+        "net": -39607.95,
+        "payout_count": 20,
+        "payouts": 66344.47,
+        "topups": 5000.0
+      },
+      {
+        "date": "2026-09-21",
+        "deposits": 166389.44,
+        "net": -31104.6,
+        "payout_count": 59,
+        "payouts": 227494.04,
+        "topups": 30000.0
+      },
+      {
+        "date": "2026-09-22",
+        "deposits": 74881.71,
+        "net": 84468.21,
+        "payout_count": 62,
+        "payouts": 90413.5,
+        "topups": 100000.0
+      },
+      {
+        "date": "2026-09-23",
+        "deposits": 2662.69,
+        "net": 54241.23,
+        "payout_count": 37,
+        "payouts": 48421.46,
+        "topups": 100000.0
+      },
+      {
+        "date": "2026-09-24",
+        "deposits": 5367.67,
+        "net": 49123.67,
+        "payout_count": 45,
+        "payouts": 56244.0,
+        "topups": 100000.0
+      },
+      {
+        "date": "2026-09-25",
+        "deposits": 107861.73,
+        "net": 122283.7,
+        "payout_count": 121,
+        "payouts": 185578.03,
+        "topups": 200000.0
+      },
+      {
+        "date": "2026-09-26",
+        "deposits": 43631.7,
+        "net": -69276.51,
+        "payout_count": 116,
+        "payouts": 135517.55,
+        "topups": 22609.34
+      },
+      {
+        "date": "2026-09-27",
+        "deposits": 75256.44,
+        "net": -14214.63,
+        "payout_count": 60,
+        "payouts": 89471.07,
+        "topups": 0.0
+      },
+      {
+        "date": "2026-09-28",
+        "deposits": 95185.32,
+        "net": 195150.08,
+        "payout_count": 60,
+        "payouts": 49984.64,
+        "topups": 149949.4
+      },
+      {
+        "date": "2026-09-29",
+        "deposits": 78084.69,
+        "net": 153202.67,
+        "payout_count": 245,
+        "payouts": 224882.02,
+        "topups": 300000.0
+      },
+      {
+        "date": "2026-09-30",
+        "deposits": 73186.81,
+        "net": -101351.83,
+        "payout_count": 408,
+        "payouts": 424538.64,
+        "topups": 250000.0
+      },
+      {
+        "date": "2026-10-01",
+        "deposits": 37906.03,
+        "net": 783059.31,
+        "payout_count": 643,
+        "payouts": 454466.72,
+        "topups": 1199620.0
+      },
+      {
+        "date": "2026-10-02",
+        "deposits": 33411.09,
+        "net": 81461.01,
+        "payout_count": 890,
+        "payouts": 551950.08,
+        "topups": 600000.0
+      },
+      {
+        "date": "2026-10-03",
+        "deposits": 21116.36,
+        "net": -426433.14,
+        "payout_count": 929,
+        "payouts": 547449.5,
+        "topups": 99900.0
+      },
+      {
+        "date": "2026-10-04",
+        "deposits": 15070.0,
+        "net": -286316.71,
+        "payout_count": 286,
+        "payouts": 301386.71,
+        "topups": 0.0
+      }
+    ],
+    "last_topup": {
+      "amount": 99900.0,
+      "chain": "arbitrum",
+      "kind": "safe_to_contract",
+      "t": "2026-10-03T01:09:36Z"
+    },
+    "pace_7d": {
+      "per_day": 369118.15,
+      "volume": 2583827.02
+    },
+    "payout_buckets": [
+      {
+        "count": 2083,
+        "label": "Under $100",
+        "volume": 56923.77
+      },
+      {
+        "count": 1697,
+        "label": "$100\u20131k",
+        "volume": 651972.98
+      },
+      {
+        "count": 490,
+        "label": "$1k\u20135k",
+        "volume": 1046717.28
+      },
+      {
+        "count": 178,
+        "label": "$5k\u201320k",
+        "volume": 1627610.35
+      },
+      {
+        "count": 34,
+        "label": "Over $20k",
+        "volume": 924717.77
+      }
+    ],
+    "payouts_24h": {
+      "count": 403,
+      "volume": 367472.71
+    },
+    "sankey": {
+      "links": [
+        {
+          "source": "Coinbase Prime",
+          "target": "Treasury Safe",
+          "value": 1499499.34
+        },
+        {
+          "source": "Coinbase",
+          "target": "Payout contracts",
+          "value": 1800000.0
+        },
+        {
+          "source": "Treasury Safe",
+          "target": "Payout contracts",
+          "value": 2137068.22
+        },
+        {
+          "source": "Payout contracts",
+          "target": "Recipients",
+          "value": 4307942.15
+        },
+        {
+          "source": "Treasury Safe",
+          "target": "Custody (inferred)",
+          "value": 400110.0
+        }
+      ],
+      "window_days": 30
+    },
+    "window_days": 30
+  },
   "counterparties": [
     {
       "address": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",

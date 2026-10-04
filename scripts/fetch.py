@@ -934,6 +934,145 @@ def flow_summary(transfers, topups, coverage, now):
     return out
 
 
+TOPUP_KINDS = {
+    "coinbase_prime_to_safe",
+    "coinbase_hot_to_contract",
+    "safe_to_contract",
+    "safe_to_lifi",
+    "bridge_to_contract",
+    "inferred_lifi_to_contract",
+}
+
+PAYOUT_BUCKETS = (
+    ("Under $100", Decimal("0"), Decimal("100")),
+    ("$100–1k", Decimal("100"), Decimal("1000")),
+    ("$1k–5k", Decimal("1000"), Decimal("5000")),
+    ("$5k–20k", Decimal("5000"), Decimal("20000")),
+    ("Over $20k", Decimal("20000"), None),
+)
+
+
+def build_charts(transfers, topups, windows, now):
+    """Compact series for the dashboard. Same funding and payout rules as flow_summary."""
+    wallet_by_id = {w["id"]: w for w in WALLETS}
+    monitored = {w["address"].lower() for w in WALLETS}
+    inferred = {(row["tx"], row["wallet_id"]) for row in topups if row["kind"] == "inferred_lifi_to_contract"}
+    cut30 = now - timedelta(days=30)
+    cut7 = now - timedelta(days=7)
+    cut24 = now - timedelta(hours=24)
+    daily = {}
+    day = cut30.date()
+    while day <= now.date():
+        key = day.isoformat()
+        daily[key] = {
+            "date": key,
+            "topups": Decimal("0"),
+            "deposits": Decimal("0"),
+            "payouts": Decimal("0"),
+            "payout_count": 0,
+        }
+        day += timedelta(days=1)
+    bucket_counts = [0 for _ in PAYOUT_BUCKETS]
+    bucket_vol = [Decimal("0") for _ in PAYOUT_BUCKETS]
+    pay24_count = 0
+    pay24_vol = Decimal("0")
+    pace_vol = Decimal("0")
+
+    for tr in transfers:
+        try:
+            ts = parse_iso(tr["t"])
+        except Exception:
+            continue
+        wallet = wallet_by_id.get(tr["w"])
+        if not wallet or wallet.get("kind") not in {"current", "legacy"}:
+            continue
+        if tr.get("d") == "self":
+            continue
+        amount = Decimal(str(tr["a"]))
+        if amount <= 0:
+            continue
+        party = (tr.get("p") or "").lower()
+        day_key = ts.date().isoformat()
+        if tr["d"] == "in" and ts >= cut30 and day_key in daily:
+            if (tr.get("h"), tr["w"]) in inferred or _funding_party(tr):
+                daily[day_key]["topups"] += amount
+            elif party not in monitored:
+                daily[day_key]["deposits"] += amount
+        elif tr["d"] == "out" and is_withdraw(tr) and party not in monitored and not is_custody_move(tr, wallet):
+            if ts >= cut24:
+                pay24_count += 1
+                pay24_vol += amount
+            if ts >= cut7:
+                pace_vol += amount
+            if ts >= cut30 and day_key in daily:
+                daily[day_key]["payouts"] += amount
+                daily[day_key]["payout_count"] += 1
+                for i, (_label, lo, hi) in enumerate(PAYOUT_BUCKETS):
+                    if amount >= lo and (hi is None or amount < hi):
+                        bucket_counts[i] += 1
+                        bucket_vol[i] += amount
+                        break
+
+    last_top = None
+    for row in topups:
+        if row.get("kind") not in TOPUP_KINDS:
+            continue
+        if last_top is None or row["t"] > last_top["t"]:
+            last_top = {
+                "t": row["t"],
+                "kind": row["kind"],
+                "amount": row["amount"],
+                "chain": row.get("chain"),
+            }
+
+    amounts = ((windows or {}).get("30") or {}).get("amounts") or {}
+    payout_vol = sum((row["payouts"] for row in daily.values()), Decimal("0"))
+
+    def add_link(links, source, target, value):
+        amount = float(money_d(value))
+        if amount > 0:
+            links.append({"source": source, "target": target, "value": amount})
+
+    links = []
+    add_link(links, "Coinbase Prime", "Treasury Safe", amounts.get("coinbase_prime_to_safe") or 0)
+    add_link(links, "Coinbase", "Payout contracts", amounts.get("coinbase_hot_to_contract") or 0)
+    safe_out = Decimal(str(amounts.get("safe_to_contract") or 0)) + Decimal(str(amounts.get("safe_to_lifi") or 0))
+    add_link(links, "Treasury Safe", "Payout contracts", safe_out)
+    add_link(links, "Payout contracts", "Recipients", payout_vol)
+    add_link(links, "Treasury Safe", "Custody (inferred)", amounts.get("moved_to_custody") or 0)
+
+    return {
+        "as_of": iso(now),
+        "window_days": 30,
+        "payouts_24h": {"count": pay24_count, "volume": float(money_d(pay24_vol))},
+        "pace_7d": {
+            "volume": float(money_d(pace_vol)),
+            "per_day": float(money_d(pace_vol / Decimal("7"))),
+        },
+        "last_topup": last_top,
+        "daily_flows": [
+            {
+                "date": row["date"],
+                "topups": float(money_d(row["topups"])),
+                "deposits": float(money_d(row["deposits"])),
+                "payouts": float(money_d(row["payouts"])),
+                "payout_count": row["payout_count"],
+                "net": float(money_d(row["topups"] + row["deposits"] - row["payouts"])),
+            }
+            for row in daily.values()
+        ],
+        "payout_buckets": [
+            {
+                "label": PAYOUT_BUCKETS[i][0],
+                "count": bucket_counts[i],
+                "volume": float(money_d(bucket_vol[i])),
+            }
+            for i in range(len(PAYOUT_BUCKETS))
+        ],
+        "sankey": {"window_days": 30, "links": links},
+    }
+
+
 def withdrawal_stats(transfers, wallet_ids, now):
     out = {}
     for wid in wallet_ids:
@@ -1542,6 +1681,7 @@ def main():
         larges = large_moves(kept, started)
         flows_windows = {"7": flow_sums(topups, 7, started), "30": flow_sums(topups, 30, started)}
         summary = flow_summary(kept, topups, coverage, started)
+        charts = build_charts(kept, topups, flows_windows, started)
     except Exception as exc:
         errors.append(f"flow math: {exc}")
         topups = previous_flows.get("topups") or []
@@ -1549,6 +1689,7 @@ def main():
         larges = previous_flows.get("large_moves") or []
         flows_windows = previous_flows.get("windows") or {}
         summary = previous_flows.get("flow_summary") or {}
+        charts = previous_flows.get("charts") or {}
 
     if not previous_latest:
         since = []
@@ -1598,6 +1739,7 @@ def main():
         "generated_at": iso(started),
         "windows": flows_windows,
         "flow_summary": summary,
+        "charts": charts,
         "topups": [r for r in topups if parse_iso(r["t"]) >= started - timedelta(days=30)][:300],
         "withdrawals": withdrawals,
         "large_moves": larges,

@@ -5,23 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Vest USDC monitor</title>
   <meta name="description" content="Public on-chain USDC balances and transfers for a monitored set of wallets associated with Vest Markets.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="top">
     <div class="wrap top-row">
       <div>
-        <p class="eyebrow">Public on-chain monitor</p>
-        <h1>Vest USDC</h1>
+        <p class="eyebrow">On-chain USDC</p>
+        <h1>Vest wallets</h1>
       </div>
-      <nav>
-        <a href="#liquidity">Liquidity</a>
-        <a href="#wallets">Wallets</a>
-        <a href="#flows">Top-ups</a>
-        <a href="#payouts">Payouts</a>
-        <a href="#moves">Large moves</a>
-        <a href="#method">Methodology</a>
-      </nav>
+      <p class="updated" id="updated">Loading snapshot…</p>
     </div>
   </header>
   <main id="app" class="wrap">

@@ -8,7 +8,7 @@ Data from public blockchains. Not financial advice. Not affiliated with Vest Mar
 
 ## Live data
 
-The page is static files at the repository root. Paths to `data/` are relative so the same page works from GitHub Pages or from a raw file host. GitHub Pages is not enabled on this repository yet. Until it is, the page is viewed from the default branch with relative assets.
+The page is static files at the repository root. Paths to `data/` are relative so the same page works from GitHub Pages or from a raw file host. GitHub Pages is not enabled on this repository yet. Until it is, the page is viewed from the default branch with relative assets. The front page leads with a one-sentence summary, four figures, and charts. Wallet tables and methodology sit further down, collapsed.
 
 The workflow is **Refresh on-chain data** (`.github/workflows/refresh.yml`). The schedule is `9,29,49 * * * *`, plus `workflow_dispatch`. GitHub has registered that cron and it does start some runs, but most 20-minute slots are dropped. After a successful run the job waits 12 minutes and, if nothing is already queued, dispatches the same workflow on `main` with `GITHUB_TOKEN`. That dispatch is allowed from `GITHUB_TOKEN`; ordinary token pushes are not. The cron remains as a backup.
 
@@ -26,7 +26,7 @@ JSON for other tools, on the default branch:
 | --- | --- |
 | `data/latest.json` | Current balances, totals, transfers since the previous run, read errors |
 | `data/history.json` | Append-only balance points for the seven seed wallets, plus daily reconstruction when transfer history is complete |
-| `data/flows.json` | 7- and 30-day top-up sums, 1/7/30-day contract flow summary, custody moves, withdrawal stats, large moves, role checks, zkSync router check |
+| `data/flows.json` | 7- and 30-day top-up sums, 1/7/30-day contract flow summary, chart series (daily flows, payout sizes, Sankey links), custody moves, withdrawal stats, large moves, role checks, zkSync router check |
 | `data/transfers.json` | Rolling transfer log (about 120 days) used to rebuild the aggregates |
 | `data/sync.json` | Per-wallet scan cursor, so a later run continues a 90-day backfill instead of starting over |
 | `data/seed-history.csv` | Hourly seed from 2026-10-02 21:35 Europe/Madrid (CEST). `NA` is a failed read and is not treated as zero |
