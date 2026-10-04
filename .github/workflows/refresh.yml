@@ -5,6 +5,12 @@ on:
     # GitHub may delay scheduled runs. Three times an hour, offset from :00.
     - cron: "9,29,49 * * * *"
   workflow_dispatch:
+  # A change to this file also starts a run. Data commits do not match this path,
+  # so the job does not retrigger itself.
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/refresh.yml
 
 permissions:
   contents: write
