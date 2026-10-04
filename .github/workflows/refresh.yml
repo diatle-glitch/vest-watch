@@ -2,12 +2,15 @@ name: Refresh on-chain data
 
 on:
   schedule:
-    # GitHub may delay scheduled runs. Three times an hour, offset from :00.
+    # GitHub drops many sub-hourly schedule slots under load, including on an
+    # active workflow. The cron stays as a backup. The re-arm step below is the
+    # cadence that keeps runs coming when a slot is skipped.
     # Re-saved by the repo owner so the schedule registers under a user account.
     - cron: "9,29,49 * * * *"
   workflow_dispatch:
   # A change to this file also starts a run. Data commits do not match this path,
-  # so the job does not retrigger itself.
+  # so the job does not retrigger itself. GITHUB_TOKEN pushes do not start
+  # workflow runs except workflow_dispatch, which the re-arm step uses.
   push:
     branches: [main]
     paths:
@@ -15,6 +18,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: vest-watch-refresh
@@ -23,7 +27,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,3 +51,23 @@ jobs:
           fi
           git commit -m "Update on-chain USDC snapshot"
           git push
+
+      - name: Re-arm the refresh if nothing is queued
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Sub-hourly cron on this repo has been registered and has fired, but
+          # most 20-minute slots never start. Wait, then dispatch this workflow
+          # on main unless a run is already queued (a cron that landed during
+          # the wait, or another dispatch). The concurrency group serializes them.
+          echo "Waiting 12 minutes before checking the queue"
+          sleep 720
+          queued=$(gh run list --workflow refresh.yml --limit 30 --json status,databaseId \
+            --jq '[.[] | select(.status=="queued" or .status=="pending" or .status=="waiting" or .status=="requested")] | length')
+          echo "queued_or_pending=$queued"
+          if [ "$queued" != "0" ]; then
+            echo "A run is already queued; not dispatching"
+            exit 0
+          fi
+          gh workflow run refresh.yml --ref main

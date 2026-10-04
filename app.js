@@ -166,7 +166,46 @@ function flowDiagram(windowData) {
       ${arrow(a.safe_to_contract, "Safe direct to contracts")}
       ${box("Contracts", "all monitored chains")}
     </div>
-    <p class="note">Inferred LI.FI completions at contracts, matched by amount and time: <strong>${usd.format(a.inferred_lifi_to_contract || 0)}</strong>. Bridge-labeled arrivals (mint, LI.FI, TokenMinter, or TokenMessenger as the token sender): <strong>${usd.format(a.bridge_to_contract || 0)}</strong>. The inferred matches are labeled as inferences in the table.</p>`;
+    <p class="note">Inferred LI.FI completions at contracts, matched by amount and time: <strong>${usd.format(a.inferred_lifi_to_contract || 0)}</strong>. Bridge-labeled arrivals (mint, LI.FI, TokenMinter, or TokenMessenger as the token sender): <strong>${usd.format(a.bridge_to_contract || 0)}</strong>. The inferred matches are labeled as inferences in the table. Treasury Safe outflows classified as moved to custody (inferred): <strong>${usd.format(a.moved_to_custody || 0)}</strong>. Those go to Coinbase, Coinbase Prime, or the deposit forwarder, and they are not payouts.</p>`;
+}
+
+function summaryCell(block, key, signed) {
+  if (!block) return "<span class='muted'>—</span>";
+  const v = block[key];
+  if (signed) return delta(v);
+  return usd.format(v || 0);
+}
+
+function flowSummaryTable(summary) {
+  const d1 = summary?.["1"];
+  const d7 = summary?.["7"];
+  const d30 = summary?.["30"];
+  const partialNotes = [
+    ["1-day", d1],
+    ["7-day", d7],
+    ["30-day", d30],
+  ].filter(([, block]) => block?.partial_wallets?.length)
+    .map(([label, block]) => `${label} (${block.partial_wallets.join(", ")})`);
+  return `
+    <div class="flow-summary">
+      <h3>Contract flows</h3>
+      <div class="scroll"><table>
+        <thead><tr><th></th><th class="num">1 day</th><th class="num">7 days</th><th class="num">30 days</th></tr></thead>
+        <tbody>
+          <tr><td>Treasury top-ups</td><td class="num">${summaryCell(d1, "treasury_topups")}</td><td class="num">${summaryCell(d7, "treasury_topups")}</td><td class="num">${summaryCell(d30, "treasury_topups")}</td></tr>
+          <tr><td>User deposits</td><td class="num">${summaryCell(d1, "user_deposits")}</td><td class="num">${summaryCell(d7, "user_deposits")}</td><td class="num">${summaryCell(d30, "user_deposits")}</td></tr>
+          <tr><td>Filtered outflows</td><td class="num">${summaryCell(d1, "filtered_outflows")}</td><td class="num">${summaryCell(d7, "filtered_outflows")}</td><td class="num">${summaryCell(d30, "filtered_outflows")}</td></tr>
+          <tr><td>Net</td><td class="num">${summaryCell(d1, "net", true)}</td><td class="num">${summaryCell(d7, "net", true)}</td><td class="num">${summaryCell(d30, "net", true)}</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Funding into the payout and deposit contracts. Treasury top-ups are inflows from the Treasury Safe, Coinbase, Coinbase Prime, LI.FI, or a mint/bridge sender, including inferred LI.FI completions. User deposits are other external inflows. Filtered outflows are <span class="mono">withdraw</span> transfers to addresses outside the monitored set. Net is top-ups plus user deposits minus those outflows. Custody moves are excluded.</p>
+      ${partialNotes.length ? `<p class="note">Transfer history does not yet cover: ${partialNotes.map(esc).join("; ")}.</p>` : ""}
+    </div>`;
+}
+
+function flowKind(r) {
+  if (r.kind === "moved_to_custody") return `${badge("inferred")} moved to custody (inferred)`;
+  return `${r.inferred ? badge("inferred") : badge("observed")} <span class="muted">${esc(r.kind)}</span>`;
 }
 
 function render(latest, history, flows) {
@@ -184,11 +223,14 @@ function render(latest, history, flows) {
           <p class="note">Sum of USDC balances read from the wallets in the table below. This is not a figure published by Vest, and it is not a count of virtual or funded-account balances described in Vest’s terms.</p>
         </div>
       </div>
-      <div class="cards">
-        <div class="card stat"><div class="label">Total</div><div class="value">${usd.format(t.usdc || 0)}</div><div class="sub">${t.partial ? "Partial — at least one read failed and an older balance was kept" : "All listed wallets read this run"}</div></div>
-        <div class="card stat"><div class="label">Change, 24h</div><div class="value">${delta(t.change_24h)}</div><div class="sub">Core wallets with a prior point</div></div>
-        <div class="card stat"><div class="label">Change, 7d</div><div class="value">${delta(t.change_7d)}</div><div class="sub">Shown when every core wallet has a point that far back</div></div>
-        <div class="card stat"><div class="label">Last updated</div><div class="value" style="font-size:1rem">${esc(fmtTime(when, "UTC"))} UTC</div><div class="sub">${esc(fmtTime(when, "Europe/Madrid"))} Europe/Madrid</div></div>
+      <div class="headline-grid">
+        <div class="cards">
+          <div class="card stat"><div class="label">Total</div><div class="value">${usd.format(t.usdc || 0)}</div><div class="sub">${t.partial ? "Partial — at least one read failed and an older balance was kept" : "All listed wallets read this run"}</div></div>
+          <div class="card stat"><div class="label">Change, 24h</div><div class="value">${delta(t.change_24h)}</div><div class="sub">Core wallets with a prior point</div></div>
+          <div class="card stat"><div class="label">Change, 7d</div><div class="value">${delta(t.change_7d)}</div><div class="sub">Shown when every core wallet has a point that far back</div></div>
+          <div class="card stat"><div class="label">Last updated</div><div class="value" style="font-size:1rem">${esc(fmtTime(when, "UTC"))} UTC</div><div class="sub">${esc(fmtTime(when, "Europe/Madrid"))} Europe/Madrid</div></div>
+        </div>
+        ${flowSummaryTable(flows.flow_summary)}
       </div>
       ${latest.errors?.length ? `<p class="note">Read warnings this run: ${latest.errors.length}. Previous balances are kept when a new read fails.</p>` : ""}
     </section>
@@ -227,19 +269,33 @@ function render(latest, history, flows) {
           <button data-d="30">30 days</button>
         </div>
       </div>
-      <p class="note">Observed USDC transfers: Coinbase Prime 1 into the Treasury Safe, the Safe into the LI.FI diamond, the Safe directly into contracts, and the Coinbase hot wallet into the Base contract. A contract inflow is an inferred LI.FI completion only when its amount is within 3% of a Safe → LI.FI transfer and it lands within 6 hours.</p>
+      <p class="note">Observed USDC transfers: Coinbase Prime 1 into the Treasury Safe, the Safe into the LI.FI diamond, the Safe directly into contracts, and the Coinbase hot wallet into the Base contract. A contract inflow is an inferred LI.FI completion only when its amount is within 3% of a Safe → LI.FI transfer and it lands within 6 hours. Treasury Safe outflows to Coinbase, Coinbase Prime, or the deposit forwarder are listed separately as moved to custody (inferred).</p>
       <div id="flow-diagram">${flowDiagram(flows.windows?.["7"])}</div>
       <h3>Top-ups, last 30 days</h3>
       <div class="scroll"><table>
         <thead><tr><th>Time (UTC)</th><th>Kind</th><th class="num">USDC</th><th>Path</th><th>Tx</th></tr></thead>
         <tbody>
-          ${(flows.topups || []).map((r) => `<tr>
+          ${(flows.topups || []).filter((r) => r.kind !== "moved_to_custody").map((r) => `<tr>
             <td>${esc(fmtTime(r.t, "UTC"))}</td>
-            <td>${r.inferred ? badge("inferred") : badge("observed")} <span class="muted">${esc(r.kind)}</span></td>
+            <td>${flowKind(r)}</td>
             <td class="num">${usd.format(r.amount)}</td>
             <td>${esc(r.counterparty_label || short(r.counterparty))} · ${esc(r.chain)} ${esc(r.wallet_role)}</td>
             <td><a href="${esc(r.tx_url)}" rel="noopener">${esc(short(r.tx))}</a></td>
           </tr>`).join("") || `<tr><td colspan="5" class="muted">No classified top-ups in the stored window.</td></tr>`}
+        </tbody>
+      </table></div>
+      <h3>Moved to custody (inferred)</h3>
+      <p class="note">Treasury Safe USDC sent to the Coinbase Prime deposit forwarder <span class="mono">0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77</span>, or directly to Coinbase or Coinbase Prime. These rows are not payouts and are not treated as losses. The forwarder is not included in the balance total.</p>
+      <div class="scroll"><table>
+        <thead><tr><th>Time (UTC)</th><th>Class</th><th class="num">USDC</th><th>To</th><th>Tx</th></tr></thead>
+        <tbody>
+          ${(flows.topups || []).filter((r) => r.kind === "moved_to_custody").map((r) => `<tr>
+            <td>${esc(fmtTime(r.t, "UTC"))}</td>
+            <td>${flowKind(r)}</td>
+            <td class="num">${usd.format(r.amount)}</td>
+            <td>${esc(r.counterparty_label || short(r.counterparty))}</td>
+            <td><a href="${esc(r.tx_url)}" rel="noopener">${esc(short(r.tx))}</a></td>
+          </tr>`).join("") || `<tr><td colspan="5" class="muted">No custody moves in the stored window.</td></tr>`}
         </tbody>
       </table></div>
     </section>
@@ -259,7 +315,7 @@ function render(latest, history, flows) {
 
     <section class="card" id="moves">
       <h2>Latest large moves</h2>
-      <p class="note">USDC transfers of at least $10,000 in or out of a monitored wallet, over the last 30 days of stored history.</p>
+      <p class="note">USDC transfers of at least $10,000 in or out of a monitored wallet, over the last 30 days of stored history. A row marked moved to custody (inferred) is a Treasury Safe transfer to Coinbase, Coinbase Prime, or the deposit forwarder. It is not a payout.</p>
       <div class="scroll"><table>
         <thead><tr><th>Time (UTC)</th><th>Wallet</th><th>Dir</th><th class="num">USDC</th><th>Counterparty</th><th>Tx</th></tr></thead>
         <tbody>
@@ -268,7 +324,7 @@ function render(latest, history, flows) {
             <td>${esc(r.chain)} · ${esc(r.wallet_role)}</td>
             <td>${esc(r.direction)}</td>
             <td class="num">${usd.format(r.amount)}</td>
-            <td>${esc(r.counterparty_label || short(r.counterparty))}</td>
+            <td>${esc(r.counterparty_label || short(r.counterparty))}${r.classification ? `<div>${badge("inferred")} ${esc(r.classification)}</div>` : ""}</td>
             <td><a href="${esc(r.tx_url)}" rel="noopener">${esc(short(r.tx))}</a></td>
           </tr>`).join("") || `<tr><td colspan="6" class="muted">None in the stored window.</td></tr>`}
         </tbody>
@@ -279,13 +335,15 @@ function render(latest, history, flows) {
       <h2>Methodology and sources</h2>
       <h3>How the numbers are computed</h3>
       <ul>
-        <li>Balances are <span class="mono">eth_call</span> of <span class="mono">balanceOf</span> on the USDC contract, divided by 10^decimals. Ethereum, Base, and Arbitrum USDC use 6 decimals. BSC USDC <span class="mono">0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d</span> uses 18 decimals. Optimism and Polygon also try bridged USDC.e if native USDC is zero.</li>
+        <li>Balances are an RPC <span class="mono">eth_call</span> of <span class="mono">balanceOf</span> on the USDC contract, divided by 10^decimals. Ethereum, Base, and Arbitrum USDC use 6 decimals. BSC USDC <span class="mono">0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d</span> uses 18 decimals. Optimism and Polygon also try bridged USDC.e if native USDC is zero. Blockscout’s <span class="mono">/token-balances</span> endpoint can lag that read. On 4 Oct 2026 it still showed $378.7k for the Base contract <span class="mono">0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF</span> when the live <span class="mono">balanceOf</span> was $216.9k.</li>
+        <li>Inference: the on-chain wallets appear to act as a payout float topped up in batches from Coinbase and Coinbase Prime. Custody and exchange balances are not visible on-chain, so the tracked total is not total firm reserves.</li>
         <li>RPCs are public endpoints (PublicNode, chain defaults, 1RPC, Ankr), tried in order with retries. A failed read keeps the previous stored balance and marks the wallet stale. It does not write a zero.</li>
         <li>Transfers on Ethereum, Base, Arbitrum, Optimism, and Polygon come from Blockscout v2 <span class="mono">/api/v2/addresses/{address}/token-transfers</span>. BSC Blockscout hosts did not respond for this job, so BSC transfers are <span class="mono">eth_getLogs</span> of the USDC <span class="mono">Transfer</span> event. BSC timestamps inside a log chunk are estimated from the chunk’s end block.</li>
         <li>The headline total adds every wallet listed in the table, including a stale previous balance when a new read fails. 24h and 7d changes use the last stored point at or before that horizon for each core wallet, and sum those deltas. A change is left blank when no earlier point exists inside the allowed gap.</li>
         <li>History in <span class="mono">data/history.json</span> is append-only. The seed file is hourly snapshots from 2026-10-02 21:35 Europe/Madrid (CEST, UTC+2). New points are appended when a balance changes or at least 55 minutes after the previous point. <span class="mono">NA</span> in the seed is a failed read and is stored as null, not zero.</li>
         <li>Daily backfill, when the transfer scan reached 90 days and the balance read succeeded, is the current balance minus later USDC transfers. It stops where an earlier day would imply a negative balance. A transfer between two monitored wallets is copied to the other wallet when the explorer returned only one side.</li>
-        <li>Withdrawal stats count only <span class="mono">withdraw</span> / <span class="mono">0xbd69a7ae</span> outs. Median is the middle value, or the mean of the two middle values when the count is even.</li>
+        <li>The 1/7/30-day table next to the balance sums funding into the current and older payout/deposit contracts. Treasury top-ups are inflows from the Treasury Safe, Coinbase hot wallet, Coinbase Prime, LI.FI, a zero-address mint, a sender whose name contains LI.FI, minter, or messenger, or an inferred LI.FI completion. User deposits are other inflows from addresses that are not monitored wallets. A transfer between two monitored wallets is omitted so the Safe hop is not counted twice. Filtered outflows are <span class="mono">withdraw</span> / <span class="mono">0xbd69a7ae</span> outs to an address outside the monitored set. Net is treasury top-ups plus user deposits minus those outflows. The window is marked partial when a contract’s transfer scan has not reached the start of that window.</li>
+        <li>Withdrawal stats count only <span class="mono">withdraw</span> / <span class="mono">0xbd69a7ae</span> outs. Median is the middle value, or the mean of the two middle values when the count is even. Treasury Safe outflows to <span class="mono">0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77</span> (labeled Coinbase Prime deposit forwarder, inferred), or directly to Coinbase or Coinbase Prime, are classified as moved to custody (inferred) in the flow and large-move tables. They are not payouts and are not counted in filtered outflows. That forwarder address is not a tracked balance.</li>
       </ul>
       ${incomplete.length ? `<p class="note">Transfer history has not yet reached the 90-day cutoff for: ${incomplete.map(([id]) => esc(id)).join(", ")}. Those stats cover the transfers stored so far. Later scheduled runs continue the backfill.</p>` : `<p class="note">Transfer scans that report reached_cutoff include transfers back to the lookback window.</p>`}
       <p class="note">Machine-readable files: <a href="data/latest.json">data/latest.json</a> (totals, per-wallet balances, <span class="mono">transfers_since_last_run</span>), <a href="data/history.json">data/history.json</a>, <a href="data/flows.json">data/flows.json</a>. Raw: <span class="mono">https://raw.githubusercontent.com/diatle-glitch/vest-watch/main/data/latest.json</span></p>

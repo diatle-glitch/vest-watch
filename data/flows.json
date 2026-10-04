@@ -29,6 +29,12 @@
       "basis": "eth_call router() on Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a.",
       "id": "router",
       "label": "router()"
+    },
+    {
+      "address": "0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77",
+      "basis": "Inference, not a tracked balance. On the Ethereum USDC transfers reviewed for this address, each outbound transfer goes to Coinbase Prime 1 (0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b) in the same minute. On 2026-10-03 at 01:10 UTC the Treasury Safe sent 400,000 USDC here, and that amount was forwarded to Coinbase Prime 1 in the transaction starting 0xd71f29e5. Treasury Safe outflows to this address, and Treasury Safe outflows directly to Coinbase or Coinbase Prime, are classified as moved to custody (inferred).",
+      "id": "coinbase_forwarder",
+      "label": "Coinbase Prime deposit forwarder (inferred)"
     }
   ],
   "coverage": {
@@ -123,11 +129,44 @@
       "source": "https://eth.blockscout.com"
     }
   },
+  "flow_summary": {
+    "1": {
+      "days": 1,
+      "filtered_outflows": 367472.71,
+      "net": -352093.61,
+      "partial_wallets": [],
+      "treasury_topups": 0.0,
+      "user_deposits": 15379.1
+    },
+    "30": {
+      "days": 30,
+      "filtered_outflows": 4307942.15,
+      "net": 755974.37,
+      "partial_wallets": [
+        "bsc_contract",
+        "bsc_old"
+      ],
+      "treasury_topups": 3239043.74,
+      "user_deposits": 1824872.78
+    },
+    "7": {
+      "days": 7,
+      "filtered_outflows": 2583827.02,
+      "net": 416147.34,
+      "partial_wallets": [
+        "bsc_contract",
+        "bsc_old"
+      ],
+      "treasury_topups": 2599469.4,
+      "user_deposits": 400504.96
+    }
+  },
   "generated_at": "2026-10-04T18:44:58Z",
   "large_moves": [
     {
       "amount": 10000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x9fa515502AA546e38663a35013D31Ffa1cB5A2BB",
       "counterparty_label": null,
       "direction": "out",
@@ -142,6 +181,7 @@
     {
       "amount": 15000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xB6eD016dEF408c2B441283d84F23c07C0818633F",
       "counterparty_label": null,
       "direction": "in",
@@ -156,6 +196,7 @@
     {
       "amount": 10493.75,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xa0c49112Bc5718254BE916d7C0793F1bbAbdCD63",
       "counterparty_label": null,
       "direction": "out",
@@ -170,6 +211,7 @@
     {
       "amount": 10221.26,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xc9F4C658E72e9d03061D87b7109909747E5B0873",
       "counterparty_label": null,
       "direction": "out",
@@ -184,6 +226,7 @@
     {
       "amount": 11101.92,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xf8DCD686b19Fe5a2cAB4432782B43766A7C927e3",
       "counterparty_label": null,
       "direction": "out",
@@ -198,6 +241,7 @@
     {
       "amount": 20240.03,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4f7a7D8E72bfef904d7417dE3d7A617e69f75d56",
       "counterparty_label": null,
       "direction": "out",
@@ -212,6 +256,7 @@
     {
       "amount": 13528.31,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4f7a7D8E72bfef904d7417dE3d7A617e69f75d56",
       "counterparty_label": null,
       "direction": "out",
@@ -226,6 +271,7 @@
     {
       "amount": 17409.1,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x1842D5a27cC928cEB03E17f285f26EcD7Ea7086E",
       "counterparty_label": null,
       "direction": "out",
@@ -240,6 +286,7 @@
     {
       "amount": 20000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x673C716DF2950eA9d2783E394Db131Dda33475ea",
       "counterparty_label": null,
       "direction": "in",
@@ -254,6 +301,7 @@
     {
       "amount": 11747.02,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x823e8e82B64370A8345c34e42599bE2f252ebBcD",
       "counterparty_label": null,
       "direction": "out",
@@ -268,6 +316,7 @@
     {
       "amount": 24870.14,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xa0c49112Bc5718254BE916d7C0793F1bbAbdCD63",
       "counterparty_label": null,
       "direction": "out",
@@ -282,6 +331,7 @@
     {
       "amount": 18305.4,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x21D0863f12716fd9743947ddA266A07277961bF9",
       "counterparty_label": null,
       "direction": "out",
@@ -296,6 +346,7 @@
     {
       "amount": 15035.62,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xf8DCD686b19Fe5a2cAB4432782B43766A7C927e3",
       "counterparty_label": null,
       "direction": "out",
@@ -310,6 +361,7 @@
     {
       "amount": 15403.02,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x27723157CF19F9d7459D2e7Ec02295ca15248f6a",
       "counterparty_label": null,
       "direction": "out",
@@ -324,8 +376,9 @@
     {
       "amount": 400000.0,
       "chain": "ethereum",
+      "classification": "moved to custody (inferred)",
       "counterparty": "0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77",
-      "counterparty_label": null,
+      "counterparty_label": "Coinbase Prime deposit forwarder (inferred)",
       "direction": "out",
       "method": "0x6a761202",
       "t": "2026-10-03T01:10:23Z",
@@ -338,6 +391,7 @@
     {
       "amount": 99900.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "counterparty_label": "Current payout/deposit contract",
       "direction": "out",
@@ -352,6 +406,7 @@
     {
       "amount": 99900.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "counterparty_label": "Treasury Safe",
       "direction": "in",
@@ -366,6 +421,7 @@
     {
       "amount": 99900.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x0000000000000000000000000000000000000000",
       "counterparty_label": "Mint / zero address",
       "direction": "in",
@@ -380,6 +436,7 @@
     {
       "amount": 100000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "counterparty_label": "LI.FI diamond",
       "direction": "out",
@@ -394,6 +451,7 @@
     {
       "amount": 600000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
       "counterparty_label": "Coinbase hot wallet",
       "direction": "in",
@@ -408,6 +466,7 @@
     {
       "amount": 100000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
       "counterparty_label": "Coinbase Prime 1",
       "direction": "in",
@@ -422,6 +481,7 @@
     {
       "amount": 17991.69,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xbb2e02Cf528Fc5Ccb454544Dd332E048F535686B",
       "counterparty_label": null,
       "direction": "out",
@@ -436,6 +496,7 @@
     {
       "amount": 22954.76,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xa0F3258bfc7D9f30BDf6d0699D834C61b56b7cB2",
       "counterparty_label": null,
       "direction": "out",
@@ -450,6 +511,7 @@
     {
       "amount": 16387.7,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x197B865661458Fd333BC1ed881737C6e72425b89",
       "counterparty_label": null,
       "direction": "out",
@@ -464,6 +526,7 @@
     {
       "amount": 20000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x2f2c91a08aa283359B41850ADb9eA3D65b36f3d3",
       "counterparty_label": null,
       "direction": "out",
@@ -478,6 +541,7 @@
     {
       "amount": 22440.47,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x823e8e82B64370A8345c34e42599bE2f252ebBcD",
       "counterparty_label": null,
       "direction": "out",
@@ -492,6 +556,7 @@
     {
       "amount": 23134.7,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x44D005c822FBB9Ae7d5115cB9D666EA1E1F5Ff59",
       "counterparty_label": null,
       "direction": "out",
@@ -506,6 +571,7 @@
     {
       "amount": 16000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "in",
@@ -520,6 +586,7 @@
     {
       "amount": 24700.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "out",
@@ -534,6 +601,7 @@
     {
       "amount": 20000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x35EF3C419eC40173f42A64aC65C26d9Dbd405bea",
       "counterparty_label": null,
       "direction": "out",
@@ -548,6 +616,7 @@
     {
       "amount": 20000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x673C716DF2950eA9d2783E394Db131Dda33475ea",
       "counterparty_label": null,
       "direction": "out",
@@ -562,6 +631,7 @@
     {
       "amount": 10750.96,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x3e1D7beB16fE7fc6ba43E7Ea10E017aa68DdB6Ad",
       "counterparty_label": null,
       "direction": "out",
@@ -576,6 +646,7 @@
     {
       "amount": 599810.05,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0xCa5D6E2e708E4323bE610FCc3C054143D751DFaD",
       "counterparty_label": null,
       "direction": "in",
@@ -590,6 +661,7 @@
     {
       "amount": 35189.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xae1D93BD0822584C8fA759522d4BC007ce105c1a",
       "counterparty_label": null,
       "direction": "out",
@@ -604,6 +676,7 @@
     {
       "amount": 399620.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "counterparty_label": "Current payout/deposit contract",
       "direction": "out",
@@ -618,6 +691,7 @@
     {
       "amount": 399620.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "counterparty_label": "Treasury Safe",
       "direction": "in",
@@ -632,6 +706,7 @@
     {
       "amount": 14352.97,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x823e8e82B64370A8345c34e42599bE2f252ebBcD",
       "counterparty_label": null,
       "direction": "out",
@@ -646,6 +721,7 @@
     {
       "amount": 100000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
       "counterparty_label": "Coinbase Prime 1",
       "direction": "in",
@@ -660,6 +736,7 @@
     {
       "amount": 13160.48,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xe45D29eF5071ecfe1d12cefada31232295512A9B",
       "counterparty_label": null,
       "direction": "out",
@@ -674,6 +751,7 @@
     {
       "amount": 399720.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x0000000000000000000000000000000000000000",
       "counterparty_label": "Mint / zero address",
       "direction": "in",
@@ -688,6 +766,7 @@
     {
       "amount": 400000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "counterparty_label": "LI.FI diamond",
       "direction": "out",
@@ -702,6 +781,7 @@
     {
       "amount": 600000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
       "counterparty_label": "Coinbase hot wallet",
       "direction": "in",
@@ -716,6 +796,7 @@
     {
       "amount": 400000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
       "counterparty_label": "Coinbase Prime 1",
       "direction": "in",
@@ -730,6 +811,7 @@
     {
       "amount": 14000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "out",
@@ -744,6 +826,7 @@
     {
       "amount": 51996.77,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x097FD586fE2938653dfd8f404387436bEDedE596",
       "counterparty_label": null,
       "direction": "out",
@@ -758,6 +841,7 @@
     {
       "amount": 12347.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "in",
@@ -772,6 +856,7 @@
     {
       "amount": 11041.21,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4447965BC519afA34084cedEcC7725CC4c0249FE",
       "counterparty_label": null,
       "direction": "out",
@@ -786,6 +871,7 @@
     {
       "amount": 99900.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "counterparty_label": "Current payout/deposit contract",
       "direction": "out",
@@ -800,6 +886,7 @@
     {
       "amount": 99900.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "counterparty_label": "Treasury Safe",
       "direction": "in",
@@ -814,6 +901,7 @@
     {
       "amount": 12400.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "out",
@@ -828,6 +916,7 @@
     {
       "amount": 99900.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x0000000000000000000000000000000000000000",
       "counterparty_label": "Mint / zero address",
       "direction": "in",
@@ -842,6 +931,7 @@
     {
       "amount": 100000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "counterparty_label": "LI.FI diamond",
       "direction": "out",
@@ -856,6 +946,7 @@
     {
       "amount": 200000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
       "counterparty_label": "Coinbase hot wallet",
       "direction": "in",
@@ -870,6 +961,7 @@
     {
       "amount": 50000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
       "counterparty_label": "Coinbase Prime 1",
       "direction": "in",
@@ -884,6 +976,7 @@
     {
       "amount": 100000.0,
       "chain": "ethereum",
+      "classification": null,
       "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
       "counterparty_label": "Coinbase Prime 1",
       "direction": "in",
@@ -898,6 +991,7 @@
     {
       "amount": 10634.75,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xCf666A1dB3c2219De3a5802c544f5997022aB9ed",
       "counterparty_label": null,
       "direction": "out",
@@ -912,6 +1006,7 @@
     {
       "amount": 14999.9,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x44C8f8266e9E77bC20A261AD25391211e4B97D0f",
       "counterparty_label": null,
       "direction": "in",
@@ -926,6 +1021,7 @@
     {
       "amount": 10000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xD41465eC4DE327F1107F1dB78251B04Ab252C512",
       "counterparty_label": null,
       "direction": "out",
@@ -940,6 +1036,7 @@
     {
       "amount": 10128.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x6d10390770E821c4529d32E7903E941C96f01E5a",
       "counterparty_label": null,
       "direction": "out",
@@ -954,6 +1051,7 @@
     {
       "amount": 10137.72,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x552340FCd9829BdE5254c798e116ebC5F237A64b",
       "counterparty_label": null,
       "direction": "out",
@@ -968,6 +1066,7 @@
     {
       "amount": 36756.82,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xbb2e02Cf528Fc5Ccb454544Dd332E048F535686B",
       "counterparty_label": null,
       "direction": "out",
@@ -982,6 +1081,7 @@
     {
       "amount": 13840.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "out",
@@ -996,6 +1096,7 @@
     {
       "amount": 12314.94,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xa849565c1F058c90948061ba0Be30A35f6106e29",
       "counterparty_label": null,
       "direction": "out",
@@ -1010,6 +1111,7 @@
     {
       "amount": 19293.29,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x27723157CF19F9d7459D2e7Ec02295ca15248f6a",
       "counterparty_label": null,
       "direction": "out",
@@ -1024,6 +1126,7 @@
     {
       "amount": 16112.41,
       "chain": "base",
+      "classification": null,
       "counterparty": "0xFa3bde680CeB81402b73dacEcdDedB1e9a706Da1",
       "counterparty_label": null,
       "direction": "out",
@@ -1038,6 +1141,7 @@
     {
       "amount": 14800.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "out",
@@ -1052,6 +1156,7 @@
     {
       "amount": 23496.73,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x44C8f8266e9E77bC20A261AD25391211e4B97D0f",
       "counterparty_label": null,
       "direction": "in",
@@ -1066,6 +1171,7 @@
     {
       "amount": 10605.05,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x3e1D7beB16fE7fc6ba43E7Ea10E017aa68DdB6Ad",
       "counterparty_label": null,
       "direction": "out",
@@ -1080,6 +1186,7 @@
     {
       "amount": 10000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xc560FFB3e9Bf1d6D16Eeaf2853f1b559a0BD0dB1",
       "counterparty_label": null,
       "direction": "out",
@@ -1094,6 +1201,7 @@
     {
       "amount": 10955.39,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x0F22a9a9FA47B777d8bdaea32870C610d7372f7E",
       "counterparty_label": null,
       "direction": "out",
@@ -1108,6 +1216,7 @@
     {
       "amount": 10999.9,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x44C8f8266e9E77bC20A261AD25391211e4B97D0f",
       "counterparty_label": null,
       "direction": "in",
@@ -1122,6 +1231,7 @@
     {
       "amount": 200000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
       "counterparty_label": "Coinbase hot wallet",
       "direction": "in",
@@ -1136,6 +1246,7 @@
     {
       "amount": 50000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
       "counterparty_label": "Coinbase hot wallet",
       "direction": "in",
@@ -1150,6 +1261,7 @@
     {
       "amount": 12400.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
       "counterparty_label": null,
       "direction": "out",
@@ -1164,6 +1276,7 @@
     {
       "amount": 14000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x44C8f8266e9E77bC20A261AD25391211e4B97D0f",
       "counterparty_label": null,
       "direction": "in",
@@ -1178,6 +1291,7 @@
     {
       "amount": 62961.83,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x701903615450B87e9cEd7941ABCB9dDE54A69531",
       "counterparty_label": null,
       "direction": "out",
@@ -1192,6 +1306,7 @@
     {
       "amount": 14700.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xeeBD74cB041116722B6AE8c6E6A2d66D1CbBe223",
       "counterparty_label": null,
       "direction": "out",
@@ -1206,6 +1321,7 @@
     {
       "amount": 50000.0,
       "chain": "base",
+      "classification": null,
       "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
       "counterparty_label": "Coinbase hot wallet",
       "direction": "in",
@@ -1220,6 +1336,7 @@
     {
       "amount": 10000.0,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0x44C8f8266e9E77bC20A261AD25391211e4B97D0f",
       "counterparty_label": null,
       "direction": "in",
@@ -1234,6 +1351,7 @@
     {
       "amount": 16337.97,
       "chain": "arbitrum",
+      "classification": null,
       "counterparty": "0xA7cc9142e8A700b808291c2D66AFF3002DC75445",
       "counterparty_label": null,
       "direction": "in",
@@ -1302,6 +1420,23 @@
   "schema_version": 1,
   "topups": [
     {
+      "amount": 400000.0,
+      "chain": "ethereum",
+      "classification": "moved to custody (inferred)",
+      "counterparty": "0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77",
+      "counterparty_label": "Coinbase Prime deposit forwarder (inferred)",
+      "direction": "out",
+      "inferred": true,
+      "kind": "moved_to_custody",
+      "method": "0x6a761202",
+      "note": "Inference: Treasury Safe USDC sent to Coinbase, Coinbase Prime, or the Coinbase Prime deposit forwarder. Not a payout and not a loss.",
+      "t": "2026-10-03T01:10:23Z",
+      "tx": "0x2022c9b648f813200f255a033597e1ce6db03725fb125da0f1a6d5b4de3213c8",
+      "tx_url": "https://eth.blockscout.com/tx/0x2022c9b648f813200f255a033597e1ce6db03725fb125da0f1a6d5b4de3213c8",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
+    },
+    {
       "amount": 99900.0,
       "chain": "arbitrum",
       "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
@@ -1328,6 +1463,40 @@
       "t": "2026-10-03T00:02:11Z",
       "tx": "0xefcb64911201376c42112bfb38d6d99d4c6ffa954d253ece4d57b151d4d9165e",
       "tx_url": "https://eth.blockscout.com/tx/0xefcb64911201376c42112bfb38d6d99d4c6ffa954d253ece4d57b151d4d9165e",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
+    },
+    {
+      "amount": 100.0,
+      "chain": "ethereum",
+      "classification": "moved to custody (inferred)",
+      "counterparty": "0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77",
+      "counterparty_label": "Coinbase Prime deposit forwarder (inferred)",
+      "direction": "out",
+      "inferred": true,
+      "kind": "moved_to_custody",
+      "method": "0x6a761202",
+      "note": "Inference: Treasury Safe USDC sent to Coinbase, Coinbase Prime, or the Coinbase Prime deposit forwarder. Not a payout and not a loss.",
+      "t": "2026-10-03T00:01:11Z",
+      "tx": "0x9889de22a67f2cfd1499123dbb4c88df1cb66af09981a5b24a20e7259850dc96",
+      "tx_url": "https://eth.blockscout.com/tx/0x9889de22a67f2cfd1499123dbb4c88df1cb66af09981a5b24a20e7259850dc96",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
+    },
+    {
+      "amount": 10.0,
+      "chain": "ethereum",
+      "classification": "moved to custody (inferred)",
+      "counterparty": "0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77",
+      "counterparty_label": "Coinbase Prime deposit forwarder (inferred)",
+      "direction": "out",
+      "inferred": true,
+      "kind": "moved_to_custody",
+      "method": "0x6a761202",
+      "note": "Inference: Treasury Safe USDC sent to Coinbase, Coinbase Prime, or the Coinbase Prime deposit forwarder. Not a payout and not a loss.",
+      "t": "2026-10-03T00:00:23Z",
+      "tx": "0x851e20b82185d4b891678d83ada9f191b1f189383cc225e18e53922a8aaa454f",
+      "tx_url": "https://eth.blockscout.com/tx/0x851e20b82185d4b891678d83ada9f191b1f189383cc225e18e53922a8aaa454f",
       "wallet_id": "treasury_safe_eth",
       "wallet_role": "Treasury Safe"
     },
@@ -2271,6 +2440,7 @@
         "coinbase_hot_to_contract": 1800000.0,
         "coinbase_prime_to_safe": 1499499.34,
         "inferred_lifi_to_contract": 49999.4,
+        "moved_to_custody": 400110.0,
         "safe_to_contract": 1122079.34,
         "safe_to_lifi": 1014988.88
       },
@@ -2298,6 +2468,7 @@
         "coinbase_hot_to_contract": 1750000.0,
         "coinbase_prime_to_safe": 650000.0,
         "inferred_lifi_to_contract": 49999.4,
+        "moved_to_custody": 400110.0,
         "safe_to_contract": 649470.0,
         "safe_to_lifi": 650000.0
       },

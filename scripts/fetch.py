@@ -108,9 +108,13 @@ EXPLORER = {
 }
 
 # Counterparties resolved from public transfers / eth_call.
+# The forwarder is labeled only. It is not a balance-tracked wallet.
 COINBASE_PRIME = "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b"
 COINBASE_HOT = "0x4B5c71082d027D16d2A146465d66f9EEC11634F6"
+COINBASE_FORWARDER = "0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77"
 LIFI = "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE"
+TREASURY_SAFE = "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c"
+CUSTODY_CLASS = "moved to custody (inferred)"
 OPERATOR = "0xBbBACC96be3d045b9Ca71bd422c78AFb80CF5970"
 ROUTER_SELECTOR = "0xf887ea40"
 ROLE_HASH = "7045adfe67d5f94dbfddcdb901e44bef55baacabb398c7cddda1bfd7620b1568"
@@ -691,15 +695,34 @@ def is_withdraw(tr):
     return method in {"withdraw", "0xbd69a7ae"}
 
 
+def custody_addresses():
+    return {
+        COINBASE_PRIME.lower(),
+        COINBASE_HOT.lower(),
+        COINBASE_FORWARDER.lower(),
+    }
+
+
+def is_custody_move(tr, wallet):
+    """Treasury Safe USDC sent to Coinbase, Coinbase Prime, or the deposit forwarder."""
+    return (
+        wallet["id"].startswith("treasury_safe")
+        and tr.get("d") == "out"
+        and (tr.get("p") or "").lower() in custody_addresses()
+    )
+
+
 def label_party(addr, names):
     a = (addr or "").lower()
     if a == COINBASE_PRIME.lower():
         return "Coinbase Prime 1"
     if a == COINBASE_HOT.lower():
         return "Coinbase hot wallet"
+    if a == COINBASE_FORWARDER.lower():
+        return "Coinbase Prime deposit forwarder (inferred)"
     if a == LIFI.lower():
         return "LI.FI diamond"
-    if a == "0x267ebfbcbb7020f200c2749ee441e12574d60c6c":
+    if a == TREASURY_SAFE.lower():
         return "Treasury Safe"
     if a == ZERO:
         return "Mint / zero address"
@@ -726,14 +749,17 @@ def classify_topups(transfers, wallet_by_id):
             continue
         kind = None
         inferred = False
-        if w["id"].startswith("treasury_safe") and tr["d"] == "in" and party == COINBASE_PRIME.lower():
+        if is_custody_move(tr, w):
+            kind = "moved_to_custody"
+            inferred = True
+        elif w["id"].startswith("treasury_safe") and tr["d"] == "in" and party == COINBASE_PRIME.lower():
             kind = "coinbase_prime_to_safe"
         elif w["id"].startswith("treasury_safe") and tr["d"] == "out" and party == LIFI.lower():
             kind = "safe_to_lifi"
             lifi_outs.append(tr)
         elif w.get("kind") in {"current", "legacy"} and tr["d"] == "in" and party == COINBASE_HOT.lower():
             kind = "coinbase_hot_to_contract"
-        elif w.get("kind") in {"current", "legacy"} and tr["d"] == "in" and party == "0x267ebfbcbb7020f200c2749ee441e12574d60c6c":
+        elif w.get("kind") in {"current", "legacy"} and tr["d"] == "in" and party == TREASURY_SAFE.lower():
             kind = "safe_to_contract"
         elif w.get("kind") in {"current", "legacy"} and tr["d"] == "in" and (
             party == LIFI.lower() or party == ZERO or (tr.get("pn") or "").lower().find("lifi") >= 0
@@ -741,7 +767,14 @@ def classify_topups(transfers, wallet_by_id):
         ):
             kind = "bridge_to_contract"
         if kind:
-            topups.append(_topup_row(tr, w, kind, inferred, names))
+            row = _topup_row(tr, w, kind, inferred, names)
+            if kind == "moved_to_custody":
+                row["classification"] = CUSTODY_CLASS
+                row["note"] = (
+                    "Inference: Treasury Safe USDC sent to Coinbase, Coinbase Prime, "
+                    "or the Coinbase Prime deposit forwarder. Not a payout and not a loss."
+                )
+            topups.append(row)
         elif w.get("kind") in {"current", "legacy"} and tr["d"] == "in" and amount >= Decimal("1000"):
             if party not in names:
                 candidates.append(tr)
@@ -807,6 +840,7 @@ def flow_sums(topups, days, now):
         "safe_to_contract": Decimal("0"),
         "bridge_to_contract": Decimal("0"),
         "inferred_lifi_to_contract": Decimal("0"),
+        "moved_to_custody": Decimal("0"),
     }
     by_chain = {k: {} for k in ("safe_to_contract", "bridge_to_contract", "inferred_lifi_to_contract", "coinbase_hot_to_contract")}
     for row in topups:
@@ -824,6 +858,80 @@ def flow_sums(topups, days, now):
         "amounts": {k: float(money_d(v)) for k, v in buckets.items()},
         "by_chain": by_chain,
     }
+
+
+def _funding_party(tr):
+    """Contract inflow that is a treasury, Coinbase, or bridge top-up."""
+    party = (tr.get("p") or "").lower()
+    name = (tr.get("pn") or "").lower()
+    if party in {TREASURY_SAFE.lower(), COINBASE_HOT.lower(), COINBASE_PRIME.lower(), LIFI.lower(), ZERO}:
+        return True
+    return any(hint in name for hint in ("lifi", "minter", "messenger"))
+
+
+def flow_summary(transfers, topups, coverage, now):
+    """1/7/30-day funding of payout and deposit contracts.
+
+    Treasury top-ups are inflows from the Treasury Safe, Coinbase, Coinbase Prime,
+    LI.FI, a mint or bridge sender, or an inferred LI.FI completion. User deposits
+    are the other external inflows. Transfers between monitored wallets are left
+    out so a Safe hop is not counted twice. Filtered outflows are withdraw-method
+    outs to an address outside the monitored set. Custody moves are Treasury Safe
+    outs and are not included in those outflows.
+    """
+    wallet_by_id = {w["id"]: w for w in WALLETS}
+    monitored = {w["address"].lower() for w in WALLETS}
+    inferred = {(row["tx"], row["wallet_id"]) for row in topups if row["kind"] == "inferred_lifi_to_contract"}
+    out = {}
+    for days in (1, 7, 30):
+        cut = now - timedelta(days=days)
+        topup = Decimal("0")
+        user = Decimal("0")
+        outs = Decimal("0")
+        partial = []
+        for wallet in WALLETS:
+            if wallet.get("kind") not in {"current", "legacy"}:
+                continue
+            meta = (coverage or {}).get(wallet["id"]) or {}
+            if meta.get("reached_cutoff"):
+                continue
+            covered = meta.get("covered_from")
+            if covered and parse_iso(covered) <= cut:
+                continue
+            partial.append(wallet["id"])
+        for tr in transfers:
+            try:
+                if parse_iso(tr["t"]) < cut:
+                    continue
+            except Exception:
+                continue
+            wallet = wallet_by_id.get(tr["w"])
+            if not wallet or wallet.get("kind") not in {"current", "legacy"}:
+                continue
+            if tr.get("d") == "self":
+                continue
+            amount = Decimal(str(tr["a"]))
+            if amount <= 0:
+                continue
+            party = (tr.get("p") or "").lower()
+            if tr["d"] == "in":
+                if (tr.get("h"), tr["w"]) in inferred or _funding_party(tr):
+                    topup += amount
+                elif party in monitored:
+                    continue
+                else:
+                    user += amount
+            elif tr["d"] == "out" and is_withdraw(tr) and party not in monitored and not is_custody_move(tr, wallet):
+                outs += amount
+        out[str(days)] = {
+            "days": days,
+            "treasury_topups": float(money_d(topup)),
+            "user_deposits": float(money_d(user)),
+            "filtered_outflows": float(money_d(outs)),
+            "net": float(money_d(topup + user - outs)),
+            "partial_wallets": partial,
+        }
+    return out
 
 
 def withdrawal_stats(transfers, wallet_ids, now):
@@ -891,6 +999,7 @@ def large_moves(transfers, now, limit=80):
             "amount": tr["a"],
             "counterparty": tr["p"],
             "counterparty_label": label_party(tr["p"], names),
+            "classification": CUSTODY_CLASS if is_custody_move(tr, w) else None,
             "method": tr.get("m") or None,
             "tx": tr["h"],
             "tx_url": tx_url(tr["c"], tr["h"]),
@@ -1432,12 +1541,14 @@ def main():
         withdrawals = withdrawal_stats(kept, current_ids, started)
         larges = large_moves(kept, started)
         flows_windows = {"7": flow_sums(topups, 7, started), "30": flow_sums(topups, 30, started)}
+        summary = flow_summary(kept, topups, coverage, started)
     except Exception as exc:
         errors.append(f"flow math: {exc}")
         topups = previous_flows.get("topups") or []
         withdrawals = previous_flows.get("withdrawals") or {}
         larges = previous_flows.get("large_moves") or []
         flows_windows = previous_flows.get("windows") or {}
+        summary = previous_flows.get("flow_summary") or {}
 
     if not previous_latest:
         since = []
@@ -1486,6 +1597,7 @@ def main():
         "schema_version": 1,
         "generated_at": iso(started),
         "windows": flows_windows,
+        "flow_summary": summary,
         "topups": [r for r in topups if parse_iso(r["t"]) >= started - timedelta(days=30)][:300],
         "withdrawals": withdrawals,
         "large_moves": larges,
@@ -1504,6 +1616,19 @@ def main():
                 "address": COINBASE_HOT,
                 "label": "Coinbase hot wallet",
                 "basis": "Source notes identify 0x4b5c7108…34f6 as a Coinbase hot wallet (Arkham entity label). Full address taken from inbound USDC transfers to the Base contract.",
+            },
+            {
+                "id": "coinbase_forwarder",
+                "address": COINBASE_FORWARDER,
+                "label": "Coinbase Prime deposit forwarder (inferred)",
+                "basis": (
+                    "Inference, not a tracked balance. On the Ethereum USDC transfers reviewed for this address, "
+                    "each outbound transfer goes to Coinbase Prime 1 (0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b) "
+                    "in the same minute. On 2026-10-03 at 01:10 UTC the Treasury Safe sent 400,000 USDC here, "
+                    "and that amount was forwarded to Coinbase Prime 1 in the transaction starting 0xd71f29e5. "
+                    "Treasury Safe outflows to this address, and Treasury Safe outflows directly to Coinbase or "
+                    "Coinbase Prime, are classified as moved to custody (inferred)."
+                ),
             },
             {
                 "id": "lifi",
