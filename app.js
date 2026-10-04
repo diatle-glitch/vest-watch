@@ -256,7 +256,21 @@ function moneyTip(params) {
   return [head, ...lines].join("<br>");
 }
 
-function balanceOption(history, flows) {
+function windowStart(dates, days) {
+  if (!dates.length || days === "all") return dates[0];
+  const end = dates[dates.length - 1];
+  const cut = new Date(Date.parse(`${end}T00:00:00Z`) - (Number(days) - 1) * 86400000).toISOString().slice(0, 10);
+  return dates.find((date) => date >= cut) || dates[0];
+}
+
+function balanceNote(days) {
+  const range = days === "all"
+    ? "Showing the full reconstructed history, which is often flat before the recent moves."
+    : `Showing the last ${days} days.`;
+  return `Each band is a group of wallets. Diamonds mark days with a top-up in the stored flow list. ${range} The bands are the seven wallets with daily history, so this stack is a little smaller than the headline total.`;
+}
+
+function balanceOption(history, flows, days) {
   const daily = history.daily || {};
   const maps = {};
   const dates = new Set();
@@ -264,7 +278,8 @@ function balanceOption(history, flows) {
     maps[key] = new Map((rows || []).map(([date, value]) => [date, value]));
     (rows || []).forEach(([date]) => dates.add(date));
   });
-  const ordered = [...dates].sort();
+  const start = windowStart([...dates].sort(), days);
+  const ordered = [...dates].filter((date) => date >= start).sort();
   const groups = [
     ["Treasury Safe", ["treasury_safe_eth"]],
     ["Second Safe", ["safe2_eth"]],
@@ -384,8 +399,8 @@ function donutOption(latest) {
     legend: { bottom: 0, textStyle: { color: MUTED }, type: "scroll" },
     series: [{
       type: "pie",
-      radius: ["48%", "72%"],
-      center: ["50%", "46%"],
+      radius: ["46%", "68%"],
+      center: ["50%", "44%"],
       avoidLabelOverlap: true,
       label: { color: TEXT, fontSize: 11, formatter: (row) => (row.percent >= 5 ? `${row.name}\n${compactUsd(row.value)}` : "") },
       data,
@@ -428,28 +443,108 @@ function countOption(charts) {
   };
 }
 
-function sankeyOption(charts) {
-  const links = charts?.sankey?.links || [];
+function sankeyDepths(links) {
+  const incoming = {};
+  links.forEach((link) => {
+    incoming[link.source] = incoming[link.source] || [];
+    incoming[link.target] = incoming[link.target] || [];
+    incoming[link.target].push(link.source);
+  });
+  const memo = {};
+  function depth(name) {
+    if (memo[name] !== undefined) return memo[name];
+    const sources = incoming[name] || [];
+    memo[name] = 0;
+    memo[name] = sources.length ? 1 + Math.max(...sources.map(depth)) : 0;
+    return memo[name];
+  }
+  Object.keys(incoming).forEach(depth);
+  return memo;
+}
+
+function sankeyNodes(links, width, vertical) {
+  const depthOf = sankeyDepths(links);
+  const outgoing = {};
+  const incoming = {};
   const names = [];
   links.forEach((link) => {
+    outgoing[link.source] = (outgoing[link.source] || 0) + Number(link.value);
+    incoming[link.target] = (incoming[link.target] || 0) + Number(link.value);
     if (!names.includes(link.source)) names.push(link.source);
     if (!names.includes(link.target)) names.push(link.target);
   });
+  const levelSum = {};
+  names.forEach((name) => {
+    const amount = outgoing[name] || incoming[name] || 0;
+    levelSum[depthOf[name]] = (levelSum[depthOf[name]] || 0) + amount;
+  });
+  const gutter = vertical ? 148 : 168;
+  const plot = Math.max(160, width - gutter - 16);
+  return names.map((name) => {
+    const amount = outgoing[name] || incoming[name] || 0;
+    const share = levelSum[depthOf[name]] ? amount / levelSum[depthOf[name]] : 1;
+    const wideEnough = !vertical || share * plot >= 156;
+    const inside = vertical && wideEnough;
+    return {
+      name,
+      itemStyle: { color: PALETTE[name] || "#8d99a6" },
+      label: {
+        position: inside ? "inside" : "right",
+        color: inside ? "#10141a" : TEXT,
+        fontSize: width < 420 ? 11 : 12,
+        fontWeight: 600,
+        fontFamily: "Outfit, sans-serif",
+        lineHeight: 15,
+        width: inside ? Math.max(88, Math.floor(share * plot - 16)) : (vertical ? 128 : 146),
+        overflow: "break",
+        textBorderColor: inside ? "transparent" : "#161c24",
+        textBorderWidth: inside ? 0 : 3,
+        formatter: () => `${name}\n${compactUsd(amount)}`,
+      },
+    };
+  });
+}
+
+function sankeyHeight(width) {
+  return width < 760 ? 640 : 500;
+}
+
+function chartBoxWidth(el) {
+  const card = el.closest(".card") || el.parentElement;
+  if (!card) return el.clientWidth;
+  const style = getComputedStyle(card);
+  const pad = (parseFloat(style.paddingLeft) || 0) + (parseFloat(style.paddingRight) || 0);
+  return Math.max(280, Math.floor(card.clientWidth - pad));
+}
+
+function sankeyOption(charts, width) {
+  const links = charts?.sankey?.links || [];
+  const vertical = width < 760;
+  const gutter = vertical ? 148 : 168;
   return {
-    tooltip: { ...tip(), trigger: "item", formatter: (row) => (row.dataType === "edge" ? `${esc(row.data.source)} → ${esc(row.data.target)}<br>${usd.format(row.data.value)}` : esc(row.name)) },
+    tooltip: {
+      ...tip(),
+      trigger: "item",
+      formatter: (row) => (row.dataType === "edge"
+        ? `${esc(row.data.source)} → ${esc(row.data.target)}<br>${usd.format(row.data.value)}`
+        : `${esc(row.name)}<br>${usd.format(row.value)}`),
+    },
     series: [{
       type: "sankey",
-      data: names.map((name) => ({ name, itemStyle: { color: PALETTE[name] || "#8d99a6" } })),
+      orient: vertical ? "vertical" : "horizontal",
+      data: sankeyNodes(links, width, vertical),
       links,
-      nodeAlign: "left",
-      nodeWidth: 14,
-      nodeGap: 18,
+      nodeAlign: "justify",
+      nodeWidth: vertical ? 48 : 16,
+      nodeGap: vertical ? 18 : 26,
       left: 8,
-      right: 120,
-      top: 8,
-      bottom: 8,
-      lineStyle: { color: "gradient", curveness: 0.45, opacity: 0.28 },
-      label: { color: TEXT, fontSize: 12, fontFamily: "Outfit, sans-serif" },
+      right: gutter,
+      top: 12,
+      bottom: vertical ? 16 : 36,
+      draggable: false,
+      animation: false,
+      layoutIterations: 32,
+      lineStyle: { color: "gradient", curveness: 0.45, opacity: 0.32 },
       emphasis: { focus: "adjacency" },
     }],
   };
@@ -464,15 +559,57 @@ function drawCharts(latest, history, flows) {
     chart.setOption(option);
     return chart;
   };
+  const sankeyEl = document.getElementById("chart-sankey");
+  let sankeyWidth = sankeyEl ? chartBoxWidth(sankeyEl) : 0;
+  if (sankeyEl && sankeyWidth) sankeyEl.style.height = `${sankeyHeight(sankeyWidth)}px`;
+  const balanceChart = mount("chart-balance", balanceOption(history, flows, 14));
+  const sankeyChart = mount("chart-sankey", sankeyOption(charts, sankeyWidth || 800));
   const live = [
-    mount("chart-balance", balanceOption(history, flows)),
+    balanceChart,
     mount("chart-flow", flowOption(charts)),
     mount("chart-donut", donutOption(latest)),
     mount("chart-buckets", bucketOption(charts)),
     mount("chart-counts", countOption(charts)),
-    mount("chart-sankey", sankeyOption(charts)),
+    sankeyChart,
   ].filter(Boolean);
-  window.addEventListener("resize", () => live.forEach((chart) => chart.resize()));
+  let frame = 0;
+  const refit = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      const el = document.getElementById("chart-sankey");
+      if (!el || !sankeyChart) return;
+      const width = chartBoxWidth(el);
+      const height = sankeyHeight(width);
+      el.style.height = `${height}px`;
+      sankeyChart.resize({ width, height });
+      live.forEach((chart) => {
+        if (chart !== sankeyChart) chart.resize();
+      });
+      if (Math.abs(width - sankeyWidth) < 2) return;
+      sankeyWidth = width;
+      sankeyChart.setOption(sankeyOption(charts, width), { notMerge: true });
+      sankeyChart.resize({ width, height });
+    });
+  };
+  window.addEventListener("resize", refit);
+  if (window.ResizeObserver && sankeyEl) {
+    const observer = new ResizeObserver(refit);
+    observer.observe(sankeyEl.parentElement || sankeyEl);
+  }
+  const range = document.getElementById("balance-range");
+  const note = document.getElementById("balance-note");
+  range?.addEventListener("click", (event) => {
+    const button = event.target.closest("button");
+    if (!button || !balanceChart) return;
+    const days = button.dataset.days === "all" ? "all" : Number(button.dataset.days);
+    range.querySelectorAll("button").forEach((el) => {
+      const on = el === button;
+      el.classList.toggle("active", on);
+      el.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (note) note.textContent = balanceNote(days);
+    balanceChart.setOption(balanceOption(history, flows, days), true);
+  });
 }
 
 function whenChartsReady(fn) {
@@ -530,7 +667,7 @@ function methodology(latest, flows) {
       <li><strong>Moved to custody (inferred).</strong> Treasury Safe USDC sent to <span class="mono">0x18F0Ddbab74A4BF7f4EF5c5469334CAc0DdC5b77</span> (Coinbase Prime deposit forwarder, inferred), or directly to Coinbase or Coinbase Prime. These are not payouts. The forwarder is not a tracked balance.</li>
       <li><strong>Recipients</strong> on the flow diagram are the outside addresses on those withdraw transfers. The chain does not name them.</li>
       <li>The headline total adds every wallet in the table, including a stale previous balance when a new read fails. The 24h change sums the core wallets only when each of them has an earlier point. A missing point is left blank, not treated as zero.</li>
-      <li>The balance chart uses daily reconstructed history for the seven seed wallets. Older Arbitrum history starts on 27 Sep 2026, and older BSC history starts on 3 Oct 2026. Days before that are missing history, not a recorded zero. Optimism, Polygon, and the small remainder are in the donut and the total, not in the stacked bands.</li>
+      <li>The balance chart uses daily reconstructed history for the seven seed wallets. It opens on the last 14 days; 30 days and the full history are on the toggle. Older Arbitrum history starts on 27 Sep 2026, and older BSC history starts on 3 Oct 2026. Days before that are missing history, not a recorded zero. Optimism, Polygon, and the small remainder are in the donut and the total, not in the stacked bands.</li>
       <li>RPCs are public endpoints, tried in order with retries. A failed read keeps the previous stored balance. Transfers on Ethereum, Base, Arbitrum, Optimism, and Polygon come from Blockscout. BSC uses <span class="mono">eth_getLogs</span> because the BSC Blockscout hosts tried here returned 404. BSC timestamps inside a log chunk are estimated from the chunk’s end block.</li>
       <li>Daily backfill, when the transfer scan reached 90 days and the balance read succeeded, is the current balance minus later USDC transfers. It stops where an earlier day would imply a negative balance.</li>
     </ul>
@@ -601,24 +738,33 @@ function render(latest, history, flows) {
     </div>
     <p class="note" id="chart-status"></p>
     <div class="charts">
-      <section class="card" id="balances">
-        <h2>Where the balance has been</h2>
-        <p class="note">Each band is a group of wallets. Diamonds mark days with a top-up in the stored flow list. The bands are the seven wallets with daily history, so this stack is a little smaller than the headline total.</p>
-        <div id="chart-balance" class="chart"></div>
-      </section>
-      <div class="chart-grid">
-        <section class="card" id="inout">
-          <h2>Money in and money out</h2>
-          <p class="note">Last 30 days. Top-ups and deposits sit above zero. Payouts sit below. The line is that day’s net. Over the window: top-ups ${usd.format(summed.topups)}, deposits ${usd.format(summed.deposits)}, payouts ${usd.format(summed.payouts)}.</p>
-          ${partial ? `<p class="note">The transfer scan does not yet cover this whole window for ${esc(partial)}.</p>` : ""}
-          <div id="chart-flow" class="chart"></div>
+      <div class="chart-grid hero-charts">
+        <section class="card" id="balances">
+          <div class="chart-head">
+            <div>
+              <h2>Where the balance has been</h2>
+              <p class="note" id="balance-note">${esc(balanceNote(14))}</p>
+            </div>
+            <div class="tabs" id="balance-range" role="group" aria-label="Balance chart range">
+              <button type="button" data-days="14" class="active" aria-pressed="true">14d</button>
+              <button type="button" data-days="30" aria-pressed="false">30d</button>
+              <button type="button" data-days="all" aria-pressed="false">All</button>
+            </div>
+          </div>
+          <div id="chart-balance" class="chart"></div>
         </section>
         <section class="card" id="where">
           <h2>Where the money sits now</h2>
           <p class="note">Share of the tracked USDC total. Slices under about $1 are omitted from the ring.</p>
-          <div id="chart-donut" class="chart short"></div>
+          <div id="chart-donut" class="chart"></div>
         </section>
       </div>
+      <section class="card" id="inout">
+        <h2>Money in and money out</h2>
+        <p class="note">Last 30 days. Top-ups and deposits sit above zero. Payouts sit below. The line is that day’s net. Over the window: top-ups ${usd.format(summed.topups)}, deposits ${usd.format(summed.deposits)}, payouts ${usd.format(summed.payouts)}.</p>
+        ${partial ? `<p class="note">The transfer scan does not yet cover this whole window for ${esc(partial)}.</p>` : ""}
+        <div id="chart-flow" class="chart"></div>
+      </section>
       <div class="chart-grid">
         <section class="card" id="sizes">
           <h2>How big payouts are</h2>
