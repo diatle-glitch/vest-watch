@@ -1,13 +1,13 @@
 {
   "charts": {
-    "as_of": "2026-10-04T18:44:58Z",
+    "as_of": "2026-10-04T19:49:11Z",
     "daily_flows": [
       {
         "date": "2026-09-04",
-        "deposits": 10300.0,
-        "net": -7886.04,
-        "payout_count": 8,
-        "payouts": 18186.04,
+        "deposits": 200.0,
+        "net": -7809.37,
+        "payout_count": 4,
+        "payouts": 8009.37,
         "topups": 0.0
       },
       {
@@ -245,9 +245,9 @@
       {
         "date": "2026-10-04",
         "deposits": 15070.0,
-        "net": -286316.71,
-        "payout_count": 286,
-        "payouts": 301386.71,
+        "net": -309765.79,
+        "payout_count": 314,
+        "payouts": 324835.79,
         "topups": 0.0
       }
     ],
@@ -258,29 +258,29 @@
       "t": "2026-10-03T01:09:36Z"
     },
     "pace_7d": {
-      "per_day": 369118.15,
-      "volume": 2583827.02
+      "per_day": 369747.87,
+      "volume": 2588235.12
     },
     "payout_buckets": [
       {
-        "count": 2083,
+        "count": 2092,
         "label": "Under $100",
-        "volume": 56923.77
+        "volume": 57229.43
       },
       {
-        "count": 1697,
+        "count": 1707,
         "label": "$100\u20131k",
-        "volume": 651972.98
+        "volume": 656203.01
       },
       {
-        "count": 490,
+        "count": 495,
         "label": "$1k\u20135k",
-        "volume": 1046717.28
+        "volume": 1057322.0
       },
       {
         "count": 178,
         "label": "$5k\u201320k",
-        "volume": 1627610.35
+        "volume": 1625742.35
       },
       {
         "count": 34,
@@ -289,8 +289,8 @@
       }
     ],
     "payouts_24h": {
-      "count": 403,
-      "volume": 367472.71
+      "count": 411,
+      "volume": 389378.48
     },
     "sankey": {
       "links": [
@@ -312,7 +312,7 @@
         {
           "source": "Payout contracts",
           "target": "Recipients",
-          "value": 4307942.15
+          "value": 4321214.56
         },
         {
           "source": "Treasury Safe",
