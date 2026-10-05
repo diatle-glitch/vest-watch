@@ -2,27 +2,27 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-05T04:43:27Z",
+  "generated_at": "2026-10-05T05:00:32Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 2240.71,
-    "change_7d": 370065.53,
+    "change_24h": 2238.77,
+    "change_7d": 370063.59,
     "partial": false,
-    "usdc": 746327.0,
+    "usdc": 746325.06,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
   "transfers_since_last_run": [
     {
-      "amount": 210.15,
-      "chain": "arbitrum",
-      "counterparty": "0x79b68E73e25b8714A53FfE3FB9F392B3E1c4720f",
+      "amount": 1.94,
+      "chain": "base",
+      "counterparty": "0x57d17a225447AFE3b4B5C821e62bEC3aE810Be02",
       "direction": "out",
       "method": "0xbd69a7ae",
-      "t": "2026-10-05T04:34:50Z",
-      "tx": "0xc7668513c2315e74cdb535c51d44fd7524bd8eaedf50bcdf04287e097e04882c",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0xc7668513c2315e74cdb535c51d44fd7524bd8eaedf50bcdf04287e097e04882c",
-      "wallet_id": "arb_contract",
+      "t": "2026-10-05T04:59:53Z",
+      "tx": "0x371013ff18c71368217ce084310b1543b5b290c250a5cf62b820f8f66be10318",
+      "tx_url": "https://base.blockscout.com/tx/0x371013ff18c71368217ce084310b1543b5b290c250a5cf62b820f8f66be10318",
+      "wallet_id": "base_contract",
       "wallet_role": "Current payout/deposit contract"
     }
   ],
@@ -113,8 +113,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 1592.5,
-      "change_7d": 125012.49,
+      "change_24h": 1590.56,
+      "change_7d": 125010.55,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -127,7 +127,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 196868.54
+      "usdc": 196866.6
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
