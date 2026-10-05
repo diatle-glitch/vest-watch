@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T02:59:58Z",
+  "generated_at": "2026-10-05T03:18:08Z",
   "wallets": {
     "arb_contract": {
       "pages": 1,
@@ -33,21 +33,21 @@
       "source": "https://base.blockscout.com"
     },
     "bsc_contract": {
-      "covered_from": "2026-09-27T07:02:16Z",
-      "high_block": 125792710,
-      "latest_block": 125792710,
-      "low_block": 124289344,
+      "covered_from": "2026-09-27T00:02:08Z",
+      "high_block": 125794981,
+      "latest_block": 125794981,
+      "low_block": 124233344,
       "reached_cutoff": false,
-      "seconds": 127.6,
+      "seconds": 121.8,
       "source": "eth_getLogs"
     },
     "bsc_old": {
-      "covered_from": "2026-09-27T08:48:29Z",
-      "high_block": 125792995,
-      "latest_block": 125792995,
-      "low_block": 124303500,
+      "covered_from": "2026-09-27T01:48:21Z",
+      "high_block": 125795252,
+      "latest_block": 125795252,
+      "low_block": 124247500,
       "reached_cutoff": false,
-      "seconds": 127.6,
+      "seconds": 122.1,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
