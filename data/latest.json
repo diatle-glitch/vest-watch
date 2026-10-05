@@ -2,7 +2,7 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-05T10:20:21Z",
+  "generated_at": "2026-10-05T10:33:03Z",
   "schema_version": 1,
   "totals": {
     "change_24h": -204282.27,
@@ -12,33 +12,8 @@
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 47.24,
-      "chain": "base",
-      "counterparty": "0x940bf48151573626d38D09D38BdEF246ddd318ab",
-      "direction": "out",
-      "method": "0xbd69a7ae",
-      "t": "2026-10-05T10:09:53Z",
-      "tx": "0x12140440969bcf466160afb0cdadffc6b2217c619cbbec5a1521b2d7929e7f4b",
-      "tx_url": "https://base.blockscout.com/tx/0x12140440969bcf466160afb0cdadffc6b2217c619cbbec5a1521b2d7929e7f4b",
-      "wallet_id": "base_contract",
-      "wallet_role": "Current payout/deposit contract"
-    },
-    {
-      "amount": 92.0,
-      "chain": "arbitrum",
-      "counterparty": "0x712F9266a3913E65ad94F2EAe61d070C6B92aaa3",
-      "direction": "in",
-      "method": "0xa9059cbb",
-      "t": "2026-10-05T10:08:45Z",
-      "tx": "0x52091cf069a8818693cfa47cd40c4b7525ef3f10c4087de55cca115e1e00b309",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0x52091cf069a8818693cfa47cd40c4b7525ef3f10c4087de55cca115e1e00b309",
-      "wallet_id": "arb_contract",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 2,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
