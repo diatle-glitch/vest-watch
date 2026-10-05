@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T01:48:43Z",
+  "generated_at": "2026-10-05T02:05:38Z",
   "wallets": {
     "arb_contract": {
       "pages": 1,
@@ -8,7 +8,7 @@
       "source": "https://arbitrum.blockscout.com"
     },
     "arb_old": {
-      "error": "The read operation timed out",
+      "error": "HTTP Error 500: Internal Server Error",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
@@ -33,21 +33,21 @@
       "source": "https://base.blockscout.com"
     },
     "bsc_contract": {
-      "covered_from": "2026-09-28T07:32:38Z",
-      "high_block": 125783071,
-      "latest_block": 125783071,
-      "low_block": 124485344,
+      "covered_from": "2026-09-28T01:25:00Z",
+      "high_block": 125785570,
+      "latest_block": 125785570,
+      "low_block": 124436344,
       "reached_cutoff": false,
-      "seconds": 120.5,
+      "seconds": 130.6,
       "source": "eth_getLogs"
     },
     "bsc_old": {
-      "covered_from": "2026-09-28T09:18:50Z",
-      "high_block": 125783338,
-      "latest_block": 125783338,
-      "low_block": 124499500,
+      "covered_from": "2026-09-28T03:11:12Z",
+      "high_block": 125785861,
+      "latest_block": 125785861,
+      "low_block": 124450500,
       "reached_cutoff": false,
-      "seconds": 127.5,
+      "seconds": 128.9,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
