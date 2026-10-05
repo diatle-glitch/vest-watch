@@ -2,27 +2,27 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-05T12:52:25Z",
+  "generated_at": "2026-10-05T13:07:43Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -204955.49,
-    "change_7d": 365092.38,
+    "change_24h": -204831.09,
+    "change_7d": 365231.38,
     "partial": false,
-    "usdc": 741353.83,
+    "usdc": 741478.23,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
   "transfers_since_last_run": [
     {
-      "amount": 24.41,
-      "chain": "base",
-      "counterparty": "0x4DaD3b4c086347f9f98a12332653e87d48ED8Dd2",
-      "direction": "out",
-      "method": "0xbd69a7ae",
-      "t": "2026-10-05T12:47:45Z",
-      "tx": "0x842e17cb0561c0951a3970c32dc59d512cfc4722bdcca576b0b417c316809dd3",
-      "tx_url": "https://base.blockscout.com/tx/0x842e17cb0561c0951a3970c32dc59d512cfc4722bdcca576b0b417c316809dd3",
-      "wallet_id": "base_contract",
+      "amount": 139.0,
+      "chain": "arbitrum",
+      "counterparty": "0xb6F5302E1Cc694194BAa1478E2851F94d52711f8",
+      "direction": "in",
+      "method": "0xa9059cbb",
+      "t": "2026-10-05T12:54:00Z",
+      "tx": "0x4b0d36c6f729a93565eaa5c190d8d2d537e18316cd77a3887a4b7df3a898e6cc",
+      "tx_url": "https://arbitrum.blockscout.com/tx/0x4b0d36c6f729a93565eaa5c190d8d2d537e18316cd77a3887a4b7df3a898e6cc",
+      "wallet_id": "arb_contract",
       "wallet_role": "Current payout/deposit contract"
     }
   ],
@@ -113,7 +113,7 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -150087.41,
+      "change_24h": -150102.01,
       "change_7d": 124701.17,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
@@ -127,14 +127,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 196557.21
+      "usdc": 196542.61
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -14950.11,
-      "change_7d": 8221.37,
+      "change_24h": -14811.11,
+      "change_7d": 8360.37,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -147,7 +147,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 136468.76
+      "usdc": 136607.76
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
