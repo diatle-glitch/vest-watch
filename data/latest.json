@@ -2,18 +2,43 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-05T18:07:58Z",
+  "generated_at": "2026-10-05T18:20:38Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -138649.42,
-    "change_7d": 267022.73,
+    "change_24h": -138853.65,
+    "change_7d": 266818.5,
     "partial": false,
-    "usdc": 643269.57,
+    "usdc": 643065.34,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [],
-  "transfers_since_last_run_count": 0,
+  "transfers_since_last_run": [
+    {
+      "amount": 4.23,
+      "chain": "base",
+      "counterparty": "0x8c446a29bfEf4Ab2a1e3d0F19088c8a9ba2f7149",
+      "direction": "out",
+      "method": "withdraw",
+      "t": "2026-10-05T18:17:45Z",
+      "tx": "0xfbaae8a2c582ebe3667c3f0a4f44401b3e5396368204c90970dbef74ae628d24",
+      "tx_url": "https://base.blockscout.com/tx/0xfbaae8a2c582ebe3667c3f0a4f44401b3e5396368204c90970dbef74ae628d24",
+      "wallet_id": "base_contract",
+      "wallet_role": "Current payout/deposit contract"
+    },
+    {
+      "amount": 200.0,
+      "chain": "base",
+      "counterparty": "0x509f54d96c6465A39f3B076bCA8c65438D24578D",
+      "direction": "out",
+      "method": "withdraw",
+      "t": "2026-10-05T18:12:45Z",
+      "tx": "0xe1d04a7bfcebd5be4af94931a4080675b2ed7ccc4491dce038379148634d6995",
+      "tx_url": "https://base.blockscout.com/tx/0xe1d04a7bfcebd5be4af94931a4080675b2ed7ccc4491dce038379148634d6995",
+      "wallet_id": "base_contract",
+      "wallet_role": "Current payout/deposit contract"
+    }
+  ],
+  "transfers_since_last_run_count": 2,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -100,8 +125,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -70328.09,
-      "change_7d": 76202.23,
+      "change_24h": -70532.32,
+      "change_7d": 75998.0,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -114,7 +139,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 148043.68
+      "usdc": 147839.45
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
