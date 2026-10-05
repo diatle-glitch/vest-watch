@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T23:21:07Z",
+  "generated_at": "2026-10-05T23:33:54Z",
   "wallets": {
     "arb_contract": {
       "pages": 1,
@@ -34,22 +34,22 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 125955214,
-      "latest_block": 125955214,
+      "high_block": 125956904,
+      "latest_block": 125956904,
       "low_block": 123250759,
       "reached_cutoff": true,
-      "seconds": 0.6,
+      "seconds": 0.7,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
       "error": "'NoneType' object is not subscriptable",
-      "high_block": 125955216,
-      "latest_block": 125955216,
+      "high_block": 125956905,
+      "latest_block": 125956905,
       "low_block": 123252797,
       "reached_cutoff": true,
       "resume": null,
-      "seconds": 0.6,
+      "seconds": 0.5,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
