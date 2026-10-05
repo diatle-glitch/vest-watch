@@ -2,7 +2,7 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-05T12:14:01Z",
+  "generated_at": "2026-10-05T12:27:26Z",
   "schema_version": 1,
   "totals": {
     "change_24h": -204925.42,
@@ -12,21 +12,8 @@
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 34.97,
-      "chain": "arbitrum",
-      "counterparty": "0xf0173E0a5827798A6963Eb9dA7e8d8985BE092f7",
-      "direction": "out",
-      "method": "withdraw",
-      "t": "2026-10-05T11:57:43Z",
-      "tx": "0x1d79e8dce4e78dd9d517b0c0a6263643886b2436304032fab8d4e425c2e1ac17",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0x1d79e8dce4e78dd9d517b0c0a6263643886b2436304032fab8d4e425c2e1ac17",
-      "wallet_id": "arb_contract",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 1,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {

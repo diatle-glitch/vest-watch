@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T12:14:01Z",
+  "generated_at": "2026-10-05T12:27:26Z",
   "wallets": {
     "arb_contract": {
       "pages": 1,
@@ -34,8 +34,8 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 125866378,
-      "latest_block": 125866378,
+      "high_block": 125868034,
+      "latest_block": 125868034,
       "low_block": 123250759,
       "reached_cutoff": true,
       "seconds": 0.7,
@@ -43,11 +43,11 @@
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 125866380,
-      "latest_block": 125866380,
+      "high_block": 125868036,
+      "latest_block": 125868036,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 0.7,
+      "seconds": 0.6,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
