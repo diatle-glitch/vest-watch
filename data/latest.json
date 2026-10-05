@@ -1,52 +1,42 @@
 {
   "checked_zero_usdc": [],
   "cursor_note": null,
-  "errors": [],
-  "generated_at": "2026-10-05T18:58:48Z",
+  "errors": [
+    "bsc_old transfers: 'NoneType' object is not subscriptable"
+  ],
+  "generated_at": "2026-10-05T19:12:07Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 757923.61,
-    "change_7d": 1162009.88,
+    "change_24h": 558713.61,
+    "change_7d": 962799.88,
     "partial": false,
-    "usdc": 1538256.73,
+    "usdc": 1339046.73,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
   "transfers_since_last_run": [
     {
-      "amount": 700000.0,
-      "chain": "base",
-      "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
-      "direction": "in",
-      "method": "0xca350aa6",
-      "t": "2026-10-05T18:55:27Z",
-      "tx": "0x80a4db466a66dfcc1164388964dc7f9e85f862211b10a05497a6e369c53a01e2",
-      "tx_url": "https://base.blockscout.com/tx/0x80a4db466a66dfcc1164388964dc7f9e85f862211b10a05497a6e369c53a01e2",
-      "wallet_id": "base_contract",
-      "wallet_role": "Current payout/deposit contract"
-    },
-    {
-      "amount": 200000.0,
+      "amount": 199210.0,
       "chain": "ethereum",
-      "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
-      "direction": "in",
-      "method": "0xa9059cbb",
-      "t": "2026-10-05T18:55:11Z",
-      "tx": "0x93e37747cc1db580b4ebf64f1e33055df70e95cba36124079d7199ab4fc8bf6d",
-      "tx_url": "https://eth.blockscout.com/tx/0x93e37747cc1db580b4ebf64f1e33055df70e95cba36124079d7199ab4fc8bf6d",
+      "counterparty": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "direction": "out",
+      "method": "0x6a761202",
+      "t": "2026-10-05T19:03:35Z",
+      "tx": "0xb8e2d619174a43d9fcb681a05018e0efbdcde8ef526cc09a7e2634e98a51a573",
+      "tx_url": "https://eth.blockscout.com/tx/0xb8e2d619174a43d9fcb681a05018e0efbdcde8ef526cc09a7e2634e98a51a573",
       "wallet_id": "treasury_safe_eth",
       "wallet_role": "Treasury Safe"
     }
   ],
-  "transfers_since_last_run_count": 2,
+  "transfers_since_last_run_count": 1,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
       "address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "attribution": "inferred",
       "chain": "ethereum",
-      "change_24h": 200000.0,
-      "change_7d": 399210.05,
+      "change_24h": 790.0,
+      "change_7d": 200000.05,
       "decimals": 6,
       "explorer": "https://eth.blockscout.com/address/0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "history_key": "treasury_safe_eth",
@@ -59,7 +49,7 @@
       "stale": false,
       "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "token_symbol": "USDC",
-      "usdc": 399210.05
+      "usdc": 200000.05
     },
     {
       "address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
