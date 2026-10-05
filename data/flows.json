@@ -1,13 +1,13 @@
 {
   "charts": {
-    "as_of": "2026-10-05T14:14:52Z",
+    "as_of": "2026-10-05T14:28:56Z",
     "daily_flows": [
       {
         "date": "2026-09-05",
         "deposits": 649.54,
-        "net": -2826.94,
-        "payout_count": 14,
-        "payouts": 3476.48,
+        "net": -2465.39,
+        "payout_count": 12,
+        "payouts": 3114.93,
         "topups": 0.0
       },
       {
@@ -245,9 +245,9 @@
       {
         "date": "2026-10-05",
         "deposits": 64109.68,
-        "net": 21539.28,
-        "payout_count": 69,
-        "payouts": 42570.4,
+        "net": -28073.91,
+        "payout_count": 81,
+        "payouts": 92183.59,
         "topups": 0.0
       }
     ],
@@ -258,29 +258,29 @@
       "t": "2026-10-03T01:09:36Z"
     },
     "pace_7d": {
-      "per_day": 373958.55,
-      "volume": 2617709.85
+      "per_day": 381046.15,
+      "volume": 2667323.04
     },
     "payout_buckets": [
       {
-        "count": 2148,
+        "count": 2149,
         "label": "Under $100",
-        "volume": 58629.23
+        "volume": 58648.73
       },
       {
-        "count": 1721,
+        "count": 1723,
         "label": "$100\u20131k",
-        "volume": 660969.36
+        "volume": 662044.98
       },
       {
-        "count": 498,
+        "count": 502,
         "label": "$1k\u20135k",
-        "volume": 1068976.7
+        "volume": 1078587.8
       },
       {
-        "count": 182,
+        "count": 185,
         "label": "$5k\u201320k",
-        "volume": 1666392.35
+        "volume": 1704937.77
       },
       {
         "count": 34,
@@ -289,8 +289,8 @@
       }
     ],
     "payouts_24h": {
-      "count": 162,
-      "volume": 112940.47
+      "count": 173,
+      "volume": 152553.66
     },
     "sankey": {
       "links": [
@@ -312,7 +312,7 @@
         {
           "source": "Payout contracts",
           "target": "Recipients",
-          "value": 4379685.41
+          "value": 4428937.05
         },
         {
           "source": "Treasury Safe",
@@ -395,8 +395,8 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 125882569,
-      "latest_block": 125882569,
+      "high_block": 125884336,
+      "latest_block": 125884336,
       "low_block": 123250759,
       "reached_cutoff": true,
       "seconds": 0.6,
@@ -404,11 +404,11 @@
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 125882570,
-      "latest_block": 125882570,
+      "high_block": 125884337,
+      "latest_block": 125884337,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 0.4,
+      "seconds": 0.3,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
@@ -457,31 +457,61 @@
   "flow_summary": {
     "1": {
       "days": 1,
-      "filtered_outflows": 112940.47,
-      "net": -19902.33,
+      "filtered_outflows": 152553.66,
+      "net": -59515.52,
       "partial_wallets": [],
       "treasury_topups": 0.0,
       "user_deposits": 93038.14
     },
     "30": {
       "days": 30,
-      "filtered_outflows": 4379685.41,
-      "net": 765168.25,
+      "filtered_outflows": 4428937.05,
+      "net": 715916.61,
       "partial_wallets": [],
       "treasury_topups": 3239043.74,
       "user_deposits": 1905809.92
     },
     "7": {
       "days": 7,
-      "filtered_outflows": 2617709.85,
-      "net": 418809.65,
+      "filtered_outflows": 2667323.04,
+      "net": 369196.46,
       "partial_wallets": [],
       "treasury_topups": 2599469.4,
       "user_deposits": 437050.1
     }
   },
-  "generated_at": "2026-10-05T14:14:52Z",
+  "generated_at": "2026-10-05T14:28:56Z",
   "large_moves": [
+    {
+      "amount": 18266.94,
+      "chain": "arbitrum",
+      "classification": null,
+      "counterparty": "0x3e1D7beB16fE7fc6ba43E7Ea10E017aa68DdB6Ad",
+      "counterparty_label": null,
+      "direction": "out",
+      "method": "0xbd69a7ae",
+      "t": "2026-10-05T14:21:45Z",
+      "tx": "0x4b8bf84795bdb1704c91ae8305df8fc42cdf20281eb3a799b85b6435cbe7bd7d",
+      "tx_url": "https://arbitrum.blockscout.com/tx/0x4b8bf84795bdb1704c91ae8305df8fc42cdf20281eb3a799b85b6435cbe7bd7d",
+      "wallet_address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
+      "wallet_id": "arb_contract",
+      "wallet_role": "Current payout/deposit contract"
+    },
+    {
+      "amount": 14935.16,
+      "chain": "base",
+      "classification": null,
+      "counterparty": "0x5A785DF17f787813cE894A1F8F53f6115305FAB8",
+      "counterparty_label": null,
+      "direction": "out",
+      "method": "0xbd69a7ae",
+      "t": "2026-10-05T14:17:33Z",
+      "tx": "0x3a779213792dd40f4f59471e0d46c6ffab41ce349f2ee26333032b0da51eaa0c",
+      "tx_url": "https://base.blockscout.com/tx/0x3a779213792dd40f4f59471e0d46c6ffab41ce349f2ee26333032b0da51eaa0c",
+      "wallet_address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
+      "wallet_id": "base_contract",
+      "wallet_role": "Current payout/deposit contract"
+    },
     {
       "amount": 12662.5,
       "chain": "arbitrum",
@@ -801,21 +831,6 @@
       "amount": 99900.0,
       "chain": "arbitrum",
       "classification": null,
-      "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
-      "counterparty_label": "Current payout/deposit contract",
-      "direction": "out",
-      "method": "0x6a761202",
-      "t": "2026-10-03T01:09:36Z",
-      "tx": "0xd21eaf5b9cdc741a9bba502566f7b68ed161422e067f918771b21c0262df9667",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0xd21eaf5b9cdc741a9bba502566f7b68ed161422e067f918771b21c0262df9667",
-      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
-      "wallet_id": "treasury_safe_arb",
-      "wallet_role": "Treasury Safe (same address)"
-    },
-    {
-      "amount": 99900.0,
-      "chain": "arbitrum",
-      "classification": null,
       "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "counterparty_label": "Treasury Safe",
       "direction": "in",
@@ -826,6 +841,21 @@
       "wallet_address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "wallet_id": "arb_contract",
       "wallet_role": "Current payout/deposit contract"
+    },
+    {
+      "amount": 99900.0,
+      "chain": "arbitrum",
+      "classification": null,
+      "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
+      "counterparty_label": "Current payout/deposit contract",
+      "direction": "out",
+      "method": "0x6a761202",
+      "t": "2026-10-03T01:09:36Z",
+      "tx": "0xd21eaf5b9cdc741a9bba502566f7b68ed161422e067f918771b21c0262df9667",
+      "tx_url": "https://arbitrum.blockscout.com/tx/0xd21eaf5b9cdc741a9bba502566f7b68ed161422e067f918771b21c0262df9667",
+      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
+      "wallet_id": "treasury_safe_arb",
+      "wallet_role": "Treasury Safe (same address)"
     },
     {
       "amount": 99900.0,
@@ -1086,21 +1116,6 @@
       "amount": 399620.0,
       "chain": "arbitrum",
       "classification": null,
-      "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
-      "counterparty_label": "Current payout/deposit contract",
-      "direction": "out",
-      "method": "0x6a761202",
-      "t": "2026-10-01T18:45:08Z",
-      "tx": "0x0e125a499b83985b0dfeeea9803398647e1e0a93545326c05e48cd1b239931b6",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0x0e125a499b83985b0dfeeea9803398647e1e0a93545326c05e48cd1b239931b6",
-      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
-      "wallet_id": "treasury_safe_arb",
-      "wallet_role": "Treasury Safe (same address)"
-    },
-    {
-      "amount": 399620.0,
-      "chain": "arbitrum",
-      "classification": null,
       "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "counterparty_label": "Treasury Safe",
       "direction": "in",
@@ -1111,6 +1126,21 @@
       "wallet_address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "wallet_id": "arb_contract",
       "wallet_role": "Current payout/deposit contract"
+    },
+    {
+      "amount": 399620.0,
+      "chain": "arbitrum",
+      "classification": null,
+      "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
+      "counterparty_label": "Current payout/deposit contract",
+      "direction": "out",
+      "method": "0x6a761202",
+      "t": "2026-10-01T18:45:08Z",
+      "tx": "0x0e125a499b83985b0dfeeea9803398647e1e0a93545326c05e48cd1b239931b6",
+      "tx_url": "https://arbitrum.blockscout.com/tx/0x0e125a499b83985b0dfeeea9803398647e1e0a93545326c05e48cd1b239931b6",
+      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
+      "wallet_id": "treasury_safe_arb",
+      "wallet_role": "Treasury Safe (same address)"
     },
     {
       "amount": 14352.97,
@@ -1281,21 +1311,6 @@
       "amount": 99900.0,
       "chain": "arbitrum",
       "classification": null,
-      "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
-      "counterparty_label": "Current payout/deposit contract",
-      "direction": "out",
-      "method": "0x6a761202",
-      "t": "2026-10-01T09:07:26Z",
-      "tx": "0xd773ac24befdf2d922b2941610534d0b47c35b90f09f022be4c6f5c4e943996d",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0xd773ac24befdf2d922b2941610534d0b47c35b90f09f022be4c6f5c4e943996d",
-      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
-      "wallet_id": "treasury_safe_arb",
-      "wallet_role": "Treasury Safe (same address)"
-    },
-    {
-      "amount": 99900.0,
-      "chain": "arbitrum",
-      "classification": null,
       "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "counterparty_label": "Treasury Safe",
       "direction": "in",
@@ -1306,6 +1321,21 @@
       "wallet_address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "wallet_id": "arb_contract",
       "wallet_role": "Current payout/deposit contract"
+    },
+    {
+      "amount": 99900.0,
+      "chain": "arbitrum",
+      "classification": null,
+      "counterparty": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
+      "counterparty_label": "Current payout/deposit contract",
+      "direction": "out",
+      "method": "0x6a761202",
+      "t": "2026-10-01T09:07:26Z",
+      "tx": "0xd773ac24befdf2d922b2941610534d0b47c35b90f09f022be4c6f5c4e943996d",
+      "tx_url": "https://arbitrum.blockscout.com/tx/0xd773ac24befdf2d922b2941610534d0b47c35b90f09f022be4c6f5c4e943996d",
+      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
+      "wallet_id": "treasury_safe_arb",
+      "wallet_role": "Treasury Safe (same address)"
     },
     {
       "amount": 12400.0,
@@ -1651,36 +1681,6 @@
       "wallet_address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "wallet_id": "base_contract",
       "wallet_role": "Current payout/deposit contract"
-    },
-    {
-      "amount": 50000.0,
-      "chain": "base",
-      "classification": null,
-      "counterparty": "0x4B5c71082d027D16d2A146465d66f9EEC11634F6",
-      "counterparty_label": "Coinbase hot wallet",
-      "direction": "in",
-      "method": "0xca350aa6",
-      "t": "2026-09-29T22:13:47Z",
-      "tx": "0x781025a8bf6dbe7e96cae608c9b401f141a3cbf9db26ecc7216c51409761eef9",
-      "tx_url": "https://base.blockscout.com/tx/0x781025a8bf6dbe7e96cae608c9b401f141a3cbf9db26ecc7216c51409761eef9",
-      "wallet_address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
-      "wallet_id": "base_contract",
-      "wallet_role": "Current payout/deposit contract"
-    },
-    {
-      "amount": 12400.0,
-      "chain": "arbitrum",
-      "classification": null,
-      "counterparty": "0xd087980BFc04422Ce24AE61Cc95C0545C4Be894F",
-      "counterparty_label": null,
-      "direction": "out",
-      "method": "0xbd69a7ae",
-      "t": "2026-09-29T21:14:12Z",
-      "tx": "0xe43e7f8dbb024015940b395ba0a893adcd3eb42f132e79e1265c10179663fcae",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0xe43e7f8dbb024015940b395ba0a893adcd3eb42f132e79e1265c10179663fcae",
-      "wallet_address": "0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
-      "wallet_id": "arb_old",
-      "wallet_role": "Older contract"
     }
   ],
   "onchain": {
@@ -2811,7 +2811,7 @@
       "method": "withdraw / 0xbd69a7ae",
       "windows": {
         "30": {
-          "count": 997,
+          "count": 1000,
           "daily": [
             {
               "count": 2,
@@ -2929,18 +2929,18 @@
               "volume": 93367.36
             },
             {
-              "count": 21,
+              "count": 24,
               "date": "2026-10-05",
-              "volume": 2114.83
+              "volume": 21918.1
             }
           ],
           "max": 51996.77,
-          "median": 100.4,
+          "median": 100.45,
           "unique_recipients": 439,
-          "volume": 781334.76
+          "volume": 801138.03
         },
         "7": {
-          "count": 865,
+          "count": 868,
           "daily": [
             {
               "count": 11,
@@ -2978,18 +2978,18 @@
               "volume": 93367.36
             },
             {
-              "count": 21,
+              "count": 24,
               "date": "2026-10-05",
-              "volume": 2114.83
+              "volume": 21918.1
             }
           ],
           "max": 51996.77,
-          "median": 102.74,
+          "median": 103.77,
           "unique_recipients": 387,
-          "volume": 681156.17
+          "volume": 700959.44
         },
         "90": {
-          "count": 1012,
+          "count": 1015,
           "daily": [
             {
               "count": 1,
@@ -3152,15 +3152,15 @@
               "volume": 93367.36
             },
             {
-              "count": 21,
+              "count": 24,
               "date": "2026-10-05",
-              "volume": 2114.83
+              "volume": 21918.1
             }
           ],
           "max": 51996.77,
-          "median": 99.85,
+          "median": 100.0,
           "unique_recipients": 442,
-          "volume": 783026.91
+          "volume": 802830.18
         }
       }
     },
@@ -3168,12 +3168,12 @@
       "method": "withdraw / 0xbd69a7ae",
       "windows": {
         "30": {
-          "count": 3064,
+          "count": 3072,
           "daily": [
             {
-              "count": 5,
+              "count": 4,
               "date": "2026-09-05",
-              "volume": 962.71
+              "volume": 651.16
             },
             {
               "count": 2,
@@ -3321,18 +3321,18 @@
               "volume": 222610.04
             },
             {
-              "count": 40,
+              "count": 49,
               "date": "2026-10-05",
-              "volume": 3516.13
+              "volume": 33326.05
             }
           ],
           "max": 62961.83,
-          "median": 96.5,
-          "unique_recipients": 1158,
-          "volume": 1967304.45
+          "median": 96.78,
+          "unique_recipients": 1160,
+          "volume": 1996802.82
         },
         "7": {
-          "count": 2615,
+          "count": 2624,
           "daily": [
             {
               "count": 24,
@@ -3370,18 +3370,18 @@
               "volume": 222610.04
             },
             {
-              "count": 40,
+              "count": 49,
               "date": "2026-10-05",
-              "volume": 3516.13
+              "volume": 33326.05
             }
           ],
           "max": 62961.83,
-          "median": 96.18,
-          "unique_recipients": 1071,
-          "volume": 1601337.22
+          "median": 96.4,
+          "unique_recipients": 1073,
+          "volume": 1631147.14
         },
         "90": {
-          "count": 3209,
+          "count": 3218,
           "daily": [
             {
               "count": 3,
@@ -3699,15 +3699,15 @@
               "volume": 222610.04
             },
             {
-              "count": 40,
+              "count": 49,
               "date": "2026-10-05",
-              "volume": 3516.13
+              "volume": 33326.05
             }
           ],
           "max": 62961.83,
           "median": 100.0,
-          "unique_recipients": 1181,
-          "volume": 2056801.85
+          "unique_recipients": 1183,
+          "volume": 2086611.77
         }
       }
     },
@@ -4352,7 +4352,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-10-05T14:14:55Z",
+    "queried_at": "2026-10-05T14:28:57Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
