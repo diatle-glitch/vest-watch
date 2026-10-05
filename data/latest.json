@@ -2,27 +2,27 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-05T08:00:09Z",
+  "generated_at": "2026-10-05T08:17:46Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -315932.67,
-    "change_7d": 369799.5,
+    "change_24h": -315978.48,
+    "change_7d": 369753.7,
     "partial": false,
-    "usdc": 746060.97,
+    "usdc": 746015.16,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
   "transfers_since_last_run": [
     {
-      "amount": 6.18,
-      "chain": "base",
-      "counterparty": "0xDA63F00f5E3dCdEA7012a63Dee766a99925db59c",
+      "amount": 45.8,
+      "chain": "arbitrum",
+      "counterparty": "0x8389899DB20b3D12d47b2cEBC9857191bFb77d00",
       "direction": "out",
       "method": "0xbd69a7ae",
-      "t": "2026-10-05T07:54:53Z",
-      "tx": "0xd5d2a50fed31884ac2aeda2ccb946aadd204417d9c0dd87b98710155c16fff15",
-      "tx_url": "https://base.blockscout.com/tx/0xd5d2a50fed31884ac2aeda2ccb946aadd204417d9c0dd87b98710155c16fff15",
-      "wallet_id": "base_contract",
+      "t": "2026-10-05T08:04:50Z",
+      "tx": "0x0049894b9be619dac614be5dbfbbbc3273faeeaea20caf8e10fc0c8b7eb88202",
+      "tx_url": "https://arbitrum.blockscout.com/tx/0x0049894b9be619dac614be5dbfbbbc3273faeeaea20caf8e10fc0c8b7eb88202",
+      "wallet_id": "arb_contract",
       "wallet_role": "Current payout/deposit contract"
     }
   ],
@@ -133,8 +133,8 @@
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -63419.07,
-      "change_7d": 8417.92,
+      "change_24h": -63464.88,
+      "change_7d": 8372.12,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -147,7 +147,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 136665.31
+      "usdc": 136619.5
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
