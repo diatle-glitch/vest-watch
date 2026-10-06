@@ -2,18 +2,31 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-06T03:26:44Z",
+  "generated_at": "2026-10-06T03:39:14Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 797188.27,
-    "change_7d": 1008274.38,
+    "change_24h": 797198.66,
+    "change_7d": 1008272.77,
     "partial": false,
-    "usdc": 1544582.62,
+    "usdc": 1544581.01,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [],
-  "transfers_since_last_run_count": 0,
+  "transfers_since_last_run": [
+    {
+      "amount": 1.61,
+      "chain": "base",
+      "counterparty": "0x4DaD3b4c086347f9f98a12332653e87d48ED8Dd2",
+      "direction": "out",
+      "method": "0xbd69a7ae",
+      "t": "2026-10-06T03:32:45Z",
+      "tx": "0x839abc7ba63d8e98662d49536eb209e863055b1dc0f151bf68729dbcb50d48e5",
+      "tx_url": "https://base.blockscout.com/tx/0x839abc7ba63d8e98662d49536eb209e863055b1dc0f151bf68729dbcb50d48e5",
+      "wallet_id": "base_contract",
+      "wallet_role": "Current payout/deposit contract"
+    }
+  ],
+  "transfers_since_last_run_count": 1,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -100,8 +113,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 626835.21,
-      "change_7d": 570106.26,
+      "change_24h": 626845.6,
+      "change_7d": 570104.65,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -114,7 +127,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 824530.14
+      "usdc": 824528.53
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
