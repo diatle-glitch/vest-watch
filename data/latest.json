@@ -2,31 +2,18 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-06T01:57:33Z",
+  "generated_at": "2026-10-06T02:10:48Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 759393.96,
+    "change_24h": 799440.14,
     "change_7d": 970528.39,
     "partial": false,
-    "usdc": 1506836.64,
+    "usdc": 1546836.64,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 300.0,
-      "chain": "arbitrum",
-      "counterparty": "0x0075362fB98021503c5829750370795ab5817870",
-      "direction": "in",
-      "method": "0xa9059cbb",
-      "t": "2026-10-06T01:50:46Z",
-      "tx": "0x11aaea150d0cbeb4886941d538c32bc682db5ecd72e7d1aef66e42c51d9c5630",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0x11aaea150d0cbeb4886941d538c32bc682db5ecd72e7d1aef66e42c51d9c5630",
-      "wallet_id": "arb_contract",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 1,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -133,7 +120,7 @@
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 148511.02,
+      "change_24h": 148557.2,
       "change_7d": 169305.08,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
@@ -253,7 +240,7 @@
       "address": "0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 2246.16,
+      "change_24h": 42246.16,
       "change_7d": -64810.07,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
@@ -267,7 +254,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 3407.8
+      "usdc": 43407.8
     },
     {
       "address": "0x32d95F243F9E2c1344E4BAa91a8D32711527ef7e",
