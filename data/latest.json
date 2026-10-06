@@ -2,18 +2,31 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-06T02:10:48Z",
+  "generated_at": "2026-10-06T02:23:16Z",
   "schema_version": 1,
   "totals": {
     "change_24h": 799440.14,
-    "change_7d": 970528.39,
+    "change_7d": 1010528.39,
     "partial": false,
     "usdc": 1546836.64,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [],
-  "transfers_since_last_run_count": 0,
+  "transfers_since_last_run": [
+    {
+      "amount": 40000.0,
+      "chain": "arbitrum",
+      "counterparty": "0x3E6323a9B3244d8a8606ada5C42FbcE310CeD747",
+      "direction": "in",
+      "method": "0xa9059cbb",
+      "t": "2026-10-06T02:02:23Z",
+      "tx": "0x752ccebb9c1d14a8aa2925bd2d3454b2645f06f5b05cff1b13850cc582a386bc",
+      "tx_url": "https://arbitrum.blockscout.com/tx/0x752ccebb9c1d14a8aa2925bd2d3454b2645f06f5b05cff1b13850cc582a386bc",
+      "wallet_id": "arb_old",
+      "wallet_role": "Older contract"
+    }
+  ],
+  "transfers_since_last_run_count": 1,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -241,7 +254,7 @@
       "attribution": "observed",
       "chain": "arbitrum",
       "change_24h": 42246.16,
-      "change_7d": -64810.07,
+      "change_7d": -24810.07,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "history_key": "arb_old",
