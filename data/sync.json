@@ -1,32 +1,36 @@
 {
-  "generated_at": "2026-10-06T07:03:57Z",
+  "generated_at": "2026-10-06T07:16:39Z",
   "wallets": {
     "arb_contract": {
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
       "source": "https://arbitrum.blockscout.com"
     },
     "arb_old": {
-      "error": "HTTP Error 500: Internal Server Error",
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
       "source": "https://arbitrum.blockscout.com"
     },
     "base_contract": {
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
       "source": "https://base.blockscout.com"
     },
     "base_e80f": {
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
       "source": "https://base.blockscout.com"
     },
     "base_old": {
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
@@ -34,8 +38,8 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 126016889,
-      "latest_block": 126016889,
+      "high_block": 126018570,
+      "latest_block": 126018570,
       "low_block": 123250759,
       "reached_cutoff": true,
       "seconds": 0.7,
@@ -44,8 +48,8 @@
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
       "error": "'NoneType' object is not subscriptable",
-      "high_block": 126016892,
-      "latest_block": 126016892,
+      "high_block": 126018573,
+      "latest_block": 126018573,
       "low_block": 123252797,
       "reached_cutoff": true,
       "resume": null,
@@ -65,6 +69,7 @@
       "source": "https://optimism.blockscout.com"
     },
     "polygon_deposit": {
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
@@ -77,12 +82,14 @@
       "source": "https://eth.blockscout.com"
     },
     "treasury_safe_arb": {
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
       "source": "https://arbitrum.blockscout.com"
     },
     "treasury_safe_base": {
+      "error": "HTTP Error 403: Forbidden",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
