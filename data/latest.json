@@ -2,7 +2,7 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-06T03:14:06Z",
+  "generated_at": "2026-10-06T03:26:44Z",
   "schema_version": 1,
   "totals": {
     "change_24h": 797188.27,
@@ -12,45 +12,8 @@
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 95.89,
-      "chain": "base",
-      "counterparty": "0x428d4220565De29D379d2E59B123F0be856244ce",
-      "direction": "out",
-      "method": "0xbd69a7ae",
-      "t": "2026-10-06T03:07:45Z",
-      "tx": "0xce75b2d07478071f97163d666fa40a97f40666efc240c51d7dd509a815bee5cc",
-      "tx_url": "https://base.blockscout.com/tx/0xce75b2d07478071f97163d666fa40a97f40666efc240c51d7dd509a815bee5cc",
-      "wallet_id": "base_contract",
-      "wallet_role": "Current payout/deposit contract"
-    },
-    {
-      "amount": 1494.4,
-      "chain": "base",
-      "counterparty": "0x509f54d96c6465A39f3B076bCA8c65438D24578D",
-      "direction": "out",
-      "method": "0xbd69a7ae",
-      "t": "2026-10-06T03:02:45Z",
-      "tx": "0x7291520c9b1f0ed82b53d2edbb53303fa02e52316aa4dd70219a0e8e737d47d5",
-      "tx_url": "https://base.blockscout.com/tx/0x7291520c9b1f0ed82b53d2edbb53303fa02e52316aa4dd70219a0e8e737d47d5",
-      "wallet_id": "base_contract",
-      "wallet_role": "Current payout/deposit contract"
-    },
-    {
-      "amount": 10.07,
-      "chain": "arbitrum",
-      "counterparty": "0xF88044f5051525cf0cd000885462D7F0b1cF425B",
-      "direction": "out",
-      "method": "0xbd69a7ae",
-      "t": "2026-10-06T03:02:43Z",
-      "tx": "0x3795f95f5557885c9cd9e27fd02bbeba8b7c88749ee0aead1db9f1667647fb3c",
-      "tx_url": "https://arbitrum.blockscout.com/tx/0x3795f95f5557885c9cd9e27fd02bbeba8b7c88749ee0aead1db9f1667647fb3c",
-      "wallet_id": "arb_contract",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 3,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
