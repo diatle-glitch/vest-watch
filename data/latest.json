@@ -2,31 +2,18 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-06T00:12:53Z",
+  "generated_at": "2026-10-06T00:28:16Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 767568.95,
+    "change_24h": 767060.09,
     "change_7d": 975347.54,
     "partial": false,
     "usdc": 1511655.79,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 50.0,
-      "chain": "base",
-      "counterparty": "0x98Fe02DE8B9222833d4f35E71e928BB57f674789",
-      "direction": "out",
-      "method": "withdraw",
-      "t": "2026-10-06T00:02:45Z",
-      "tx": "0x58bd2f0be6cfbebf211b5f8b92ade047f37923f832a848a0e624e1413ccef83e",
-      "tx_url": "https://base.blockscout.com/tx/0x58bd2f0be6cfbebf211b5f8b92ade047f37923f832a848a0e624e1413ccef83e",
-      "wallet_id": "base_contract",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 1,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -133,7 +120,7 @@
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 163118.64,
+      "change_24h": 148108.64,
       "change_7d": 169011.68,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
@@ -153,7 +140,7 @@
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
       "attribution": "contract source",
       "chain": "ethereum",
-      "change_24h": -31573.52,
+      "change_24h": -20722.23,
       "change_7d": 94280.59,
       "decimals": 6,
       "explorer": "https://eth.blockscout.com/address/0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -253,7 +240,7 @@
       "address": "0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 920.7,
+      "change_24h": 4570.55,
       "change_7d": -63110.07,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
