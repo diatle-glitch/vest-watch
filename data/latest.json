@@ -2,13 +2,13 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [],
-  "generated_at": "2026-10-06T06:38:16Z",
+  "generated_at": "2026-10-06T06:51:09Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 796945.81,
+    "change_24h": 796001.16,
     "change_7d": 1006948.95,
     "partial": false,
-    "usdc": 1543257.18,
+    "usdc": 1542164.19,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -100,7 +100,7 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 626364.24,
+      "change_24h": 625384.4,
       "change_7d": 568792.73,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
@@ -114,13 +114,13 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 823216.6
+      "usdc": 822123.61
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 148267.64,
+      "change_24h": 148302.83,
       "change_7d": 168685.65,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
