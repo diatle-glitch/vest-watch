@@ -2,8 +2,8 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [
-    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "treasury_safe_base transfers: HTTP Error 403: Forbidden",
+    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
@@ -11,7 +11,7 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-07T10:39:51Z",
+  "generated_at": "2026-10-07T10:52:35Z",
   "schema_version": 1,
   "totals": {
     "change_24h": -230037.42,
@@ -21,21 +21,8 @@
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 500.0,
-      "chain": "bsc",
-      "counterparty": "0x63c8fc8ca23534b1ca6d5bce6efc88dc7aad76cf",
-      "direction": "out",
-      "method": "withdraw",
-      "t": "2026-10-07T09:56:28Z",
-      "tx": "0xd3adb6af30195cb7339076dc3cd6ad34f0d39f5e41450bb060b6389c792c4d95",
-      "tx_url": "https://bscscan.com/tx/0xd3adb6af30195cb7339076dc3cd6ad34f0d39f5e41450bb060b6389c792c4d95",
-      "wallet_id": "bsc_old",
-      "wallet_role": "Older contract"
-    }
-  ],
-  "transfers_since_last_run_count": 1,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
