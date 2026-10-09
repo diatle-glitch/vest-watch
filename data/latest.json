@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-09T22:10:56Z",
+  "generated_at": "2026-10-09T22:23:34Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 578046.31,
-    "change_7d": 317987.95,
+    "change_24h": 979235.52,
+    "change_7d": 719177.16,
     "partial": false,
-    "usdc": 2154846.99,
+    "usdc": 2156316.2,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -83,7 +83,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 399720.0
+      "usdc": 0.0
     },
     {
       "address": "0x0e66f5443Db92423b692866CFDd9D9F6AcDe8597",
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 725647.95,
-      "change_7d": 964389.51,
+      "change_24h": 725608.02,
+      "change_7d": 964349.58,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 1295452.04
+      "usdc": 1295412.11
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -114537.54,
-      "change_7d": -159240.84,
+      "change_24h": 286691.6,
+      "change_7d": 241988.3,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 95675.79
+      "usdc": 496904.93
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
