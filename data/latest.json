@@ -6,18 +6,18 @@
     "treasury_safe_base transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
-    "polygon_deposit transfers: HTTP Error 403: Forbidden",
     "base_e80f transfers: HTTP Error 403: Forbidden",
+    "polygon_deposit transfers: HTTP Error 403: Forbidden",
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-10T08:41:13Z",
+  "generated_at": "2026-10-10T08:53:48Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 993795.02,
-    "change_7d": 589557.93,
+    "change_24h": 992312.59,
+    "change_7d": 589073.82,
     "partial": false,
-    "usdc": 2098332.89,
+    "usdc": 2097848.78,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 745324.52,
-      "change_7d": 447361.89,
+      "change_24h": 744868.69,
+      "change_7d": 446904.38,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 1245401.81
+      "usdc": 1244944.3
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 280432.88,
-      "change_7d": 229395.76,
+      "change_24h": 279406.28,
+      "change_7d": 229369.16,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 488931.92
+      "usdc": 488905.32
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
