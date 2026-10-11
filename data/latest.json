@@ -2,8 +2,8 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [
-    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "treasury_safe_base transfers: HTTP Error 403: Forbidden",
+    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
@@ -11,31 +11,18 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-11T23:29:41Z",
+  "generated_at": "2026-10-11T23:42:19Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -382102.52,
-    "change_7d": -61788.44,
+    "change_24h": -383559.96,
+    "change_7d": -64095.97,
     "partial": false,
-    "usdc": 682440.67,
+    "usdc": 680133.14,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 34106.6,
-      "chain": "ethereum",
-      "counterparty": "0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5",
-      "direction": "out",
-      "method": "processSending",
-      "t": "2026-10-11T23:20:11Z",
-      "tx": "0x8fd3578a4dbf16bc1a7b3e614127e0a7ea8c18153f525ed33c3d9d673de505d2",
-      "tx_url": "https://eth.blockscout.com/tx/0x8fd3578a4dbf16bc1a7b3e614127e0a7ea8c18153f525ed33c3d9d673de505d2",
-      "wallet_id": "eth_deposit",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 1,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -122,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -319649.85,
-      "change_7d": 39864.47,
+      "change_24h": -321107.29,
+      "change_7d": 37556.94,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -136,7 +123,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 235394.13
+      "usdc": 233086.6
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
