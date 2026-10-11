@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-11T23:04:36Z",
+  "generated_at": "2026-10-11T23:17:08Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -344343.22,
-    "change_7d": -23527.22,
+    "change_24h": -343261.65,
+    "change_7d": -22612.48,
     "partial": false,
-    "usdc": 721971.45,
+    "usdc": 721586.86,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -315966.81,
-      "change_7d": 44019.1,
+      "change_24h": -314885.24,
+      "change_7d": 44933.84,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,7 +123,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 240818.32
+      "usdc": 240433.73
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
