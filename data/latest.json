@@ -2,8 +2,8 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [
-    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "treasury_safe_base transfers: HTTP Error 403: Forbidden",
+    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-12T18:49:55Z",
+  "generated_at": "2026-10-12T19:02:36Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 708607.3,
-    "change_7d": 887192.18,
+    "change_24h": 716257.28,
+    "change_7d": -13325.46,
     "partial": false,
-    "usdc": 1525338.11,
+    "usdc": 1524820.47,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -30,7 +30,7 @@
       "attribution": "inferred",
       "chain": "ethereum",
       "change_24h": 0.0,
-      "change_7d": -99210.0,
+      "change_7d": -299210.0,
       "decimals": 6,
       "explorer": "https://eth.blockscout.com/address/0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "history_key": "treasury_safe_eth",
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 544033.22,
-      "change_7d": 724956.48,
+      "change_24h": 551683.2,
+      "change_7d": 24438.84,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,7 +123,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 867987.32
+      "usdc": 867469.68
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
