@@ -11,10 +11,10 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-12T10:25:08Z",
+  "generated_at": "2026-10-12T10:37:51Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -212444.56,
+    "change_24h": -212262.9,
     "change_7d": -12958.25,
     "partial": false,
     "usdc": 728958.0,
@@ -109,7 +109,7 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -225186.75,
+      "change_24h": -225005.09,
       "change_7d": 17926.63,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
