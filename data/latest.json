@@ -2,8 +2,8 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [
-    "treasury_safe_base transfers: HTTP Error 403: Forbidden",
     "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
+    "treasury_safe_base transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
@@ -11,31 +11,18 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-13T07:01:52Z",
+  "generated_at": "2026-10-13T07:14:29Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 763125.18,
-    "change_7d": -116323.66,
+    "change_24h": 763086.32,
+    "change_7d": -116277.52,
     "partial": false,
-    "usdc": 1425906.94,
+    "usdc": 1425868.08,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 100.0,
-      "chain": "ethereum",
-      "counterparty": "0x3D9ee33B83381E34B48EAFabd79c638d61C361C0",
-      "direction": "in",
-      "method": "0xa9059cbb",
-      "t": "2026-10-13T06:55:35Z",
-      "tx": "0xc17c4571052a4ab3130794317e03c797c44e7c5ae917e653607c2d83456485a5",
-      "tx_url": "https://eth.blockscout.com/tx/0xc17c4571052a4ab3130794317e03c797c44e7c5ae917e653607c2d83456485a5",
-      "wallet_id": "eth_deposit",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 1,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -122,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 569266.65,
-      "change_7d": -36313.86,
+      "change_24h": 569227.79,
+      "change_7d": -36267.72,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -136,7 +123,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 785809.75
+      "usdc": 785770.89
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
