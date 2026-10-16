@@ -11,18 +11,31 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-16T03:26:53Z",
+  "generated_at": "2026-10-16T03:39:26Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 462498.35,
-    "change_7d": 1131712.83,
+    "change_24h": 462277.72,
+    "change_7d": 1131813.92,
     "partial": false,
-    "usdc": 2250739.37,
+    "usdc": 2250468.55,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [],
-  "transfers_since_last_run_count": 0,
+  "transfers_since_last_run": [
+    {
+      "amount": 0.0,
+      "chain": "bsc",
+      "counterparty": "0xbab6a03be445094a10695772a79777407dcdc0e7",
+      "direction": "in",
+      "method": null,
+      "t": "2026-10-16T02:28:29Z",
+      "tx": "0x3a8738f58e145cadb2313769c3b5a2886d4bbcff7cdc18c1481da2861e62d213",
+      "tx_url": "https://bscscan.com/tx/0x3a8738f58e145cadb2313769c3b5a2886d4bbcff7cdc18c1481da2861e62d213",
+      "wallet_id": "bsc_contract",
+      "wallet_role": "Current payout/deposit contract"
+    }
+  ],
+  "transfers_since_last_run_count": 1,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -109,8 +122,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 258085.2,
-      "change_7d": 451572.65,
+      "change_24h": 257847.98,
+      "change_7d": 451673.74,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,13 +136,13 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 966304.7
+      "usdc": 966033.88
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -22381.99,
+      "change_24h": -22365.4,
       "change_7d": 426606.55,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
