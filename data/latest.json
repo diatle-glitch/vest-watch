@@ -2,10 +2,8 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [
-    "treasury_safe_eth balance kept previous value: USDC: https://ethereum-rpc.publicnode.com: The read operation timed out; https://ethereum-rpc.publicnode.com: The read operation timed out; https://eth.llamarpc.com: HTTP Error 525: <none>; https://eth.llamarpc.com: HTTP Error 525: <none>",
-    "safe2_eth balance kept previous value: USDC: https://ethereum-rpc.publicnode.com: The read operation timed out; https://ethereum-rpc.publicnode.com: The read operation timed out; https://eth.llamarpc.com: HTTP Error 525: <none>; https://eth.llamarpc.com: HTTP Error 525: <none>",
-    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "treasury_safe_base transfers: HTTP Error 403: Forbidden",
+    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
@@ -13,15 +11,15 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-16T05:32:45Z",
+  "generated_at": "2026-10-16T05:48:13Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 468491.17,
-    "change_7d": 1124561.82,
-    "partial": true,
-    "usdc": 2237412.03,
+    "change_24h": 471418.41,
+    "change_7d": 1124179.55,
+    "partial": false,
+    "usdc": 2236270.87,
     "wallets_included": 14,
-    "wallets_read_ok": 12
+    "wallets_read_ok": 14
   },
   "transfers_since_last_run": [],
   "transfers_since_last_run_count": 0,
@@ -40,9 +38,9 @@
       "kind": null,
       "note": "Attribution to Vest is an inference. Inbound USDC on Ethereum comes from 0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b (labeled Coinbase Prime 1 in the source notes for this monitor). Outbound USDC goes to the LI.FI diamond 0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE (Blockscout name LiFiDiamond). The Vest pages reviewed for this site do not publish this address.",
       "optional": false,
-      "read_ok": false,
+      "read_ok": true,
       "role": "Treasury Safe",
-      "stale": true,
+      "stale": false,
       "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "token_symbol": "USDC",
       "usdc": 300000.05
@@ -100,9 +98,9 @@
       "kind": null,
       "note": "Second Ethereum Safe in the monitored set. The Vest pages reviewed for this site do not name this address. Attribution to Vest is not confirmed by those pages.",
       "optional": false,
-      "read_ok": false,
+      "read_ok": true,
       "role": "Second Safe",
-      "stale": true,
+      "stale": false,
       "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "token_symbol": "USDC",
       "usdc": 1000.0
@@ -111,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 264435.8,
-      "change_7d": 449155.27,
+      "change_24h": 267363.04,
+      "change_7d": 448773.0,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -125,7 +123,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 958055.61
+      "usdc": 956914.45
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
