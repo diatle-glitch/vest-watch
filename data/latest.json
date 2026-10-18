@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-18T17:53:17Z",
+  "generated_at": "2026-10-18T18:05:55Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -530269.96,
-    "change_7d": 838897.88,
+    "change_24h": -532096.39,
+    "change_7d": 839944.36,
     "partial": false,
-    "usdc": 1702925.94,
+    "usdc": 1697497.11,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -469041.62,
-      "change_7d": -287099.68,
+      "change_24h": -471130.23,
+      "change_7d": -285159.56,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 80733.13
+      "usdc": 76542.4
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -36580.58,
-      "change_7d": 1074395.41,
+      "change_24h": -36650.43,
+      "change_7d": 1073501.77,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 1288977.68
+      "usdc": 1287739.58
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -289,7 +289,7 @@
       "address": "0xef14da66876476C1A75dC057343B97b6Bd372c41",
       "attribution": "observed",
       "chain": "bsc",
-      "change_24h": -332.03,
+      "change_24h": 0.0,
       "change_7d": -332.03,
       "decimals": 18,
       "explorer": "https://bscscan.com/address/0xef14da66876476C1A75dC057343B97b6Bd372c41",
