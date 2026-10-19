@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-19T12:41:42Z",
+  "generated_at": "2026-10-19T12:54:16Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 475446.61,
-    "change_7d": 1593984.37,
+    "change_24h": 475480.7,
+    "change_7d": 1592818.5,
     "partial": false,
-    "usdc": 2335081.7,
+    "usdc": 2334705.33,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 550175.65,
-      "change_7d": 520443.99,
+      "change_24h": 550363.88,
+      "change_7d": 520437.61,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 734357.54
+      "usdc": 734340.51
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -38279.04,
-      "change_7d": 969096.26,
+      "change_24h": -38433.18,
+      "change_7d": 968736.92,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 1283954.88
+      "usdc": 1283595.54
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -250,7 +250,7 @@
       "attribution": "observed",
       "chain": "arbitrum",
       "change_24h": -31450.0,
-      "change_7d": 128921.36,
+      "change_7d": 128121.21,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "history_key": "arb_old",
