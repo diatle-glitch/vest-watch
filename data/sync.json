@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T20:58:33Z",
+  "generated_at": "2026-10-20T21:11:11Z",
   "wallets": {
     "arb_contract": {
       "error": "HTTP Error 403: Forbidden",
@@ -39,23 +39,23 @@
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
       "error": "'NoneType' object is not subscriptable",
-      "high_block": 128814166,
-      "latest_block": 128814166,
+      "high_block": 128815848,
+      "latest_block": 128815848,
       "low_block": 123250759,
       "reached_cutoff": true,
       "resume": null,
-      "seconds": 0.8,
+      "seconds": 0.3,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
       "error": "'NoneType' object is not subscriptable",
-      "high_block": 128814168,
-      "latest_block": 128814168,
+      "high_block": 128815849,
+      "latest_block": 128815849,
       "low_block": 123252797,
       "reached_cutoff": true,
       "resume": null,
-      "seconds": 0.6,
+      "seconds": 0.3,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
