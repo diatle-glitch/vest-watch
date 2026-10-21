@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-21T19:59:19Z",
+  "generated_at": "2026-10-21T20:11:59Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 379033.32,
-    "change_7d": 1378096.65,
+    "change_24h": 378452.83,
+    "change_7d": 1376164.58,
     "partial": false,
-    "usdc": 3458003.65,
+    "usdc": 3452291.02,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 603694.28,
-      "change_7d": 1007510.97,
+      "change_24h": 598570.97,
+      "change_7d": 1005877.19,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,13 +123,13 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 1968441.08
+      "usdc": 1963026.74
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -188162.41,
+      "change_24h": -187641.74,
       "change_7d": 272093.92,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
@@ -249,8 +249,8 @@
       "address": "0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -18998.55,
-      "change_7d": 6068.15,
+      "change_24h": -14976.4,
+      "change_7d": 5769.86,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "history_key": "arb_old",
@@ -263,7 +263,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 162841.14
+      "usdc": 162542.85
     },
     {
       "address": "0x32d95F243F9E2c1344E4BAa91a8D32711527ef7e",
