@@ -8,16 +8,16 @@
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
     "base_e80f transfers: HTTP Error 403: Forbidden",
-    "arb_old transfers: HTTP Error 403: Forbidden",
-    "base_old transfers: HTTP Error 403: Forbidden"
+    "base_old transfers: HTTP Error 403: Forbidden",
+    "arb_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-10-25T11:13:42Z",
+  "generated_at": "2026-10-25T11:26:18Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -677863.51,
-    "change_7d": -256465.99,
+    "change_24h": -666884.41,
+    "change_7d": -65391.59,
     "partial": false,
-    "usdc": 1787272.55,
+    "usdc": 1797448.27,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -497440.77,
-      "change_7d": 402316.45,
+      "change_24h": -497454.5,
+      "change_7d": 582256.33,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 774504.74
+      "usdc": 773690.46
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -137969.74,
-      "change_7d": -533428.14,
+      "change_24h": -126976.91,
+      "change_7d": -522293.62,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 782365.7
+      "usdc": 793355.7
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
