@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T19:46:48Z",
+  "generated_at": "2026-10-31T19:59:34Z",
   "wallets": {
     "arb_contract": {
       "error": "HTTP Error 403: Forbidden",
@@ -39,27 +39,27 @@
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
       "error": "'NoneType' object is not subscriptable",
-      "high_block": 130915559,
-      "latest_block": 130915559,
+      "high_block": 130917345,
+      "latest_block": 130917345,
       "low_block": 123250759,
       "reached_cutoff": true,
       "resume": null,
-      "seconds": 0.8,
+      "seconds": 0.6,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
       "error": "'NoneType' object is not subscriptable",
-      "high_block": 130915561,
-      "latest_block": 130915561,
+      "high_block": 130917347,
+      "latest_block": 130917347,
       "low_block": 123252797,
       "reached_cutoff": true,
       "resume": null,
-      "seconds": 0.8,
+      "seconds": 0.6,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
-      "error": "HTTP Error 500: Internal Server Error",
+      "error": "The read operation timed out",
       "pages": 1,
       "reached_cutoff": true,
       "resume": null,
