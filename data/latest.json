@@ -11,18 +11,31 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-02T19:39:13Z",
+  "generated_at": "2026-11-02T19:51:51Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 537605.23,
-    "change_7d": 1088537.24,
+    "change_24h": 568985.18,
+    "change_7d": 1099717.04,
     "partial": false,
-    "usdc": 2757406.64,
+    "usdc": 2768684.17,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
-  "transfers_since_last_run": [],
-  "transfers_since_last_run_count": 0,
+  "transfers_since_last_run": [
+    {
+      "amount": 220.0,
+      "chain": "ethereum",
+      "counterparty": "0x3D9ee33B83381E34B48EAFabd79c638d61C361C0",
+      "direction": "in",
+      "method": "0xa9059cbb",
+      "t": "2026-11-02T19:42:35Z",
+      "tx": "0x827e33279ca1a12b8a0ed02b3abc54d242f61f4e4d0c3bd2969575474e06cdc8",
+      "tx_url": "https://eth.blockscout.com/tx/0x827e33279ca1a12b8a0ed02b3abc54d242f61f4e4d0c3bd2969575474e06cdc8",
+      "wallet_id": "eth_deposit",
+      "wallet_role": "Current payout/deposit contract"
+    }
+  ],
+  "transfers_since_last_run_count": 1,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -109,8 +122,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -238997.6,
-      "change_7d": 425750.34,
+      "change_24h": -222764.24,
+      "change_7d": 424835.94,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +136,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 1290563.35
+      "usdc": 1289621.49
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 657429.25,
-      "change_7d": 483771.41,
+      "change_24h": 682457.6,
+      "change_7d": 505747.37,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,14 +156,14 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 1058468.89
+      "usdc": 1080444.85
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
       "attribution": "contract source",
       "chain": "ethereum",
-      "change_24h": -3932.4,
-      "change_7d": -4386.94,
+      "change_24h": -13814.16,
+      "change_7d": -14268.7,
       "decimals": 6,
       "explorer": "https://eth.blockscout.com/address/0xE80F92077131b9890599E418AE323de71cE1C35a",
       "history_key": "eth_deposit",
@@ -163,7 +176,7 @@
       "stale": false,
       "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "token_symbol": "USDC",
-      "usdc": 93128.08
+      "usdc": 83246.32
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -283,7 +296,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 892.22
+      "usdc": 1017.41
     },
     {
       "address": "0xef14da66876476C1A75dC057343B97b6Bd372c41",
