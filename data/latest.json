@@ -2,8 +2,8 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [
-    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "treasury_safe_base transfers: HTTP Error 403: Forbidden",
+    "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-04T00:32:43Z",
+  "generated_at": "2026-11-04T00:45:19Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 371187.72,
-    "change_7d": 1228695.16,
+    "change_24h": 364003.63,
+    "change_7d": 1219080.05,
     "partial": false,
-    "usdc": 3179662.88,
+    "usdc": 3169635.77,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 583103.02,
-      "change_7d": 945699.03,
+      "change_24h": 577104.99,
+      "change_7d": 939112.75,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 1845659.32
+      "usdc": 1838639.44
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -170355.99,
-      "change_7d": 114098.85,
+      "change_24h": -171542.05,
+      "change_7d": 111070.02,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 959250.43
+      "usdc": 956243.2
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
