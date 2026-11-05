@@ -1,21 +1,13 @@
 {
   "charts": {
-    "as_of": "2026-11-04T23:55:45Z",
+    "as_of": "2026-11-05T00:08:27Z",
     "daily_flows": [
-      {
-        "date": "2026-10-05",
-        "deposits": 0.0,
-        "net": -43.29,
-        "payout_count": 1,
-        "payouts": 43.29,
-        "topups": 0.0
-      },
       {
         "date": "2026-10-06",
         "deposits": 40415.0,
-        "net": 30558.41,
-        "payout_count": 17,
-        "payouts": 9856.59,
+        "net": 30608.41,
+        "payout_count": 16,
+        "payouts": 9806.59,
         "topups": 0.0
       },
       {
@@ -249,6 +241,14 @@
         "payout_count": 0,
         "payouts": 0.0,
         "topups": 0.0
+      },
+      {
+        "date": "2026-11-05",
+        "deposits": 0.0,
+        "net": 0.0,
+        "payout_count": 0,
+        "payouts": 0.0,
+        "topups": 0.0
       }
     ],
     "last_topup": {
@@ -263,9 +263,9 @@
     },
     "payout_buckets": [
       {
-        "count": 12,
+        "count": 10,
         "label": "Under $100",
-        "volume": 468.07
+        "volume": 374.78
       },
       {
         "count": 9,
@@ -307,7 +307,7 @@
         {
           "source": "Payout contracts",
           "target": "Recipients",
-          "value": 89229.73
+          "value": 89136.44
         }
       ],
       "window_days": 30
@@ -375,20 +375,20 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 131716534,
-      "latest_block": 131716534,
+      "high_block": 131718223,
+      "latest_block": 131718223,
       "low_block": 123250759,
       "reached_cutoff": true,
-      "seconds": 1.4,
+      "seconds": 2.3,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 131716538,
-      "latest_block": 131716538,
+      "high_block": 131718229,
+      "latest_block": 131718229,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 0.9,
+      "seconds": 0.7,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
@@ -439,8 +439,8 @@
     },
     "30": {
       "days": 30,
-      "filtered_outflows": 89229.73,
-      "net": 75578.65,
+      "filtered_outflows": 89136.44,
+      "net": 75671.94,
       "partial_wallets": [],
       "treasury_topups": 70000.0,
       "user_deposits": 94808.38
@@ -454,7 +454,7 @@
       "user_deposits": 20057.81
     }
   },
-  "generated_at": "2026-11-04T23:55:45Z",
+  "generated_at": "2026-11-05T00:08:27Z",
   "large_moves": [
     {
       "amount": 10101.76,
@@ -595,16 +595,16 @@
       "amount": 200000.0,
       "chain": "ethereum",
       "classification": null,
-      "counterparty": "0x0e66f5443Db92423b692866CFDd9D9F6AcDe8597",
-      "counterparty_label": "Second Safe",
-      "direction": "out",
+      "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
+      "counterparty_label": "Treasury Safe",
+      "direction": "in",
       "method": "0x710a9f68",
       "t": "2026-10-23T19:38:35Z",
       "tx": "0x78bd1e7bf2ba74e30ee3ff0e302160fec2b164f541c80cad89e5b68f1dbbacb4",
       "tx_url": "https://eth.blockscout.com/tx/0x78bd1e7bf2ba74e30ee3ff0e302160fec2b164f541c80cad89e5b68f1dbbacb4",
-      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
-      "wallet_id": "treasury_safe_eth",
-      "wallet_role": "Treasury Safe"
+      "wallet_address": "0x0e66f5443Db92423b692866CFDd9D9F6AcDe8597",
+      "wallet_id": "safe2_eth",
+      "wallet_role": "Second Safe"
     },
     {
       "amount": 400000.0,
@@ -625,16 +625,16 @@
       "amount": 200000.0,
       "chain": "ethereum",
       "classification": null,
-      "counterparty": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
-      "counterparty_label": "Treasury Safe",
-      "direction": "in",
+      "counterparty": "0x0e66f5443Db92423b692866CFDd9D9F6AcDe8597",
+      "counterparty_label": "Second Safe",
+      "direction": "out",
       "method": "0x710a9f68",
       "t": "2026-10-23T19:38:35Z",
       "tx": "0x78bd1e7bf2ba74e30ee3ff0e302160fec2b164f541c80cad89e5b68f1dbbacb4",
       "tx_url": "https://eth.blockscout.com/tx/0x78bd1e7bf2ba74e30ee3ff0e302160fec2b164f541c80cad89e5b68f1dbbacb4",
-      "wallet_address": "0x0e66f5443Db92423b692866CFDd9D9F6AcDe8597",
-      "wallet_id": "safe2_eth",
-      "wallet_role": "Second Safe"
+      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
     },
     {
       "amount": 400000.0,
@@ -1527,23 +1527,18 @@
       "method": "withdraw / 0xbd69a7ae",
       "windows": {
         "30": {
-          "count": 13,
+          "count": 11,
           "daily": [
             {
-              "count": 1,
-              "date": "2026-10-05",
-              "volume": 43.29
-            },
-            {
-              "count": 12,
+              "count": 11,
               "date": "2026-10-06",
-              "volume": 7515.56
+              "volume": 7465.56
             }
           ],
           "max": 1494.4,
-          "median": 114.86,
-          "unique_recipients": 13,
-          "volume": 7558.85
+          "median": 811.24,
+          "unique_recipients": 11,
+          "volume": 7465.56
         },
         "7": {
           "count": 0,
@@ -2343,7 +2338,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-11-04T23:55:48Z",
+    "queried_at": "2026-11-05T00:08:28Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
