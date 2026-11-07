@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-07T01:44:37Z",
+  "generated_at": "2026-11-07T01:57:16Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 1487672.42,
-    "change_7d": 1105063.02,
+    "change_24h": 1492471.76,
+    "change_7d": 1095976.69,
     "partial": false,
-    "usdc": 3896156.46,
+    "usdc": 3884380.0,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 358119.12,
-      "change_7d": 740031.25,
+      "change_24h": 363593.65,
+      "change_7d": 734955.15,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 2226284.21
+      "usdc": 2218539.04
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 1349357.06,
-      "change_7d": 486659.52,
+      "change_24h": 1348681.87,
+      "change_7d": 482649.29,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 1448164.21
+      "usdc": 1444132.92
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
