@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-14T19:35:54Z",
+  "generated_at": "2026-11-14T19:48:35Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 285166.72,
-    "change_7d": 631240.06,
+    "change_24h": 276833.26,
+    "change_7d": 612225.47,
     "partial": false,
-    "usdc": 3548268.41,
+    "usdc": 3529243.82,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 892127.31,
-      "change_7d": 1338936.61,
+      "change_24h": 891891.96,
+      "change_7d": 1329099.71,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 2965021.62
+      "usdc": 2955184.72
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -741747.59,
-      "change_7d": -947654.45,
+      "change_24h": -749845.7,
+      "change_7d": -956832.14,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 116613.0
+      "usdc": 107435.31
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -283,7 +283,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 5689.66
+      "usdc": 5679.66
     },
     {
       "address": "0xef14da66876476C1A75dC057343B97b6Bd372c41",
