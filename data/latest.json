@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-14T22:50:17Z",
+  "generated_at": "2026-11-14T23:02:58Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 566827.37,
-    "change_7d": 340490.68,
+    "change_24h": 561862.48,
+    "change_7d": 335505.33,
     "partial": false,
-    "usdc": 3132024.96,
+    "usdc": 3124762.79,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 1061808.32,
-      "change_7d": 1101793.86,
+      "change_24h": 1061863.78,
+      "change_7d": 1102938.36,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 2631126.83
+      "usdc": 2629775.91
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -629767.95,
-      "change_7d": -1001261.08,
+      "change_24h": -634788.3,
+      "change_7d": -1007390.93,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 34663.96
+      "usdc": 28534.11
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -283,7 +283,7 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 5290.04
+      "usdc": 5508.64
     },
     {
       "address": "0xef14da66876476C1A75dC057343B97b6Bd372c41",
