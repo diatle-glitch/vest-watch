@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-20T21:09:23Z",
+  "generated_at": "2026-11-20T21:21:58Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": -1460649.64,
-    "change_7d": -403451.6,
+    "change_24h": -1457305.0,
+    "change_7d": -404004.56,
     "partial": false,
-    "usdc": 2177460.98,
+    "usdc": 2173646.03,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": -936302.13,
-      "change_7d": -299451.3,
+      "change_24h": -933658.88,
+      "change_7d": -300578.91,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 1286679.66
+      "usdc": 1282290.06
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": -567108.43,
-      "change_7d": -135457.65,
+      "change_24h": -568599.0,
+      "change_7d": -134883.0,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,13 +143,13 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 532245.16
+      "usdc": 532819.81
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
       "attribution": "contract source",
       "chain": "ethereum",
-      "change_24h": -812.8,
+      "change_24h": 1379.16,
       "change_7d": 138944.55,
       "decimals": 6,
       "explorer": "https://eth.blockscout.com/address/0xE80F92077131b9890599E418AE323de71cE1C35a",
