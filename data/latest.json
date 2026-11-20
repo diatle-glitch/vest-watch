@@ -11,13 +11,13 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-20T16:05:08Z",
+  "generated_at": "2026-11-20T16:18:05Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 210629.69,
-    "change_7d": 626496.7,
+    "change_24h": 239583.35,
+    "change_7d": 628813.33,
     "partial": false,
-    "usdc": 4002374.91,
+    "usdc": 3997789.2,
     "wallets_included": 14,
     "wallets_read_ok": 14
   },
@@ -109,8 +109,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 71329.55,
-      "change_7d": 301360.0,
+      "change_24h": 74432.7,
+      "change_7d": 298638.27,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -123,14 +123,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 2432731.13
+      "usdc": 2423933.33
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 115110.67,
-      "change_7d": 375563.54,
+      "change_24h": 124961.18,
+      "change_7d": 380601.9,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -143,7 +143,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 1242990.25
+      "usdc": 1247202.34
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -249,7 +249,7 @@
       "address": "0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 32505.03,
+      "change_24h": 48505.03,
       "change_7d": 113980.41,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
