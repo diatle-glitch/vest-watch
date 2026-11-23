@@ -1,6 +1,6 @@
 {
   "charts": {
-    "as_of": "2026-11-23T15:41:02Z",
+    "as_of": "2026-11-23T15:53:42Z",
     "daily_flows": [
       {
         "date": "2026-10-24",
@@ -245,17 +245,17 @@
       {
         "date": "2026-11-23",
         "deposits": 0.0,
-        "net": 0.0,
+        "net": 200000.0,
         "payout_count": 0,
         "payouts": 0.0,
-        "topups": 0.0
+        "topups": 200000.0
       }
     ],
     "last_topup": {
       "amount": 2000000.0,
       "chain": "ethereum",
-      "kind": "safe_to_lifi",
-      "t": "2026-11-21T00:50:11Z"
+      "kind": "coinbase_prime_to_safe",
+      "t": "2026-11-23T15:46:47Z"
     },
     "pace_7d": {
       "per_day": 469.07,
@@ -297,7 +297,7 @@
         {
           "source": "Coinbase Prime",
           "target": "Treasury Safe",
-          "value": 13300000.0
+          "value": 15300000.0
         },
         {
           "source": "Treasury Safe",
@@ -375,20 +375,20 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 135296720,
-      "latest_block": 135296720,
+      "high_block": 135298398,
+      "latest_block": 135298398,
       "low_block": 123250759,
       "reached_cutoff": true,
-      "seconds": 1.9,
+      "seconds": 0.7,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 135296725,
-      "latest_block": 135296725,
+      "high_block": 135298400,
+      "latest_block": 135298400,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 0.9,
+      "seconds": 0.7,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
@@ -432,30 +432,60 @@
     "1": {
       "days": 1,
       "filtered_outflows": 0.0,
-      "net": 0.0,
+      "net": 200000.0,
       "partial_wallets": [],
-      "treasury_topups": 0.0,
+      "treasury_topups": 200000.0,
       "user_deposits": 0.0
     },
     "30": {
       "days": 30,
       "filtered_outflows": 21092.17,
-      "net": 272202.72,
+      "net": 472202.72,
       "partial_wallets": [],
-      "treasury_topups": 250000.0,
+      "treasury_topups": 450000.0,
       "user_deposits": 43294.89
     },
     "7": {
       "days": 7,
       "filtered_outflows": 3283.47,
-      "net": 106715.96,
+      "net": 306715.96,
       "partial_wallets": [],
-      "treasury_topups": 100000.0,
+      "treasury_topups": 300000.0,
       "user_deposits": 9999.43
     }
   },
-  "generated_at": "2026-11-23T15:41:02Z",
+  "generated_at": "2026-11-23T15:53:42Z",
   "large_moves": [
+    {
+      "amount": 2000000.0,
+      "chain": "ethereum",
+      "classification": null,
+      "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
+      "counterparty_label": "Coinbase Prime 1",
+      "direction": "in",
+      "method": "0xa9059cbb",
+      "t": "2026-11-23T15:46:47Z",
+      "tx": "0x6fdade623f59b504b9f503361b4ff476235b3880621da35f45f50a720be1bcf0",
+      "tx_url": "https://eth.blockscout.com/tx/0x6fdade623f59b504b9f503361b4ff476235b3880621da35f45f50a720be1bcf0",
+      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
+    },
+    {
+      "amount": 200000.0,
+      "chain": "ethereum",
+      "classification": null,
+      "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
+      "counterparty_label": "Coinbase Prime 1",
+      "direction": "in",
+      "method": "0xa9059cbb",
+      "t": "2026-11-23T15:46:35Z",
+      "tx": "0x49576f59a58169c7f3409365dd919800349b9b5d4e9393b019bb345da77d76f4",
+      "tx_url": "https://eth.blockscout.com/tx/0x49576f59a58169c7f3409365dd919800349b9b5d4e9393b019bb345da77d76f4",
+      "wallet_address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
+      "wallet_id": "eth_deposit",
+      "wallet_role": "Current payout/deposit contract"
+    },
     {
       "amount": 48004.81,
       "chain": "ethereum",
@@ -1205,6 +1235,21 @@
     {
       "amount": 2000000.0,
       "chain": "ethereum",
+      "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
+      "counterparty_label": "Coinbase Prime 1",
+      "direction": "in",
+      "inferred": false,
+      "kind": "coinbase_prime_to_safe",
+      "method": "0xa9059cbb",
+      "t": "2026-11-23T15:46:47Z",
+      "tx": "0x6fdade623f59b504b9f503361b4ff476235b3880621da35f45f50a720be1bcf0",
+      "tx_url": "https://eth.blockscout.com/tx/0x6fdade623f59b504b9f503361b4ff476235b3880621da35f45f50a720be1bcf0",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
+    },
+    {
+      "amount": 2000000.0,
+      "chain": "ethereum",
       "counterparty": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "counterparty_label": "LI.FI diamond",
       "direction": "out",
@@ -1688,7 +1733,7 @@
       "amounts": {
         "bridge_to_contract": 0.0,
         "coinbase_hot_to_contract": 0.0,
-        "coinbase_prime_to_safe": 13300000.0,
+        "coinbase_prime_to_safe": 15300000.0,
         "inferred_lifi_to_contract": 0.0,
         "moved_to_custody": 0.0,
         "safe_to_contract": 0.0,
@@ -1706,7 +1751,7 @@
       "amounts": {
         "bridge_to_contract": 0.0,
         "coinbase_hot_to_contract": 0.0,
-        "coinbase_prime_to_safe": 5500000.0,
+        "coinbase_prime_to_safe": 7500000.0,
         "inferred_lifi_to_contract": 0.0,
         "moved_to_custody": 0.0,
         "safe_to_contract": 0.0,
@@ -2556,7 +2601,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-11-23T15:41:03Z",
+    "queried_at": "2026-11-23T15:53:44Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
