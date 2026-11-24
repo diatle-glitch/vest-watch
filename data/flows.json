@@ -1,6 +1,6 @@
 {
   "charts": {
-    "as_of": "2026-11-24T14:32:37Z",
+    "as_of": "2026-11-24T14:45:18Z",
     "daily_flows": [
       {
         "date": "2026-10-25",
@@ -245,9 +245,9 @@
       {
         "date": "2026-11-24",
         "deposits": 0.0,
-        "net": 0.0,
-        "payout_count": 0,
-        "payouts": 0.0,
+        "net": -327.96,
+        "payout_count": 1,
+        "payouts": 327.96,
         "topups": 0.0
       }
     ],
@@ -258,8 +258,8 @@
       "t": "2026-11-23T16:45:23Z"
     },
     "pace_7d": {
-      "per_day": 99.61,
-      "volume": 697.29
+      "per_day": 146.46,
+      "volume": 1025.25
     },
     "payout_buckets": [
       {
@@ -268,9 +268,9 @@
         "volume": 1.86
       },
       {
-        "count": 3,
+        "count": 4,
         "label": "$100\u20131k",
-        "volume": 2276.12
+        "volume": 2604.08
       },
       {
         "count": 3,
@@ -289,8 +289,8 @@
       }
     ],
     "payouts_24h": {
-      "count": 0,
-      "volume": 0.0
+      "count": 1,
+      "volume": 327.96
     },
     "sankey": {
       "links": [
@@ -307,7 +307,7 @@
         {
           "source": "Payout contracts",
           "target": "Recipients",
-          "value": 21092.17
+          "value": 21420.13
         }
       ],
       "window_days": 30
@@ -375,20 +375,20 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 135479498,
-      "latest_block": 135479498,
+      "high_block": 135481201,
+      "latest_block": 135481201,
       "low_block": 123250759,
       "reached_cutoff": true,
-      "seconds": 0.9,
+      "seconds": 0.4,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 135479500,
-      "latest_block": 135479500,
+      "high_block": 135481202,
+      "latest_block": 135481202,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 1.0,
+      "seconds": 0.4,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
@@ -431,31 +431,46 @@
   "flow_summary": {
     "1": {
       "days": 1,
-      "filtered_outflows": 0.0,
-      "net": 200000.0,
+      "filtered_outflows": 327.96,
+      "net": 199672.04,
       "partial_wallets": [],
       "treasury_topups": 200000.0,
       "user_deposits": 0.0
     },
     "30": {
       "days": 30,
-      "filtered_outflows": 21092.17,
-      "net": 472202.72,
+      "filtered_outflows": 21420.13,
+      "net": 471874.76,
       "partial_wallets": [],
       "treasury_topups": 450000.0,
       "user_deposits": 43294.89
     },
     "7": {
       "days": 7,
-      "filtered_outflows": 697.29,
-      "net": 309302.14,
+      "filtered_outflows": 1025.25,
+      "net": 308974.18,
       "partial_wallets": [],
       "treasury_topups": 300000.0,
       "user_deposits": 9999.43
     }
   },
-  "generated_at": "2026-11-24T14:32:37Z",
+  "generated_at": "2026-11-24T14:45:18Z",
   "large_moves": [
+    {
+      "amount": 25572.17,
+      "chain": "ethereum",
+      "classification": null,
+      "counterparty": "0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5",
+      "counterparty_label": null,
+      "direction": "out",
+      "method": "0x0c9841a5",
+      "t": "2026-11-24T14:34:47Z",
+      "tx": "0xcaccb52856ac1702394b12d5e6939e051582fccb4dee2c2acd2f5324b7e812be",
+      "tx_url": "https://eth.blockscout.com/tx/0xcaccb52856ac1702394b12d5e6939e051582fccb4dee2c2acd2f5324b7e812be",
+      "wallet_address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
+      "wallet_id": "eth_deposit",
+      "wallet_role": "Current payout/deposit contract"
+    },
     {
       "amount": 10001.0,
       "chain": "ethereum",
@@ -2314,7 +2329,7 @@
       "method": "withdraw / 0xbd69a7ae",
       "windows": {
         "30": {
-          "count": 7,
+          "count": 8,
           "daily": [
             {
               "count": 1,
@@ -2340,23 +2355,34 @@
               "count": 1,
               "date": "2026-11-17",
               "volume": 2586.18
+            },
+            {
+              "count": 1,
+              "date": "2026-11-24",
+              "volume": 327.96
             }
           ],
           "max": 10101.76,
-          "median": 2300.0,
-          "unique_recipients": 7,
-          "volume": 20394.88
+          "median": 1636.34,
+          "unique_recipients": 8,
+          "volume": 20722.84
         },
         "7": {
-          "count": 0,
-          "daily": [],
-          "max": null,
-          "median": null,
-          "unique_recipients": 0,
-          "volume": 0.0
+          "count": 1,
+          "daily": [
+            {
+              "count": 1,
+              "date": "2026-11-24",
+              "volume": 327.96
+            }
+          ],
+          "max": 327.96,
+          "median": 327.96,
+          "unique_recipients": 1,
+          "volume": 327.96
         },
         "90": {
-          "count": 90,
+          "count": 91,
           "daily": [
             {
               "count": 1,
@@ -2547,12 +2573,17 @@
               "count": 1,
               "date": "2026-11-17",
               "volume": 2586.18
+            },
+            {
+              "count": 1,
+              "date": "2026-11-24",
+              "volume": 327.96
             }
           ],
           "max": 20000.0,
           "median": 500.0,
-          "unique_recipients": 29,
-          "volume": 143323.61
+          "unique_recipients": 30,
+          "volume": 143651.57
         }
       }
     },
@@ -2625,7 +2656,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-11-24T14:32:39Z",
+    "queried_at": "2026-11-24T14:45:19Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
