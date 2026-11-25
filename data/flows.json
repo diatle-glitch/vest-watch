@@ -1,6 +1,6 @@
 {
   "charts": {
-    "as_of": "2026-11-25T07:18:41Z",
+    "as_of": "2026-11-25T07:31:15Z",
     "daily_flows": [
       {
         "date": "2026-10-26",
@@ -375,20 +375,20 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 135613613,
-      "latest_block": 135613613,
+      "high_block": 135615290,
+      "latest_block": 135615290,
       "low_block": 123250759,
       "reached_cutoff": true,
-      "seconds": 0.7,
+      "seconds": 0.5,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 135613615,
-      "latest_block": 135613615,
+      "high_block": 135615291,
+      "latest_block": 135615291,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 0.5,
+      "seconds": 0.4,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
@@ -454,7 +454,7 @@
       "user_deposits": 9999.43
     }
   },
-  "generated_at": "2026-11-25T07:18:41Z",
+  "generated_at": "2026-11-25T07:31:15Z",
   "large_moves": [
     {
       "amount": 10001.01,
@@ -2087,12 +2087,12 @@
           "volume": 0.0
         },
         "90": {
-          "count": 3185,
+          "count": 3184,
           "daily": [
             {
-              "count": 5,
+              "count": 4,
               "date": "2026-08-27",
-              "volume": 2063.48
+              "volume": 1713.48
             },
             {
               "count": 4,
@@ -2296,9 +2296,9 @@
             }
           ],
           "max": 62961.83,
-          "median": 98.44,
+          "median": 98.32,
           "unique_recipients": 1182,
-          "volume": 2069956.31
+          "volume": 2069606.31
         }
       }
     },
@@ -2691,7 +2691,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-11-25T07:18:43Z",
+    "queried_at": "2026-11-25T07:31:16Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
