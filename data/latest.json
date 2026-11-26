@@ -2,8 +2,12 @@
   "checked_zero_usdc": [],
   "cursor_note": null,
   "errors": [
-    "treasury_safe_base transfers: HTTP Error 403: Forbidden",
+    "safe2_eth balance kept previous value: USDC: https://ethereum-rpc.publicnode.com: HTTP Error 403: Forbidden; https://ethereum-rpc.publicnode.com: HTTP Error 403: Forbidden; https://eth.llamarpc.com: HTTP Error 525: <none>; https://eth.llamarpc.com: HTTP Error 525: <none>",
+    "treasury_safe_eth balance kept previous value: USDC: https://ethereum-rpc.publicnode.com: HTTP Error 403: Forbidden; https://ethereum-rpc.publicnode.com: HTTP Error 403: Forbidden; https://eth.llamarpc.com: HTTP Error 525: <none>; https://eth.llamarpc.com: HTTP Error 525: <none>",
+    "eth_deposit balance kept previous value: USDC: https://ethereum-rpc.publicnode.com: HTTP Error 403: Forbidden; https://ethereum-rpc.publicnode.com: HTTP Error 403: Forbidden; https://eth.llamarpc.com: HTTP Error 525: <none>; https://eth.llamarpc.com: HTTP Error 525: <none>",
+    "polygon_deposit balance kept previous value: USDC: https://polygon-bor-rpc.publicnode.com: HTTP Error 403: Forbidden; https://polygon-bor-rpc.publicnode.com: HTTP Error 403: Forbidden; https://polygon-rpc.com: HTTP Error 401: Unauthorized; https://polygon-rpc.com: HTTP Error 401: Unauthorized | USDC.e: https://polygon-bor-rpc.publicnode.com: HTTP Error 403: Forbidden; https://polygon-bor-rpc.publicnode.com: HTTP Error 403: Forbidden; https://polygon-rpc.com: HTTP Error 401: Unauthorized; https://polygon-rpc.com: HTTP Error 401: Unauthorized",
     "treasury_safe_arb transfers: HTTP Error 403: Forbidden",
+    "treasury_safe_base transfers: HTTP Error 403: Forbidden",
     "base_contract transfers: HTTP Error 403: Forbidden",
     "arb_contract transfers: HTTP Error 403: Forbidden",
     "polygon_deposit transfers: HTTP Error 403: Forbidden",
@@ -11,31 +15,18 @@
     "arb_old transfers: HTTP Error 403: Forbidden",
     "base_old transfers: HTTP Error 403: Forbidden"
   ],
-  "generated_at": "2026-11-26T12:03:29Z",
+  "generated_at": "2026-11-26T12:16:14Z",
   "schema_version": 1,
   "totals": {
-    "change_24h": 1020063.23,
-    "change_7d": 906813.56,
-    "partial": false,
-    "usdc": 4783701.18,
+    "change_24h": 1006406.1,
+    "change_7d": 904807.92,
+    "partial": true,
+    "usdc": 4780457.25,
     "wallets_included": 14,
-    "wallets_read_ok": 14
+    "wallets_read_ok": 10
   },
-  "transfers_since_last_run": [
-    {
-      "amount": 517.33,
-      "chain": "ethereum",
-      "counterparty": "0x5c7BCd6E7De5423a257D81B442095A1a6ced35C5",
-      "direction": "out",
-      "method": "0x0c9841a5",
-      "t": "2026-11-26T11:50:59Z",
-      "tx": "0xd7dc163516a123700404f325adb2f28e818de0a11d84b175537f53fcc1de0eb8",
-      "tx_url": "https://eth.blockscout.com/tx/0xd7dc163516a123700404f325adb2f28e818de0a11d84b175537f53fcc1de0eb8",
-      "wallet_id": "eth_deposit",
-      "wallet_role": "Current payout/deposit contract"
-    }
-  ],
-  "transfers_since_last_run_count": 1,
+  "transfers_since_last_run": [],
+  "transfers_since_last_run_count": 0,
   "transfers_since_last_run_truncated": false,
   "wallets": [
     {
@@ -51,9 +42,9 @@
       "kind": null,
       "note": "Attribution to Vest is an inference. Inbound USDC on Ethereum comes from 0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b (labeled Coinbase Prime 1 in the source notes for this monitor). Outbound USDC goes to the LI.FI diamond 0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE (Blockscout name LiFiDiamond). The Vest pages reviewed for this site do not publish this address.",
       "optional": false,
-      "read_ok": true,
+      "read_ok": false,
       "role": "Treasury Safe",
-      "stale": false,
+      "stale": true,
       "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "token_symbol": "USDC",
       "usdc": 0.0
@@ -111,9 +102,9 @@
       "kind": null,
       "note": "Second Ethereum Safe in the monitored set. The Vest pages reviewed for this site do not name this address. Attribution to Vest is not confirmed by those pages.",
       "optional": false,
-      "read_ok": true,
+      "read_ok": false,
       "role": "Second Safe",
-      "stale": false,
+      "stale": true,
       "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "token_symbol": "USDC",
       "usdc": 0.0
@@ -122,8 +113,8 @@
       "address": "0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "attribution": "observed",
       "chain": "base",
-      "change_24h": 449050.86,
-      "change_7d": 620565.4,
+      "change_24h": 450856.42,
+      "change_7d": 618252.2,
       "decimals": 6,
       "explorer": "https://base.blockscout.com/address/0x55133c825603E6A5b9E911ABAb23e75Dc3Bb07aF",
       "history_key": "base_contract",
@@ -136,14 +127,14 @@
       "stale": false,
       "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "token_symbol": "USDC",
-      "usdc": 3110091.89
+      "usdc": 3107491.02
     },
     {
       "address": "0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 556823.5,
-      "change_7d": 334721.96,
+      "change_24h": 556359.81,
+      "change_7d": 335029.52,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0xB2F86eAE1197032Fa85389cc6c0F3b06B58Dd1Ea",
       "history_key": "arb_contract",
@@ -156,7 +147,7 @@
       "stale": false,
       "token": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
       "token_symbol": "USDC",
-      "usdc": 1464370.61
+      "usdc": 1463727.55
     },
     {
       "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
@@ -171,9 +162,9 @@
       "kind": "current",
       "note": "TransparentUpgradeableProxy. Blockscout lists implementation 0xEcD91C77B98d507E3C20Bac86D2541ECbDc881E3, verified as SrcBridge. That source contains string public constant NAME = \"VestRouterV2\".",
       "optional": false,
-      "read_ok": true,
+      "read_ok": false,
       "role": "Current payout/deposit contract",
-      "stale": false,
+      "stale": true,
       "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "token_symbol": "USDC",
       "usdc": 142133.61
@@ -211,9 +202,9 @@
       "kind": "current",
       "note": "Same address as the Ethereum payout/deposit proxy. Included when it holds USDC.",
       "optional": true,
-      "read_ok": true,
+      "read_ok": false,
       "role": "Same address on Polygon",
-      "stale": false,
+      "stale": true,
       "token": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
       "token_symbol": "USDC",
       "usdc": 602.19
@@ -262,7 +253,7 @@
       "address": "0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
       "attribution": "observed",
       "chain": "arbitrum",
-      "change_24h": 30684.38,
+      "change_24h": 15685.38,
       "change_7d": -2798.38,
       "decimals": 6,
       "explorer": "https://arbitrum.blockscout.com/address/0x80C526d1c2fddADB3Cd39810cd7A79E07b0EDa00",
