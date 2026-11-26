@@ -1,6 +1,6 @@
 {
   "charts": {
-    "as_of": "2026-11-26T20:32:27Z",
+    "as_of": "2026-11-26T20:45:10Z",
     "daily_flows": [
       {
         "date": "2026-10-27",
@@ -297,7 +297,7 @@
         {
           "source": "Coinbase Prime",
           "target": "Treasury Safe",
-          "value": 16300000.0
+          "value": 15800000.0
         },
         {
           "source": "Treasury Safe",
@@ -375,8 +375,8 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 135911247,
-      "latest_block": 135911247,
+      "high_block": 135912939,
+      "latest_block": 135912939,
       "low_block": 123250759,
       "reached_cutoff": true,
       "seconds": 0.7,
@@ -384,8 +384,8 @@
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 135911249,
-      "latest_block": 135911249,
+      "high_block": 135912941,
+      "latest_block": 135912941,
       "low_block": 123252797,
       "reached_cutoff": true,
       "seconds": 0.7,
@@ -454,7 +454,7 @@
       "user_deposits": 9999.43
     }
   },
-  "generated_at": "2026-11-26T20:32:27Z",
+  "generated_at": "2026-11-26T20:45:10Z",
   "large_moves": [
     {
       "amount": 46493.22,
@@ -1310,21 +1310,6 @@
       "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
       "wallet_id": "treasury_safe_eth",
       "wallet_role": "Treasury Safe"
-    },
-    {
-      "amount": 500000.0,
-      "chain": "ethereum",
-      "classification": null,
-      "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
-      "counterparty_label": "Coinbase Prime 1",
-      "direction": "in",
-      "method": "0xa9059cbb",
-      "t": "2026-10-27T20:42:47Z",
-      "tx": "0xd857ef57b6b1ef166c30735637eee1a797d1bbcc7c77da6bd7868f8f7c08a76c",
-      "tx_url": "https://eth.blockscout.com/tx/0xd857ef57b6b1ef166c30735637eee1a797d1bbcc7c77da6bd7868f8f7c08a76c",
-      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
-      "wallet_id": "treasury_safe_eth",
-      "wallet_role": "Treasury Safe"
     }
   ],
   "onchain": {
@@ -1906,21 +1891,6 @@
       "tx_url": "https://eth.blockscout.com/tx/0xc2e34cf892294ea0ccda829963f23934bf8ae16772d3ef2f1217ed3e8685965c",
       "wallet_id": "treasury_safe_eth",
       "wallet_role": "Treasury Safe"
-    },
-    {
-      "amount": 500000.0,
-      "chain": "ethereum",
-      "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
-      "counterparty_label": "Coinbase Prime 1",
-      "direction": "in",
-      "inferred": false,
-      "kind": "coinbase_prime_to_safe",
-      "method": "0xa9059cbb",
-      "t": "2026-10-27T20:42:47Z",
-      "tx": "0xd857ef57b6b1ef166c30735637eee1a797d1bbcc7c77da6bd7868f8f7c08a76c",
-      "tx_url": "https://eth.blockscout.com/tx/0xd857ef57b6b1ef166c30735637eee1a797d1bbcc7c77da6bd7868f8f7c08a76c",
-      "wallet_id": "treasury_safe_eth",
-      "wallet_role": "Treasury Safe"
     }
   ],
   "windows": {
@@ -1928,7 +1898,7 @@
       "amounts": {
         "bridge_to_contract": 0.0,
         "coinbase_hot_to_contract": 0.0,
-        "coinbase_prime_to_safe": 16300000.0,
+        "coinbase_prime_to_safe": 15800000.0,
         "inferred_lifi_to_contract": 0.0,
         "moved_to_custody": 0.0,
         "safe_to_contract": 0.0,
@@ -2766,7 +2736,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-11-26T20:32:29Z",
+    "queried_at": "2026-11-26T20:45:11Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
