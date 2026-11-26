@@ -1,6 +1,6 @@
 {
   "charts": {
-    "as_of": "2026-11-26T01:54:32Z",
+    "as_of": "2026-11-26T02:07:18Z",
     "daily_flows": [
       {
         "date": "2026-10-27",
@@ -252,10 +252,10 @@
       }
     ],
     "last_topup": {
-      "amount": 1000000.0,
+      "amount": 1000000.05,
       "chain": "ethereum",
-      "kind": "coinbase_prime_to_safe",
-      "t": "2026-11-26T01:06:11Z"
+      "kind": "safe_to_lifi",
+      "t": "2026-11-26T02:06:23Z"
     },
     "pace_7d": {
       "per_day": 146.46,
@@ -302,7 +302,7 @@
         {
           "source": "Treasury Safe",
           "target": "Payout contracts",
-          "value": 15300000.0
+          "value": 16300000.05
         },
         {
           "source": "Payout contracts",
@@ -375,20 +375,20 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 135762322,
-      "latest_block": 135762322,
+      "high_block": 135764024,
+      "latest_block": 135764024,
       "low_block": 123250759,
       "reached_cutoff": true,
-      "seconds": 0.7,
+      "seconds": 0.8,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 135762324,
-      "latest_block": 135762324,
+      "high_block": 135764026,
+      "latest_block": 135764026,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 0.7,
+      "seconds": 1.0,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
@@ -454,8 +454,23 @@
       "user_deposits": 9999.43
     }
   },
-  "generated_at": "2026-11-26T01:54:32Z",
+  "generated_at": "2026-11-26T02:07:18Z",
   "large_moves": [
+    {
+      "amount": 1000000.05,
+      "chain": "ethereum",
+      "classification": null,
+      "counterparty": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "counterparty_label": "LI.FI diamond",
+      "direction": "out",
+      "method": "0x710a9f68",
+      "t": "2026-11-26T02:06:23Z",
+      "tx": "0xd4d2e0745ec89940b50834e60370598fd79e2da7780f633ec6e8254dfa5cf0f9",
+      "tx_url": "https://eth.blockscout.com/tx/0xd4d2e0745ec89940b50834e60370598fd79e2da7780f633ec6e8254dfa5cf0f9",
+      "wallet_address": "0x267EbfbcBb7020F200c2749Ee441E12574d60C6c",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
+    },
     {
       "amount": 1000000.0,
       "chain": "ethereum",
@@ -1353,6 +1368,21 @@
   "schema_version": 1,
   "topups": [
     {
+      "amount": 1000000.05,
+      "chain": "ethereum",
+      "counterparty": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "counterparty_label": "LI.FI diamond",
+      "direction": "out",
+      "inferred": false,
+      "kind": "safe_to_lifi",
+      "method": "0x710a9f68",
+      "t": "2026-11-26T02:06:23Z",
+      "tx": "0xd4d2e0745ec89940b50834e60370598fd79e2da7780f633ec6e8254dfa5cf0f9",
+      "tx_url": "https://eth.blockscout.com/tx/0xd4d2e0745ec89940b50834e60370598fd79e2da7780f633ec6e8254dfa5cf0f9",
+      "wallet_id": "treasury_safe_eth",
+      "wallet_role": "Treasury Safe"
+    },
+    {
       "amount": 1000000.0,
       "chain": "ethereum",
       "counterparty": "0xCD531Ae9EFCCE479654c4926dec5F6209531Ca7b",
@@ -1887,7 +1917,7 @@
         "inferred_lifi_to_contract": 0.0,
         "moved_to_custody": 0.0,
         "safe_to_contract": 0.0,
-        "safe_to_lifi": 15300000.0
+        "safe_to_lifi": 16300000.05
       },
       "by_chain": {
         "bridge_to_contract": {},
@@ -1905,7 +1935,7 @@
         "inferred_lifi_to_contract": 0.0,
         "moved_to_custody": 0.0,
         "safe_to_contract": 0.0,
-        "safe_to_lifi": 5500000.0
+        "safe_to_lifi": 6500000.05
       },
       "by_chain": {
         "bridge_to_contract": {},
@@ -2721,7 +2751,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-11-26T01:54:33Z",
+    "queried_at": "2026-11-26T02:07:20Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
