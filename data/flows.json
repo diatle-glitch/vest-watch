@@ -1,6 +1,6 @@
 {
   "charts": {
-    "as_of": "2026-11-28T07:06:18Z",
+    "as_of": "2026-11-28T07:18:55Z",
     "daily_flows": [
       {
         "date": "2026-10-29",
@@ -375,20 +375,20 @@
     },
     "bsc_contract": {
       "covered_from": "2026-09-21T21:10:12Z",
-      "high_block": 136187644,
-      "latest_block": 136187644,
+      "high_block": 136189357,
+      "latest_block": 136189357,
       "low_block": 123250759,
       "reached_cutoff": true,
-      "seconds": 0.9,
+      "seconds": 0.6,
       "source": "eth_getLogs"
     },
     "bsc_old": {
       "covered_from": "2026-09-21T21:25:29Z",
-      "high_block": 136187647,
-      "latest_block": 136187647,
+      "high_block": 136189359,
+      "latest_block": 136189359,
       "low_block": 123252797,
       "reached_cutoff": true,
-      "seconds": 0.8,
+      "seconds": 1.6,
       "source": "eth_getLogs"
     },
     "eth_deposit": {
@@ -454,7 +454,7 @@
       "user_deposits": 0.0
     }
   },
-  "generated_at": "2026-11-28T07:06:18Z",
+  "generated_at": "2026-11-28T07:18:55Z",
   "large_moves": [
     {
       "amount": 1500000.0,
@@ -1347,7 +1347,7 @@
         "address": "0xE80F92077131b9890599E418AE323de71cE1C35a",
         "chain": "ethereum",
         "has_bridge_operator_role": false,
-        "rpc": "https://ethereum-rpc.publicnode.com",
+        "rpc": "https://1rpc.io/eth",
         "wallet_id": "eth_deposit"
       },
       {
@@ -1377,7 +1377,7 @@
     "router": {
       "address": "0x919386306c47b2fe1036e3b4f7c40d22d2461a23",
       "contract": "0xE80F92077131b9890599E418AE323de71cE1C35a",
-      "rpc": "https://ethereum-rpc.publicnode.com"
+      "rpc": "https://1rpc.io/eth"
     }
   },
   "schema_version": 1,
@@ -2746,7 +2746,7 @@
     "address": "0x919386306C47b2Fe1036e3B4F7C40D22D2461a23",
     "explorer": "https://explorer.zksync.io/tx/0x4688a22bb837dbf21058110b1db7ac857ec102dac7080912f0c4f3d8b67304e5",
     "note": "Newest transaction returned by the zkSync Era block explorer API (newest-first, page 1). router() on the Ethereum proxy 0xE80F92077131b9890599E418AE323de71cE1C35a returns this contract address.",
-    "queried_at": "2026-11-28T07:06:19Z",
+    "queried_at": "2026-11-28T07:19:06Z",
     "received_at": "2025-04-02T14:05:19.959Z",
     "source": "https://block-explorer-api.mainnet.zksync.io",
     "status": "verified",
